@@ -209,6 +209,7 @@ audio {
 		background-image: none;
 		margin: 0;
 	}
+
 	#wrapper {
 		width: auto;
 		min-width: 0;
@@ -218,6 +219,9 @@ audio {
 	header {
 		background-image: url(#);
 		margin-top: -21px;
+	}
+	nav, main, aside {
+		min-height: 0;
 	}
 	nav {
 		float: none;
@@ -249,6 +253,9 @@ audio {
 @media only screen and (max-width: 768px){
 	nav ul li {
 		display: block;
+	}
+	aside {
+		display: none;
 	}
 	nav ul li a {
 		display: block;
