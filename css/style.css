@@ -48,7 +48,9 @@ table tr th {
 table tr:nth-of-type(even) {
 	background-color: #ffffcc;
 }
-
+nav, main, aside {
+	min-height: 500px;
+}
 header, nav, main, aside, time { display: block; }
 
 img {
@@ -64,10 +66,10 @@ h1 {
 	font-weight: bold;
 }
 h2 {
-	background: #ffffcc;
+	background: #2F3D48;
 	border-bottom: 1px solid #000;
 	font-size: 1.2em;
-	color: #663300;
+	color: #fff;
 	padding: 5px 0 0 5px;
 	margin-right: 20px;
 	clear: left;
@@ -97,11 +99,24 @@ nav ul {
 	padding-left: 0;
 	list-style-type: none;
 }
+.sidebar-item {
+	margin-bottom: 25px;
+}
 aside {
 	float: right;
 	padding: 15px;
 	font-size: 14px;
 	width: 200px;
+}
+aside img {
+	display: block;
+	margin: 0 auto;
+	width: 80px;
+	height: 80px;
+	margin-bottom: 10px;
+}
+aside a {
+	color: #478dc4;
 }
 time {
 	background: #445867;
