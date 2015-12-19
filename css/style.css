@@ -225,20 +225,12 @@ section#login input {
 }
 
 /* Gallery */
-#lightbox-container-image-data-box {
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
+section#gallery {
+	margin: 0 auto;
+	max-width: 750px;
 }
- 
-#thumbnails { 
-  display: block; 
-  margin-bottom: 10px;   
-  display: block;
-  max-width: 750px;
-  margin: 0 auto;
+section#gallery a {
 }
-#thumbnails ul li { float: left; margin-right: 26px; margin-bottom: 12px; }
 
 @media only screen and (max-width: 1024px){
 	body {
@@ -292,6 +284,12 @@ section#login input {
 	}
 	aside {
 		display: none;
+	}
+	#lightbox-container-image-box {
+		max-width: 100% !important; 
+	}
+	#jquery-lightbox a img {
+		max-width: 100% !important;
 	}
 	nav ul li a {
 		display: block;
