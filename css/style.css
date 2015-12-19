@@ -3,6 +3,9 @@ body {
 	color: #330000;
 	font-family: "Verdana", "Arial", sans-serif;
 }
+ul li {
+	list-style-type: none;
+}
 #wrapper {
 	background: #d8eaf8;
 	min-width: 700px;
@@ -220,6 +223,22 @@ section#login input {
 .login-button {
 	line-height: 25px;
 }
+
+/* Gallery */
+#lightbox-container-image-data-box {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+ 
+#thumbnails { 
+  display: block; 
+  margin-bottom: 10px;   
+  display: block;
+  max-width: 750px;
+  margin: 0 auto;
+}
+#thumbnails ul li { float: left; margin-right: 26px; margin-bottom: 12px; }
 
 @media only screen and (max-width: 1024px){
 	body {
