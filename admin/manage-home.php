@@ -62,25 +62,46 @@ if(isset($_POST['submit-news'])){
 
 ?>
 <main>
+	<div class="row">
+		<div class="six columns">
+		</div>
+		<div class="six columns">
+			<h3>Lägg till nyheter till startsidan</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="six columns">
+			
+		</div>
+		<div class="six columns">
+			<form enctype="multipart/form-data" method="POST" action="" class="news-form">
+				<label for="title">Titel:</label>
+				<input type="text" name="title">
+				<br>
 
-	<form enctype="multipart/form-data" method="POST" action="">
-		<label for="title">Titel:</label>
-		<input type="text" name="title">
-		<br>
+				<label for="news-text">Text:</label>
+				<textarea name="news-text" id="" cols="30" rows="10"></textarea>
+				
+				<br>
 
-		<label for="news-text">Text:</label>
-		<textarea name="news-text" id="" cols="30" rows="10"></textarea>
-		
-		<br>
-
-		<label for="image-path">Bild:</label>
-		<input type="file" name="news-image" accept=".jpg">
-		<br>
-		
-		<input type="submit" name="submit-news">
-	</form>
-
-
+				<label for="image-path">Bild:</label>
+				<input type="file" name="news-image" accept=".jpg">
+				<br>
+				
+				<input type="submit" name="submit-news" class="button-primary" value="Lägg till nyheten">
+			</form>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="six columns">
+			
+		</div>
+		<div class="six columns">
+			<h3>Redigera befintliga nyheter</h3>
+			<p>redigera information genom tabell och modal likt tidigre?</p>
+		</div>
+	</div>
 
 </main>
 

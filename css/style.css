@@ -1,5 +1,5 @@
 body {	
-	background: #edf4fa;
+	background: #c5dfe9;
 	color: #330000;
 	font-family: "Verdana", "Arial", sans-serif;
 }
@@ -7,13 +7,13 @@ ul li {
 	list-style-type: none;
 }
 #wrapper {
-	background: #d8eaf8;
+	background: #1d2c32;
 	min-width: 700px;
-	max-width: 1200px;
+	max-width: 1170px;
 	margin: 0 auto;
 }
 header {
-	background: #445867;
+	background: #26ade4;
 	background-image: url(#);
 	background-repeat: no-repeat;
 	color: #000;
@@ -61,22 +61,17 @@ img {
 }
 h1 {
 	display: block;
-	font-size: 2 em;
-	-webkit-margin-before: 0.67em;
-	-webkit-margin-after: 0.67em;
-	-webkit-margin-start: 0px;
-	-webkit-margin-end: 0px;
+	font-size: 28px !important;
 	font-weight: bold;
 }
 h2 {
-	background: #2F3D48;
-	border-bottom: 1px solid #000;
-	font-size: 1.2em !important;
-	color: #fff;
+	background: #c5dfe9;
+	border-bottom: 1px solid #a4b9c1;
+	font-size: 24px !important;
+	color: #1d2c32;
 	padding: 5px 0 0 5px;
 	margin-right: 20px;
 	clear: left;
-	text-transform: uppercase;
 }
 nav {
 	text-align: center;
@@ -84,6 +79,7 @@ nav {
 	width: 200px;
 	font-weight: bold;
 	padding-top: 10px;
+	color: #fff;
 }
 nav a {
 	text-decoration: none;
@@ -122,11 +118,11 @@ aside a {
 	color: #478dc4;
 }
 time {
-	background: #445867;
+	background: #111a1d;
 	color: #fff;
 	padding: 20px 0 20px 0;
 	clear: both;
-	font-size: 0.60em;
+	font-size: 14px;
 	text-align: center;
 	font-style: italic;
 }
@@ -232,6 +228,15 @@ section#gallery {
 section#gallery a {
 }
 
+/* News */
+.news-form {
+	margin: 0 auto;
+}
+.news-form input, textarea, label {
+	text-align: left;
+	width: 100%;
+}
+
 @media only screen and (max-width: 1024px){
 	body {
 		background-image: none;
@@ -246,7 +251,6 @@ section#gallery a {
 	}
 	header {
 		background-image: url(#);
-		margin-top: -21px;
 	}
 	nav, main, aside {
 		min-height: 0;
@@ -266,7 +270,7 @@ section#gallery a {
 	}
 	nav ul li a {
 		padding: 1em;
-		font-size: 1.3em;
+		font-size: 18px;
 		width: 8em;
 		font-weight: bold;
 		border-style: none;
@@ -275,6 +279,7 @@ section#gallery a {
 		padding: 2em;
 		margin: 0;
 		font-size: 90%;
+		min-height: 250px;
 	}
 }
 /* #mobileFirst */

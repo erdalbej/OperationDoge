@@ -15,7 +15,7 @@ include_once 'header.php';
 
 </aside>
 <main>
-	<ul>
+	<!--<ul>
 	<?php
 	$query = query("SELECT Username, Password FROM Admin");
 	$data = $query['data'];
@@ -29,7 +29,7 @@ include_once 'header.php';
 		echo '</li>';
 	}			
 	?>
-	</ul>
+	</ul>-->
 
 	<h2>Image title 1</h2>
 	<img src="#" class="floatleft" alt="">
