@@ -269,6 +269,10 @@ section#gallery a {
 .posts img {
 	
 }
+/* Gallery */
+.gallery-img {
+	margin: 25px;
+}
 @media only screen and (max-width: 1024px){
 	body {
 		background-image: none;

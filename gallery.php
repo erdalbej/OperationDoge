@@ -1,17 +1,17 @@
 <?php
-	include_once 'header.php';
+include_once 'header.php';
 ?>
 <main>
 	<section id="gallery">
 		<p>
-			<a class="fancybox" href="http://farm1.staticflickr.com/291/18653638823_a86b58523c_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><img src="http://farm1.staticflickr.com/291/18653638823_a86b58523c_m.jpg" alt="" /></a>
-			<a class="fancybox" href="http://farm1.staticflickr.com/291/18653638823_a86b58523c_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><img src="http://farm1.staticflickr.com/291/18653638823_a86b58523c_m.jpg" alt="" /></a>
-			<a class="fancybox" href="http://farm1.staticflickr.com/291/18653638823_a86b58523c_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><img src="http://farm1.staticflickr.com/291/18653638823_a86b58523c_m.jpg" alt="" /></a>
-			<a class="fancybox" href="http://farm1.staticflickr.com/291/18653638823_a86b58523c_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><img src="http://farm1.staticflickr.com/291/18653638823_a86b58523c_m.jpg" alt="" /></a>
-			<a class="fancybox" href="http://farm1.staticflickr.com/291/18653638823_a86b58523c_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><img src="http://farm1.staticflickr.com/291/18653638823_a86b58523c_m.jpg" alt="" /></a>
-			<a class="fancybox" href="http://farm1.staticflickr.com/291/18653638823_a86b58523c_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><img src="http://farm1.staticflickr.com/291/18653638823_a86b58523c_m.jpg" alt="" /></a>
-			<a class="fancybox" href="http://farm1.staticflickr.com/291/18653638823_a86b58523c_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><img src="http://farm1.staticflickr.com/291/18653638823_a86b58523c_m.jpg" alt="" /></a>
-			<a class="fancybox" href="http://farm1.staticflickr.com/291/18653638823_a86b58523c_b.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><img src="http://farm1.staticflickr.com/291/18653638823_a86b58523c_m.jpg" alt="" /></a>
+			<?php
+			$divOne = query("SELECT ImagePath, ImageTitle FROM ImageGallery");
+			$divData = $divOne['data'];
+			foreach($divData as $key => $row){
+				echo '<tr id="gallery' . $key . '">';
+				echo '<a class="fancybox" href="uploads/'.$row['ImagePath'].'" data-fancybox-group="gallery" title="'.$row['ImageTitle'].'"><img class="gallery-img" src="uploads/'.$row['ImagePath'].'" width="200" height="200" alt="" /></a>';
+			}			
+			?>
 		</p>
 	</section>
 </main>
@@ -21,8 +21,8 @@ $(document).ready(function() {
 	$('.fancybox').fancybox();
 });
 </script>
-  <script type="text/javascript" src="js/jquery.fancybox.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox.js"></script>
 <?php
-	include_once 'footer.php';
+include_once 'footer.php';
 ?>
 
