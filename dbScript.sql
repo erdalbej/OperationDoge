@@ -42,6 +42,7 @@ CREATE TABLE Post (
     `Username` varchar(255) CHARACTER SET latin1 NOT NULL,
     `DateTime` DATETIME NOT NULL,
     `PostText` varchar(255) CHARACTER SET latin1,
+    `PostImagePath` varchar(255) CHARACTER SET latin1,
     `Thread_Title` varchar(255) CHARACTER SET latin1 NOT NULL,
     `Thread_DateTime` DATETIME,
     PRIMARY KEY (`Username`,`DateTime`),

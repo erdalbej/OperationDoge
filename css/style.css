@@ -37,6 +37,9 @@ header, nav, main, aside, time { display: block; }
 img {
 	border: none;
 }
+textarea {
+	resize: none;
+}
 h1 {
 	display: block;
 	font-size: 28px !important;
@@ -50,6 +53,9 @@ h2 {
 	padding: 5px 0 0 5px;
 	margin-right: 20px;
 	clear: left;
+}
+h3 {
+	font-size: 18px !important;
 }
 nav {
 	text-align: center;
@@ -236,7 +242,33 @@ section#gallery a {
 	float: right;
 	font-style: italic;
 }
-
+.post-threadtitle {
+	display: inline-block;
+}
+/* Post */
+.posts {
+	margin-top: 25px;
+}
+.posts li {
+	border-bottom: 2px solid #ddd;
+	padding-bottom: 30px;
+}
+.post-threaddatetime {
+	display: inline-block;
+	margin-top: 5px;
+	float: right;
+	font-style: italic;
+}
+.post-datetime {
+	float: right;
+	font-style: italic;
+}
+.post-posttext {
+	
+}
+.posts img {
+	
+}
 @media only screen and (max-width: 1024px){
 	body {
 		background-image: none;
