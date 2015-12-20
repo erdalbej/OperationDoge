@@ -1,19 +1,7 @@
 <?php
 include_once 'header.php';
+include_once 'aside.php';
 ?>
-
-<aside>
-	<div class="sidebar-item">
-		<img src="#" alt="">
-		<a href="#">text that will be linked or?</a>
-	</div>
-
-	<div class="sidebar-item">
-		<img src="#" alt="">
-		<a href="#">text that will be linked or? #2</a>
-	</div>
-
-</aside>
 <main>
 <?php
 $divOne = query("SELECT Title, DateTime, NewsText, NewsImagePath FROM News");
@@ -23,7 +11,7 @@ foreach($divData as $key => $row){
 	echo '<h2>';
 	echo $row['Title'];
 	echo '</h2>';
-	echo '<img src="uploads/'.$row['NewsImagePath'].'" width="45" height="45" class="floatleft" alt="">';
+	echo '<img src="uploads/'.$row['NewsImagePath'].'" width="100" height="100" class="floatleft" alt="">';
 	echo '<p class="details">';
 	echo $row['NewsText'];
 	echo '</p>';

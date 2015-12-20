@@ -27,7 +27,8 @@
             <nav>
                 <ul>
                     <li>Hantera sidorna nedan:</li>
-                    <li><a href="index.html">Hem</a></li>
+                    <li><a href="#">Hem</a></li>
+                    <li><a href="#">Annonser</a></li>
                     <li><a href="#">Mina hundar</a></li>
                     <li><a href="#">Kennel</a></li>
                     <li><a href="#">Hundskola</a></li>

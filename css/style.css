@@ -215,6 +215,28 @@ section#gallery a {
 	width: 100%;
 }
 
+/* Thread */
+.thread-form input {
+	width: 100%;
+}
+.threads {
+	border: 1px solid #d0d9dd;
+}
+.threads li {
+	padding: 10px;
+	border-bottom: 1px solid #d0d9dd;
+}
+.threads li:last-child {
+	border-bottom: none;
+}
+.thread-title {
+	font-weight: bold;
+}
+.thread-date {
+	float: right;
+	font-style: italic;
+}
+
 @media only screen and (max-width: 1024px){
 	body {
 		background-image: none;

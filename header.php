@@ -27,12 +27,12 @@
             </header>
             <nav>
                 <ul>
-                    <li><a href="index.html">Hem</a></li>
+                    <li><a href="#">Hem</a></li>
                     <li><a href="#">Mina hundar</a></li>
                     <li><a href="#">Kennel</a></li>
                     <li><a href="#">Hundskola</a></li>
                     <li><a href="#">Bildgalleri</a></li>
-                    <li><a href="#">Gästbok</a></li>
+                    <li><a href="forum.php">Gästbok</a></li>
                     <li><a href="#">Kontakt</a></li>
                 </ul>
             </nav>
