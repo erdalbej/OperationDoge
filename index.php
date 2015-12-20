@@ -15,38 +15,24 @@ include_once 'header.php';
 
 </aside>
 <main>
-	<!--<ul>
-	<?php
-	$query = query("SELECT Username, Password FROM Admin");
-	$data = $query['data'];
-	foreach($data as $key => $row){
-		echo '<li>Username: ';
-		echo $row['Username'];
-		echo '</li>';
-
-		echo '<li>Password: ';
-		echo $row['Password'];
-		echo '</li>';
-	}			
-	?>
-	</ul>-->
-
-	<h2>Image title 1</h2>
-	<img src="#" class="floatleft" alt="">
-	<p class="details">
-		Image text goes here
-	</p>
-
-	<br class="clearleft">
-
-	<h2>Image title 2</h2>
-	<img src="#" class="floatleft" alt="">
-	<p class="details">
-		Image text goes here
-	</p>
-
-	<br class="clearleft">
-
+<?php
+$divOne = query("SELECT Title, DateTime, NewsText, NewsImagePath FROM News");
+$divData = $divOne['data'];
+foreach($divData as $key => $row){
+	echo '<span id="news' . $key . '"></span>';
+	echo '<h2>';
+	echo $row['Title'];
+	echo '</h2>';
+	echo '<img src="uploads/'.$row['NewsImagePath'].'" width="45" height="45" class="floatleft" alt="">';
+	echo '<p class="details">';
+	echo $row['NewsText'];
+	echo '</p>';
+	echo '<span>';
+	echo $row['DateTime'];
+	echo '</span>';
+	echo '<br class="clearleft">';
+}			
+?>	
 </main>
 
 <?php

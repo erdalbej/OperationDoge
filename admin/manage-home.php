@@ -63,17 +63,17 @@ if(isset($_POST['submit-news'])){
 ?>
 <main>
 	<div class="row">
-		<div class="six columns">
+		<div class="four columns">
 		</div>
-		<div class="six columns">
+		<div class="eight columns">
 			<h3>Lägg till nyheter till startsidan</h3>
 		</div>
 	</div>
 	<div class="row">
-		<div class="six columns">
+		<div class="four columns">
 			
 		</div>
-		<div class="six columns">
+		<div class="eight columns">
 			<form enctype="multipart/form-data" method="POST" action="" class="news-form">
 				<label for="title">Titel:</label>
 				<input type="text" name="title">
@@ -94,12 +94,50 @@ if(isset($_POST['submit-news'])){
 	</div>
 	<br>
 	<div class="row">
-		<div class="six columns">
+		<div class="four columns">
 			
 		</div>
-		<div class="six columns">
+		<div class="eight columns">
 			<h3>Redigera befintliga nyheter</h3>
 			<p>redigera information genom tabell och modal likt tidigre?</p>
+
+			<div class="row">
+			<div class="twelve columns">
+				<table class="u-full-width">
+					<thead>
+						<tr>
+							<th>Titel</th>
+							<th>Datum</th>
+							<th>Text</th>
+							<th>Bild</th>
+						</tr>
+					</thead>
+					<tbody id="newsTable">
+						<?php
+						$divOne = query("SELECT Title, DateTime, NewsText, NewsImagePath FROM News");
+						$divData = $divOne['data'];
+						foreach($divData as $key => $row){
+							echo '<tr id="news' . $key . '">';
+							echo '<td class="titleTd">';
+							echo $row['Title'];
+							echo '</td>';
+							echo '<td class="dateTimeTd">';
+							echo $row["DateTime"];
+							echo '</td>';
+							echo '<td class="newsTextTd">';
+							echo $row["NewsText"];
+							echo '</td>';
+							echo '<td class="newsImagePathTd">';
+							echo $row["NewsImagePath"];
+							echo '</td>';
+							echo '</tr>';
+						}			
+						?>				
+					</tbody>
+				</table>
+			</div>
+		</div>
+
 		</div>
 	</div>
 

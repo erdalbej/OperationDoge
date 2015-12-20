@@ -28,29 +28,7 @@ header h1 {
 	color: #fff;
 }
 
-table {
-	background: #ccaa66;
-	width: 90%;
-	border-spacing: 0;
-	margin: 0 auto;
-}
 
-table td {
-	padding: 8px;
-}
-
-table td:first-child {
-	font-weight: bold;
-	text-align: center;
-}
-
-table tr th {
-	padding: 8px;
-}
-
-table tr:nth-of-type(even) {
-	background-color: #ffffcc;
-}
 nav, main, aside {
 	min-height: 500px;
 }
