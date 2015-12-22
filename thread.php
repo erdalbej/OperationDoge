@@ -34,7 +34,7 @@ if(isset($_POST['submit_post'])){
 						$file_destination = 'uploads/' . $file_name_new;
 
 						if(move_uploaded_file($file_tmp, $file_destination)){
-							$result = nonQuery("INSERT INTO Post (`Username`,`DateTime`,`PostText`, `Thread_Title`, `Thread_DateTime`, `PostImagePath`) VALUES (:username,now(),:post_text,:thread_title,:thread_datetime,:image)", array(":username" => $username, ":post_text" => $post_text, ":thread_title" => $thread_title, ":thread_datetime" => $thread_datetime, ":image" => $file_name_new));
+							$result = nonQuery("INSERT INTO Post (`Username`,`DateTime`,`PostText`, `PostImagePath`, `Thread_Title`, `Thread_DateTime`) VALUES (:username,now(),:post_text,:image,:thread_title,:thread_datetime)", array(":username" => $username, ":post_text" => $post_text, ":image" => $file_name_new, ":thread_title" => $thread_title, ":thread_datetime" => $thread_datetime));
 							
 							if($result["err"] === null){
 							
