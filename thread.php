@@ -73,10 +73,10 @@ if(isset($_POST['submit_post'])){
 				foreach($divData as $key => $row){
 					echo '<li>';
 					echo '<span id="news' . $key . '"></span>';
-					echo '<span class="post-username"> <b>Author: &nbsp;</b>';
+					echo '<span class="post-username"> <b>Användare: &nbsp;</b>';
 					echo $row['Username'];
 					echo '</span>';
-					echo '<span class="post-datetime"> <b>Date: &nbsp;</b>';
+					echo '<span class="post-datetime"> <b>Datum: &nbsp;</b>';
 					echo $row['DateTime'];
 					echo '<br><br>';
 					echo '</span>';
