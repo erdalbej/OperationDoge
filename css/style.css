@@ -256,10 +256,6 @@ section#gallery a {
 	margin: 25px;
 }
 
-.mapRow label {
-	display: none;
-}
-
 @media only screen and (max-width: 1024px){
 	body {
 		background-image: none;
@@ -303,10 +299,6 @@ section#gallery a {
 		margin: 0;
 		font-size: 90%;
 		min-height: 250px;
-	}
-
-	.mapRow label {
-		display: none;
 	}
 	
 }
@@ -357,10 +349,6 @@ section#gallery a {
 
 	.mapRow iframe {
 		display: none;
-	}
-
-	.mapRow label {
-		display: inline;
 	}
 }
 

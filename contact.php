@@ -15,7 +15,7 @@ include_once 'aside.php';
 		<div class="row contactRow">
 			<div class="twelve columns">
 				<label>Adress </label>
-				<span>Ole Römers väg 6, Lund</span>
+				<span><a href="https://goo.gl/maps/Lhj8XogtHwq">Ole Römers väg 6, Lund</a></span>
 			</div>
 		</div>
 
@@ -44,7 +44,6 @@ include_once 'aside.php';
 					style="border:0" allowfullscreen>
 				</iframe>
 			</div>
-			<label><a href="https://goo.gl/maps/Lhj8XogtHwq">Karta</a></label>
 		</div>
 	</div>
 </main>
