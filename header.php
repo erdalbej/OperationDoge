@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" media="all" href="css/jquery.fancybox.css">
     <script>
     $(document).ready(function(){
-       $("#message").html("Sidan uppdaterades senast: " + document.lastModified);
+       $("#updatedTime").html("Sidan uppdaterades senast: " + document.lastModified);
    });
     </script>
 	<!--[if lt IE 9]>

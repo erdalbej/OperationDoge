@@ -1,5 +1,5 @@
    <time>
-        <div id="message"></div>	
+        <div id="updatedTime"></div>	
     </time>
    </div>
 </body>
