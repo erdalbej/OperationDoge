@@ -255,6 +255,11 @@ section#gallery a {
 .gallery-img {
 	margin: 25px;
 }
+
+.mapRow label {
+	display: none;
+}
+
 @media only screen and (max-width: 1024px){
 	body {
 		background-image: none;
@@ -299,6 +304,11 @@ section#gallery a {
 		font-size: 90%;
 		min-height: 250px;
 	}
+
+	.mapRow label {
+		display: none;
+	}
+	
 }
 /* #mobileFirst */
 @media only screen and (max-width: 768px){
@@ -343,6 +353,14 @@ section#gallery a {
 	}
 	audio {
 		margin-top: 1.2em;
+	}
+
+	.mapRow iframe {
+		display: none;
+	}
+
+	.mapRow label {
+		display: inline;
 	}
 }
 
