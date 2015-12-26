@@ -2,6 +2,33 @@
 include_once 'header.php';
 include_once 'aside.php';
 ?>
+
+<?php
+print_r($_POST);
+if (isset($_POST['message-submit'])){
+	if (strlen($_POST['email']) > 0 && 
+		strlen($_POST['description']) > 0 &&
+		strlen($_POST['message']) > 0){
+			
+		$result = nonQuery("INSERT INTO ContactMessage(Email, Posted, Description, Message) VALUES(:email, NOW(), :description, :message)",
+			array(
+				':email' => $_POST['email'],
+				':description' => $_POST['description'],
+				':message' => $_POST['message']
+			)
+		);
+
+		if ($result['err'] == null){
+			$sendMessageSuccess = 'Meddelande skickat!';
+		} else {
+			$sendMessageError = 'Gick inte att skicka meddelandet, prova igen.';
+		}
+	} else {
+		$sendMessageError = 'Saknar värden...';
+	}
+}
+?>
+
 <main>
 	<div class="container">
 
@@ -33,7 +60,33 @@ include_once 'aside.php';
 				<hr>
 			</div>
 		</div>
+			<form method="POST">
+			  <div class="row">
+			    <div class="six columns">
+			      <label for="email">E-post</label>
+			      <input class="u-full-width" type="email" placeholder="din-epost@mailbox.com" id="email" name="email">
+			    </div>
+			    <div class="six columns">
+			      <label for="description">Ämne</label>
+			      <input class="u-full-width" type="text" placeholder="Ämne" id="description" maxlength="255" name="description">
+			    </div>
+			  </div>
+			  <label for="message">Meddelande</label>
+			  <textarea class="u-full-width" placeholder="Skriv ditt meddelande här... " id="message" maxlength="255" name="message"></textarea>
+			  <input class="button-primary" type="submit" value="Skicka" name="message-submit">
+				<?php
+				  	if (isset($sendMessageError)){
+				  		print_r($sendMessageError);
+				  	}
 
+				  	if (isset($sendMessageSuccess)){
+				  		print_r($sendMessageSuccess);
+				  	}
+				 ?>
+			</form>
+
+			
+		
 		<div class="row mapRow">
 			<div class="twelve columns">
 				<iframe 
@@ -47,3 +100,7 @@ include_once 'aside.php';
 		</div>
 	</div>
 </main>
+
+<?php
+include_once 'footer.php';
+?>
