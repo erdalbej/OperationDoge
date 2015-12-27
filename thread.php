@@ -84,9 +84,6 @@ if(isset($_POST['submit_post'])){
 					echo '<span class="post-posttext">';
 					echo $row['PostText'];
 					echo '</span>';
-					echo '<a href="/edit-post.php?username='.$row['Username'].'&datetime='.$row['DateTime'].'">';
-					echo 'edit';
-					echo '</a>';
 					echo '<br><br>';
 					if($row['PostImagePath'] !== null){
 						echo '<img src="uploads/'.$row['PostImagePath'].'" alt="" width="200" height="200">';

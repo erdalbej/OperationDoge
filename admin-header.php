@@ -33,7 +33,7 @@
                     <li><a href="#">Kennel</a></li>
                     <li><a href="#">Hundskola</a></li>
                     <li><a href="manage-gallery.php">Bildgalleri</a></li>
-                    <li><a href="#">Gästbok</a></li>
+                    <li><a href="admin-thread">Gästbok</a></li>
                     <li><a href="#">Kontakt</a></li>
                 </ul>
             </nav>

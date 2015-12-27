@@ -90,7 +90,6 @@ if(isset($_POST['thread-delete'])){
 	</div>
 	
 	<div class="row">
-		<div class="eight columns">
 			<h3>Välj tråd att redigera</h3>
 			<div class="row">
 			<div class="twelve columns">
@@ -100,7 +99,7 @@ if(isset($_POST['thread-delete'])){
 							<th>Tråd</th>
 							<th>Datum</th>
 							<th>Användare</th>
-							<th>Förklaring</th>
+							<th>Redigera inlägg</th>
 						</tr>
 					</thead>
 					<tbody id="Threadtable">
@@ -108,7 +107,7 @@ if(isset($_POST['thread-delete'])){
 						$divOne = query("SELECT Title, DateTime, Username, Description FROM GuestbookThread");
 						$divData = $divOne['data'];
 						foreach($divData as $key => $row){
-							echo '<tr id="news' . $key . '">';
+							echo '<tr id="threads' . $key . '">';
 							echo '<td class="titleTd">';
 							echo $row['Title'];
 							echo '</td>';
@@ -118,8 +117,13 @@ if(isset($_POST['thread-delete'])){
 							echo '<td class="Username">';
 							echo $row["Username"];
 							echo '</td>';
-							echo '<td class="Description">';
+							echo '<td class="Description" style = "display:none">';
 							echo $row["Description"];
+							echo '</td>';
+							echo '<td class="Edit">';
+							echo '<a href="/operationdoge/admin-post.php?title='.$row['Title'].'&datetime='.$row['DateTime'].'">';
+							echo 'Edit poster';
+							echo '</a>';
 							echo '</td>';
 							echo '</tr>';
 						}			
@@ -128,15 +132,9 @@ if(isset($_POST['thread-delete'])){
 				</table>
 			</div>
 		</div>
-
-		</div>
-
-		<div class="four columns">
-			
-		</div>
 	</div>
 
-<script src="js/thread.js"></script>
+<script src="js/admin-thread.js"></script>
 </main>
 
 <?php

@@ -44,12 +44,11 @@ if(isset($_POST['submit-thread'])){
 				<?php
 				$divOne = query("SELECT Title, DateTime, Description FROM GuestbookThread");
 				$divData = $divOne['data'];
-				echo $divData . 'hello';
 				foreach($divData as $key => $row){
 					echo '<span id="news' . $key . '"></span>';
 					echo '<li>';
 					echo '<span class="thread-title">';
-					echo '<a href="/thread.php?title='.$row['Title'].'&datetime='.$row['DateTime'].'">';
+					echo '<a href="/operationdoge/thread.php?title='.$row['Title'].'&datetime='.$row['DateTime'].'">';
 					echo $row['Title'];
 					echo '</a>';
 					echo '</span>';
