@@ -73,7 +73,7 @@ if(isset($_POST['submit_post'])){
 				foreach($divData as $key => $row){
 					echo '<li>';
 					echo '<span id="news' . $key . '"></span>';
-					echo '<span class="post-username"> <b>Användare: &nbsp;</b>';
+					echo '<span class="post-username"> <b>Användarnamn: &nbsp;</b>';
 					echo $row['Username'];
 					echo '</span>';
 					echo '<span class="post-datetime"> <b>Datum: &nbsp;</b>';
@@ -86,29 +86,40 @@ if(isset($_POST['submit_post'])){
 					echo '</span>';
 					echo '<br><br>';
 					if($row['PostImagePath'] !== null){
-						echo '<img src="uploads/'.$row['PostImagePath'].'" alt="" width="200" height="200">';
+						echo '<img src="uploads/'.$row['PostImagePath'].'" alt="" width="150" height="150">';
 					}
 					echo '</li>';
 				}			
 				echo '</ul>';
 				?>
-		<form enctype="multipart/form-data" method="POST" action="">
+
+			<form enctype="multipart/form-data" method="POST" action="">
 				<div class="row">
-					<div class="three columns">
-						<label for="username">Namn:</label>
-						<input type="text" name="username">
+					<div class="twelve columns">
+						<h3>Kommentera</h3>
 					</div>
-					<div class="three columns">
-						<label for="post_text">Kommentar:</label>
-						<textarea name="post_text" id="" cols="30" rows="10"></textarea>
+				</div>
+				<div class="row">
+					<div class="six columns">
+						<label for="username">Användarnamn:</label>
+						<input class="u-full-width" type="text" name="username">
 					</div>
-					<div class="three columns">
+					<div class="six columns">
 						<label for="post_image">Infoga bild:</label>
-						<input type="file" name="post_image" accept=".jpg">
+						<input class="u-full-width" type="file" name="post_image" accept=".jpg">
 					</div>
-					<div class="three columns">
-						<label for="submit_post">&nbsp;</label>
-						<input type="submit" name="submit_post" class="button-primary" value="Kommentera">
+				</div>
+				<div class="row">
+					<div class="twleve columns">
+						<label for="post_text">Kommentar:</label>
+						<textarea class="u-full-width" name="post_text"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="four columns">
+						<input type="submit" name="submit_post" class="button-primary u-full-width" value="Kommentera">
+					</div>
+					<div class="eight columns">
 					</div>
 				</div>
 				<hr>

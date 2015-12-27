@@ -18,6 +18,11 @@ $(document).ready(function(){
 		}else{
 			$("#postImage").attr('src', 'uploads/noimage.jpg');
 		}
+
+		$("#returnMsg").html("");
+
+		$('html, body').animate({ scrollTop: $(document).height() }, 500);
+		$('form').show(300);
 		
 		
 

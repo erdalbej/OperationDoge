@@ -31,7 +31,7 @@
                     <li><a href="index.php">Hem</a></li>
                     <li><a href="#">Mina hundar</a></li>
                     <li><a href="#">Kennel</a></li>
-                    <li><a href="#">Hundskola</a></li>
+                    <li><a href="school.php">Hundskola</a></li>
                     <li><a href="gallery.php">Bildgalleri</a></li>
                     <li><a href="forum.php">Gästbok</a></li>
                     <li><a href="contact.php">Kontakt</a></li>

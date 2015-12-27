@@ -14,8 +14,10 @@ $(document).ready(function(){
 		$("#threadDateTime").val(data.threadDateTime);
 		$("#threadUsername").val(data.threadUsername);
 		$("#threadDescription").val(data.threadDescription);
+		$("#returnMsg").html("");
+
+		$('html, body').animate({ scrollTop: $(document).height() }, 500);
+		$('form').show(300);
 
 	})
-
-
 })

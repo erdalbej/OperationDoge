@@ -197,6 +197,8 @@ audio {
 
 tbody tr:hover{
  background-color:#E1E1E1;
+ cursor: pointer;
+ cursor: hand;
 }
 
 

@@ -49,89 +49,95 @@ if(isset($_POST['thread-delete'])){
 ?>
 
 <main>
-	<form enctype="multipart/form-data" action="" method="post">
-		<h3>Redigera Tråd</h3>
+	<div class="container">
 		<div class="row">
-			<div class="three columns">
+			<div class="twelve columns">
+				<h5>Gästbok - Redigera trådar</h5>
+				<hr>
+			</div>
+		</div>
+		<div class="row">
+			<div class="twelve columns">
+				<h3>Välj tråd att redigera</h3>
+			</div>
+		</div>
+			<div class="row">
+				<div class="twelve columns">
+					<table class="u-full-width">
+						<thead>
+							<tr>
+								<th>Tråd</th>
+								<th>Datum</th>
+								<th>Användare</th>
+								<th>Redigera inlägg</th>
+							</tr>
+						</thead>
+						<tbody id="Threadtable">
+							<?php
+							$divOne = query("SELECT Title, DateTime, Username, Description FROM GuestbookThread");
+							$divData = $divOne['data'];
+							foreach($divData as $key => $row){
+								echo '<tr id="threads' . $key . '">';
+								echo '<td class="titleTd">';
+								echo $row['Title'];
+								echo '</td>';
+								echo '<td class="dateTimeTd">';
+								echo $row["DateTime"];
+								echo '</td>';
+								echo '<td class="Username">';
+								echo $row["Username"];
+								echo '</td>';
+								echo '<td class="Description" style = "display:none">';
+								echo $row["Description"];
+								echo '</td>';
+								echo '<td class="Edit">';
+								echo '<a href="/operationdoge/admin-post.php?title='.$row['Title'].'&datetime='.$row['DateTime'].'">';
+								echo 'Redigera inlägg';
+								echo '</a>';
+								echo '</td>';
+								echo '</tr>';
+							}			
+							?>				
+						</tbody>
+					</table>
+					<br/>
+				</div>
+			</div>
+		<div id="returnMsg" style="margin-bottom:20px;">
+		<?php
+			if(isset($returnMsgThreadUpdate)){
+				echo $returnMsgThreadUpdate;
+			}
+			if(isset($returnMsgThreadDelete)){
+				echo $returnMsgThreadDelete;
+			}
+		?>
+		</div>
+		<form hidden enctype="multipart/form-data" action="" method="post">
+		<div class="row">
+			<div class="twelve columns">
+				<h3>Redigera tråd</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="four columns">
 				<label for="title">Tråd:</label>
-				<input type="text" name="title" id="threadTitle" readonly>
+				<input class="u-full-width" type="text" name="title" id="threadTitle" readonly>
 			</div>
-			<div class="three columns">
+			<div class="four columns">
 				<label for="datetime">Datum:</label>
-				<input type="text" name="datetime" id="threadDateTime" readonly>
+				<input class="u-full-width" type="text" name="datetime" id="threadDateTime" readonly>
 			</div>
-			<div class="three columns">
+			<div class="four columns">
 				<label for="username">Användare:</label>
-				<input type="text" name="username" id="threadUsername">
-			</div>
-			<div class="three columns">
+				<input class="u-full-width" type="text" name="username" id="threadUsername">
 			</div>
 		</div>
-		<div class="row">
-			<div class="six columns">
-				<label for="threadDescription">Förklaring:</label>
-					<textarea name="description" class="u-full-width" id="threadDescription"></textarea>
-			</div>
-			<div class="six columns">
-			</div>
-		</div>
+		<label for="threadDescription">Förklaring:</label>
+		<textarea name="description" class="u-full-width" id="threadDescription"></textarea>	
 		<input value="Uppdatera" name="thread-update" type="submit">
 		<input value="Radera" name="thread-delete" type="submit">
-	</form>
-	<div style="margin-bottom:30px;">
-	<?php
-		if(isset($returnMsgThreadUpdate)){
-			echo $returnMsgThreadUpdate;
-		}
-		if(isset($returnMsgThreadDelete)){
-			echo $returnMsgThreadDelete;
-		}
-	?>
-	</div>
-	
-	<div class="row">
-			<h3>Välj tråd att redigera</h3>
-			<div class="row">
-			<div class="twelve columns">
-				<table class="u-full-width">
-					<thead>
-						<tr>
-							<th>Tråd</th>
-							<th>Datum</th>
-							<th>Användare</th>
-							<th>Redigera inlägg</th>
-						</tr>
-					</thead>
-					<tbody id="Threadtable">
-						<?php
-						$divOne = query("SELECT Title, DateTime, Username, Description FROM GuestbookThread");
-						$divData = $divOne['data'];
-						foreach($divData as $key => $row){
-							echo '<tr id="threads' . $key . '">';
-							echo '<td class="titleTd">';
-							echo $row['Title'];
-							echo '</td>';
-							echo '<td class="dateTimeTd">';
-							echo $row["DateTime"];
-							echo '</td>';
-							echo '<td class="Username">';
-							echo $row["Username"];
-							echo '</td>';
-							echo '<td class="Description" style = "display:none">';
-							echo $row["Description"];
-							echo '</td>';
-							echo '<td class="Edit">';
-							echo '<a href="/operationdoge/admin-post.php?title='.$row['Title'].'&datetime='.$row['DateTime'].'">';
-							echo 'Edit poster';
-							echo '</a>';
-							echo '</td>';
-							echo '</tr>';
-						}			
-						?>				
-					</tbody>
-				</table>
-			</div>
-		</div>
+		</form>
 	</div>
 
 <script src="js/admin-thread.js"></script>
