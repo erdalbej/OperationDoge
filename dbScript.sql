@@ -9,6 +9,9 @@ DROP TABLE IF EXISTS `Participant`;
 DROP TABLE IF EXISTS `DogCourse`;
 DROP TABLE IF EXISTS `Puppy`;
 DROP TABLE IF EXISTS `PuppyLitter`;
+DROP VIEW IF EXISTS `ParticipantsPerCourse`;
+DROP VIEW IF EXISTS `ComingCourses`;
+
 
 CREATE TABLE Admin (
     `Username` varchar(255) NOT NULL,
@@ -89,3 +92,21 @@ CREATE TABLE Puppy (
     PRIMARY KEY (`DogName`),
     FOREIGN KEY (`PuppyLitter_LitterTitle`) REFERENCES PuppyLitter (`LitterTitle`) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE VIEW `ParticipantsPerCourse`
+AS SELECT
+   `P`.`DogCourse_CourseName` AS `DogCourse_CourseName`,
+   `P`.`DogCourse_CourseTeacher` AS `DogCourse_CourseTeacher`,
+   `P`.`DogCourse_CourseDate` AS `DogCourse_CourseDate`,count(0) AS `NumOfParticipants`
+FROM `participant` `P` group by `P`.`DogCourse_CourseName`,`P`.`DogCourse_CourseTeacher`,`P`.`DogCourse_CourseDate`;
+
+CREATE VIEW `ComingCourses`
+AS SELECT
+   `DC`.`CourseName` AS `CourseName`,
+   `DC`.`CourseTeacher` AS `CourseTeacher`,
+   `DC`.`CourseDate` AS `CourseDate`,
+   `DC`.`AgeOfDog` AS `AgeOfDog`,
+   `DC`.`Gender` AS `Gender`,
+   `DC`.`PriorKnowledge` AS `PriorKnowledge`,
+   `DC`.`CourseText` AS `CourseText`,IF((`p`.`NumOfParticipants` > 0),`p`.`NumOfParticipants`,0) AS `Participants`
+FROM (`dogcourse` `DC` left join `participantspercourse` `P` on(((`DC`.`CourseName` = `p`.`DogCourse_CourseName`) and (`DC`.`CourseTeacher` = `p`.`DogCourse_CourseTeacher`) and (`DC`.`CourseDate` = `p`.`DogCourse_CourseDate`)))) where (`DC`.`CourseDate` > now()) order by `DC`.`CourseDate`;

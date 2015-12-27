@@ -285,6 +285,14 @@ section#gallery a {
 	margin: 25px;
 }
 
+.label-value {
+	font-weight: initial;
+}
+
+.reg-course {
+	cursor:pointer;
+}
+
 @media only screen and (max-width: 1024px){
 	body {
 		background-image: none;
