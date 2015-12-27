@@ -52,12 +52,12 @@ CREATE TABLE Post (
 CREATE TABLE DogCourse (
     `CourseName` varchar(255) NOT NULL,
     `CourseTeacher` varchar(255) NOT NULL,
-    `DateTime` DATETIME NOT NULL,
+    `CourseDate` date NOT NULL,
     `AgeOfDog` int,
     `Gender` varchar(255),
     `PriorKnowledge` varchar(255),
     `CourseText` varchar(255),
-    PRIMARY KEY (`CourseName`, `CourseTeacher`, `DateTime`)
+    PRIMARY KEY (`CourseName`, `CourseTeacher`, `CourseDate`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE Participant (
@@ -68,9 +68,9 @@ CREATE TABLE Participant (
     `ExtraInfo` varchar(255),
     `DogCourse_CourseName` varchar(255) NOT NULL,
     `DogCourse_CourseTeacher` varchar(255) NOT NULL,
-    `DogCourse_DateTime` DATETIME NOT NULL,
+    `DogCourse_CourseDate` DATE NOT NULL,
     PRIMARY KEY (`DogName`, `OwnerName`),
-    FOREIGN KEY (`DogCourse_CourseName`,`DogCourse_CourseTeacher`,`DogCourse_DateTime`) REFERENCES DogCourse (`CourseName`, `CourseTeacher`, `DateTime`) ON DELETE CASCADE
+    FOREIGN KEY (`DogCourse_CourseName`,`DogCourse_CourseTeacher`,`DogCourse_CourseDate`) REFERENCES DogCourse (`CourseName`, `CourseTeacher`, `CourseDate`) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE PuppyLitter (
