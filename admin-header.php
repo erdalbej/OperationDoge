@@ -1,12 +1,12 @@
 <?php
-    include_once '../data/dbHelper.php'; 
+    include_once 'data/dbHelper.php'; 
 ?>
 <!DOCTYPE html>
 <head>
 	<meta charset="UTF-8">
     <meta name="description" content="We are doing operation doge">
     <title>Operation Doge - admin</title>	
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
