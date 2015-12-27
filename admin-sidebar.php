@@ -56,32 +56,79 @@ if(isset($_POST['submit_newsfeed'])){
 
 }
 
-//Update 
 if(isset($_POST['update_newsfeed'])){
-	$returnMsgThreadUpdate = "Kunde inte uppdatera objekt.";
 
+	$returnMsgNewsFeedUpdate = "Kunde inte uppdatera objekt.";
+
+	
 	if(strlen($_POST['alter_news_title']) > 0 && strlen($_POST['alter_news_datetime']) > 0){
 
 		$title = $_POST['alter_news_title'];
-		$datetime = $_POST['alter_news_datetime'];
-		$link = $_POST['alter_news_link'];
-		$description = $_POST['alter_news_text'];
+		$news_text = $_POST['alter_news_text'];
+		$news_link = $_POST['alter_news_link'];
+		$news_datetime = $_POST['alter_news_datetime'];
 
-		if(isset($_POST['username']) && isset($_POST['description'])){
-			
-			$username = $_POST['username'];
-			$description = $_POST['description'];
 
-			$result = nonQuery("UPDATE GuestbookThread SET `Username` = :username, `Description` = :description WHERE `Title` = :title AND `DateTime` = :datetime", array(":title" => $title, ":datetime" => $datetime, ":username" => $username, ":description" => $description));
-			$result["data"];
+		//if image is set
+		if(isset($_FILES['alter_news_image'])) {
 
-			if($result["err"] === NULL){
-				$returnMsgThreadUpdate = "Objekt uppdaterat"; 
+			$file = $_FILES['alter_news_image'];
+
+			$file_name = $file['name'];
+			$file_tmp = $file['tmp_name'];
+			$file_size = $file['size'];
+			$file_error = $file['error'];
+
+			$file_ext = explode('.', $file_name);
+			$file_ext = strtolower(end($file_ext));
+
+			$allowed_ext = array('jpg');
+
+			if(in_array($file_ext, $allowed_ext)){
+
+				if($file_error === 0){
+					//2mb
+					if($file_size < 2097152){
+
+						$file_name_new = uniqid('', true) . '.' . $file_ext;
+						$file_destination = 'uploads/' . $file_name_new;
+
+						if(move_uploaded_file($file_tmp, $file_destination)){
+
+							//Deletes old picture
+							$result = query("SELECT `NewsImagePath` FROM NewsFeed WHERE `NewsTitle` = :title AND `DateTime` = :datetime", array(":title" => $title, ":datetime" => $datetime));
+							$resData = $result["data"];
+
+							if($resData[0]["NewsImagePath"] !== NULL){
+								$image_path = "uploads/" . $resData[0]["NewsImagePath"];
+								if(file_exists($image_path)){
+						        	unlink($image_path);
+						    	}
+							}
+
+							$result = nonQuery("UPDATE NewsFeed SET `Description` = :description, `NewsImagePath` = :image_path, `NewsLink` = :newslink WHERE `NewsTitle` = :title AND `DateTime` = :datetime", array(":title" => $title, ":datetime" => $datetime, ":description" => $news_text, ":image_path" => $file_name_new, ":newslink" => $news_link));
+							
+							if($result["err"] === null){
+								$returnMsgNewsFeedUpdate = "Objekt uppdaterat"; 
+							}else{
+								$returnMsgNewsFeedUpdate = "Kunde inte uppdatera objekt.";
+							}
+						}
+					}
+				}
 			}else{
-				$returnMsgThreadUpdate = "Kunde inte uppdatera objekt.";
+	
+				$result = nonQuery("UPDATE NewsFeed SET `Description` = :description, `NewsLink` = :newslink WHERE `NewsTitle` = :title AND `DateTime` = :datetime", array(":title" => $title, ":datetime" => $datetime, ":description" => $news_text, ":newslink" => $news_link));
+				
+				if($result["err"] === null){
+					$returnMsgNewsFeedUpdate = "Objekt uppdaterat"; 
+				}else{
+					$returnMsgNewsFeedUpdate = "Kunde inte uppdatera objekt.";
+				}
 			}
 		}
 	}
+	
 }
 
 //Delete 
@@ -157,9 +204,7 @@ if(isset($_POST['delete_newsfeed'])){
 	</div>
 
 
-
 	<hr>
-
 
 
 	<h1>Uppdatera / ta bort i sidmenyn</h1>
@@ -207,6 +252,9 @@ if(isset($_POST['delete_newsfeed'])){
 		<?php
 		if(isset($returnMsgNewsFeedDelete)){
 			echo $returnMsgNewsFeedDelete;
+		}
+		if(isset($returnMsgNewsFeedUpdate)){
+			echo $returnMsgNewsFeedUpdate;
 		}
 		?>
 	</div>
