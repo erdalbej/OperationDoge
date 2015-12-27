@@ -21,9 +21,9 @@ include_once 'aside.php';
 					echo 
 						'<div class="row">' .
 						'<div class="twelve columns">' .
-						'<h5>'. $c['CourseName'] .' - '. $c['CourseTeacher'] . '</h5>' .
-						'<label>Kursdatum: <span class="label-value">' . $c['CourseDate'] . '</span></label>' .
-						'<label>Platser: <span class="label-value">' . $c['Participants'] . '/10</span></label>' .
+						'<h5 class="courseInfoHeader">'. $c['CourseName'] .' - '. $c['CourseTeacher'] . '</h5>' .
+						'<label>Kursdatum: <span class="label-value course-date">' . $c['CourseDate'] . '</span></label>' .
+						'<label>Platser: <span class="label-value"><span class="numOfParticipants">' . $c['Participants'] . '</span>/10</span></label>' .
 						'<label>Åldersgräns: <span class="label-value">' . $c['AgeOfDog'] . ' år</span></label>' .
 						'<label>Kön: <span class="label-value">' . $c['Gender'] . '</span></label>' .
 						'<label>Om kursen: </label>' .
@@ -40,7 +40,7 @@ include_once 'aside.php';
 		<form hidden>
 			<div class="row">
 				<div class="twelve columns">
-					<span>Agility - Robert - 2015-10-12<span>
+					<h3 id="formHeader"><h3>
 				</div>
 			</div>
 		    <div class="row">
@@ -68,8 +68,8 @@ include_once 'aside.php';
 		    </div>
 		    <label for="exampleMessage">Extra information</label>
 		    <textarea class="u-full-width" placeholder="Hej! Min hund har problem med..." id="extraInfo" name="extraInfo"></textarea>
-		    <label class="example-send-yourself-copy">
-		      <input disabled type="checkbox" checked>
+		    <label>
+		      <input disabled type="checkbox" id="reserveSpot">
 		      <span class="label-body">Reservplats</span>
 		    </label>
 		    <input class="button-primary" type="submit" value="Skicka anmälan" name="submit-regToCourse">
@@ -79,9 +79,25 @@ include_once 'aside.php';
 <script>
 $(document).ready(function(){
 	$('.reg-course').click(function(elem){
-		console.log(elem.target);
 		$('html, body').animate({ scrollTop: $(document).height() }, 500);
 		$('form').show(700);
+
+		var numberOfParticipants = $(this).parent().find('span .numOfParticipants').html();
+		var numberOfParticipants = parseInt(numberOfParticipants);
+
+		var name = $(this).parent().find('.courseInfoHeader').html();
+		var time = $(this).parent().find('.course-date').html();
+
+		if (numberOfParticipants >= 10){
+			$('#reserveSpot').prop('checked', true);
+		}
+
+		console.log(name);
+		console.log(time);
+
+		$('#formHeader').html(name + ' - ' + time);
+
+		
 	})
 })
 </script>
