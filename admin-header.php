@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
     <script>
     $(document).ready(function(){
-       $("#message").html("Sidan uppdaterades senast: " + document.lastModified);
+       $("#updatedTime").html("Sidan uppdaterades senast: " + document.lastModified);
    });
     </script>
 	<!--[if lt IE 9]>
