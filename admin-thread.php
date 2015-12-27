@@ -140,5 +140,5 @@ if(isset($_POST['thread-delete'])){
 </main>
 
 <?php
-include_once '../footer.php';
+include_once 'footer.php';
 ?>
