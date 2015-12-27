@@ -87,6 +87,22 @@ aside {
 	padding: 15px;
 	font-size: 14px;
 	width: 200px;
+	color: #fff;
+}
+.course-name {
+	font-size: 16px;
+}
+.course-desc {
+	max-height: 70px;
+	overflow: hidden;
+	color: #4c7484;
+}
+.course-more {
+	position: relative;
+	top: -10px;
+	padding: 10px;
+	border-radius: 4px;
+	background: #26ade4;
 }
 aside img {
 	display: block;
