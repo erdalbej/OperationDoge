@@ -4,7 +4,6 @@ include_once 'aside.php';
 ?>
 
 <?php
-print_r($_POST);
 if (isset($_POST['message-submit'])){
 	if (strlen($_POST['email']) > 0 && 
 		strlen($_POST['description']) > 0 &&
