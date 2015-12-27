@@ -59,11 +59,10 @@ if(isset($_POST['submit_newsfeed'])){
 if(isset($_POST['update_newsfeed'])){
 
 	$returnMsgNewsFeedUpdate = "Kunde inte uppdatera objekt.";
-
 	
 	if(strlen($_POST['alter_news_title']) > 0 && strlen($_POST['alter_news_datetime']) > 0){
 
-		$title = $_POST['alter_news_title'];
+		$news_title = $_POST['alter_news_title'];
 		$news_text = $_POST['alter_news_text'];
 		$news_link = $_POST['alter_news_link'];
 		$news_datetime = $_POST['alter_news_datetime'];
@@ -96,7 +95,7 @@ if(isset($_POST['update_newsfeed'])){
 						if(move_uploaded_file($file_tmp, $file_destination)){
 
 							//Deletes old picture
-							$result = query("SELECT `NewsImagePath` FROM NewsFeed WHERE `NewsTitle` = :title AND `DateTime` = :datetime", array(":title" => $title, ":datetime" => $datetime));
+							$result = query("SELECT `NewsImagePath` FROM NewsFeed WHERE `NewsTitle` = :title AND `DateTime` = :datetime", array(":title" => $news_title, ":datetime" => $news_datetime));
 							$resData = $result["data"];
 
 							if($resData[0]["NewsImagePath"] !== NULL){
@@ -106,7 +105,7 @@ if(isset($_POST['update_newsfeed'])){
 						    	}
 							}
 
-							$result = nonQuery("UPDATE NewsFeed SET `Description` = :description, `NewsImagePath` = :image_path, `NewsLink` = :newslink WHERE `NewsTitle` = :title AND `DateTime` = :datetime", array(":title" => $title, ":datetime" => $datetime, ":description" => $news_text, ":image_path" => $file_name_new, ":newslink" => $news_link));
+							$result = nonQuery("UPDATE NewsFeed SET `Description` = :description, `NewsImagePath` = :image_path, `NewsLink` = :newslink WHERE `NewsTitle` = :title AND `DateTime` = :datetime", array(":title" => $news_title, ":datetime" => $news_datetime, ":description" => $news_text, ":image_path" => $file_name_new, ":newslink" => $news_link));
 							
 							if($result["err"] === null){
 								$returnMsgNewsFeedUpdate = "Objekt uppdaterat"; 
@@ -118,7 +117,7 @@ if(isset($_POST['update_newsfeed'])){
 				}
 			}else{
 	
-				$result = nonQuery("UPDATE NewsFeed SET `Description` = :description, `NewsLink` = :newslink WHERE `NewsTitle` = :title AND `DateTime` = :datetime", array(":title" => $title, ":datetime" => $datetime, ":description" => $news_text, ":newslink" => $news_link));
+				$result = nonQuery("UPDATE NewsFeed SET `Description` = :description, `NewsLink` = :newslink WHERE `NewsTitle` = :title AND `DateTime` = :datetime", array(":title" => $news_title, ":datetime" => $news_datetime, ":description" => $news_text, ":newslink" => $news_link));
 				
 				if($result["err"] === null){
 					$returnMsgNewsFeedUpdate = "Objekt uppdaterat"; 
@@ -127,6 +126,7 @@ if(isset($_POST['update_newsfeed'])){
 				}
 			}
 		}
+		
 	}
 	
 }
