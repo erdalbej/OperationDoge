@@ -9,9 +9,9 @@ DROP TABLE IF EXISTS `Participant`;
 DROP TABLE IF EXISTS `DogCourse`;
 DROP TABLE IF EXISTS `Puppy`;
 DROP TABLE IF EXISTS `PuppyLitter`;
+DROP TABLE IF EXISTS `NewsFeed`;
 DROP VIEW IF EXISTS `ParticipantsPerCourse`;
 DROP VIEW IF EXISTS `ComingCourses`;
-
 
 CREATE TABLE Admin (
     `Username` varchar(255) NOT NULL,
@@ -91,6 +91,15 @@ CREATE TABLE Puppy (
     `PuppyLitter_LitterTitle` varchar(255) NOT NULL,
     PRIMARY KEY (`DogName`),
     FOREIGN KEY (`PuppyLitter_LitterTitle`) REFERENCES PuppyLitter (`LitterTitle`) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE NewsFeed (
+    `NewsTitle` varchar(255) NOT NULL,
+    `DateTime` DATETIME NOT NULL,
+    `Description` varchar(255),
+    `NewsImagePath` varchar(255),
+    `NewsLink` varchar(255),
+    PRIMARY KEY (`NewsTitle`,`DateTime`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE VIEW `ParticipantsPerCourse`
