@@ -9,7 +9,6 @@ DROP TABLE IF EXISTS `Participant`;
 DROP TABLE IF EXISTS `DogCourse`;
 DROP TABLE IF EXISTS `Puppy`;
 DROP TABLE IF EXISTS `PuppyLitter`;
-DROP TABLE IF EXISTS `ContactMessage`;
 
 CREATE TABLE Admin (
     `Username` varchar(255) NOT NULL,
@@ -90,11 +89,3 @@ CREATE TABLE Puppy (
     PRIMARY KEY (`DogName`),
     FOREIGN KEY (`PuppyLitter_LitterTitle`) REFERENCES PuppyLitter (`LitterTitle`) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `ContactMessage` (
-  `Email` varchar(255) NOT NULL,
-  `Posted` datetime NOT NULL,
-  `Description` varchar(255) NOT NULL,
-  `Message` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`Email`,`Posted`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
