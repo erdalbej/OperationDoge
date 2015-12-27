@@ -1,4 +1,3 @@
-
 INSERT INTO `OperationDoge`.`PuppyLitter` (`LitterTitle`, `LiterInfo`) VALUES ('A-Kull', 'None');
 INSERT INTO `OperationDoge`.`PuppyLitter` (`LitterTitle`, `LiterInfo`) VALUES ('B-Kull', 'None');
 INSERT INTO `OperationDoge`.`DogCourse` (`CourseName`, `CourseTeacher`, `CourseDate`, `AgeOfDog`, `Gender`, `PriorKnowledge`, `CourseText`) VALUES ('Kommunikation med hunden', 'Sven-Göran', NOW() + INTERVAL 1 DAY, '2', 'Båda', 'Inga', 'Det är nödvändigt att du kan kommunicera med din hund, så att ni förstår varandra. Det är du som är den begåvade i detta, även om hunden inte ska underskattas. Det är du som valt hunden - hunden har inte valt dig.');
@@ -7,8 +6,3 @@ INSERT INTO `OperationDoge`.`DogCourse` (`CourseName`, `CourseTeacher`, `CourseD
 INSERT INTO `OperationDoge`.`DogCourse` (`CourseName`, `CourseTeacher`, `CourseDate`, `AgeOfDog`, `Gender`, `PriorKnowledge`, `CourseText`) VALUES ('Agility', 'Zlatan', NOW() + INTERVAL 4 DAY, '4', 'Båda', 'Lydnad för kontroll på hunden', 'Agility handlar om att på kortast möjliga tid och utan fel eller vägringar ta sig igenom en hinderbana. Agility är roligt för alla, och när det är som bäst är det också en uppvisning i avancerat samarbete.');
 INSERT INTO `OperationDoge`.`DogCourse` (`CourseName`, `CourseTeacher`, `CourseDate`, `AgeOfDog`, `Gender`, `PriorKnowledge`, `CourseText`) VALUES ('Bruksprov', 'Stefan', NOW()  + INTERVAL 5 DAY, '7', 'Båda', 'Kommunikation med hunden, god relation med din hund', 'Bruksprov innehåller klassiska arbetsuppgifter för hundar och förare. Du kan träna och tävla i både lydnad och specialgrenarna: spår, sök, rapport, patrull, skydd och IPO.');
 INSERT INTO `OperationDoge`.`DogCourse` (`CourseName`, `CourseTeacher`, `CourseDate`, `AgeOfDog`, `Gender`, `PriorKnowledge`, `CourseText`) VALUES ('Patrullhund', 'Batman', NOW() + INTERVAL 6 DAY, '6', 'Båda', 'Kommunikation med hunden', 'På uppdrag av Armén/Hemvärnet, Flygvapnet och Marinen kan ni utbilda er inom Brukshundklubben till patrullhund och förare. Du placeras i något av Försvarsmaktens olika förband.');
-
-
-
-
-
