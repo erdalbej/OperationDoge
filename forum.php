@@ -44,6 +44,7 @@ if(isset($_POST['submit-thread'])){
 				<?php
 				$divOne = query("SELECT Title, DateTime, Description FROM GuestbookThread");
 				$divData = $divOne['data'];
+				echo $divData . 'hello';
 				foreach($divData as $key => $row){
 					echo '<span id="news' . $key . '"></span>';
 					echo '<li>';
