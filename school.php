@@ -6,7 +6,7 @@ include_once 'aside.php';
 <main>
 	<div class="container">
 
-		
+	</div>		
 </main>
 
 <?php
