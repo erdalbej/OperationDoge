@@ -34,6 +34,8 @@ if (isset($_POST['message-submit'])){
 
 		<div class="row contactRow">
 			<div class="twelve columns">
+				<h5>Kontaktinfo</h5>
+				<hr>
 				<label>Namn </label>
 				<span>John Doe</span>
 			</div>
@@ -58,20 +60,21 @@ if (isset($_POST['message-submit'])){
 				<label>Mail </label>
 				<span><a href="mailto:john.doe@mail.com">john.doe@mail.com</a></span>
 				<hr>
+				<h5>Kontakta oss</h5>
 			</div>
 		</div>
-			<form method="POST">
+			<form method="POST">		
 			  <div class="row">
 			    <div class="six columns">
-			      <label for="email">E-post</label>
+			      <label for="email">E-post *</label>
 			      <input class="u-full-width" type="email" placeholder="din-epost@mailbox.com" id="email" name="email">
 			    </div>
 			    <div class="six columns">
-			      <label for="description">Ämne</label>
+			      <label for="description">Ämne *</label>
 			      <input class="u-full-width" type="text" placeholder="Ämne" id="description" maxlength="255" name="description">
 			    </div>
 			  </div>
-			  <label for="message">Meddelande</label>
+			  <label for="message">Meddelande *</label>
 			  <textarea class="u-full-width" placeholder="Skriv ditt meddelande här... " id="message" maxlength="255" name="message"></textarea>
 			  <input class="button-primary" type="submit" value="Skicka" name="message-submit">
 				<?php

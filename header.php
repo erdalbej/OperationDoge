@@ -33,6 +33,6 @@
                     <li><a href="#">Hundskola</a></li>
                     <li><a href="gallery.php">Bildgalleri</a></li>
                     <li><a href="forum.php">Gästbok</a></li>
-                    <li><a href="#">Kontakt</a></li>
+                    <li><a href="contact.php">Kontakt</a></li>
                 </ul>
             </nav>
