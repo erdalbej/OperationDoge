@@ -8,22 +8,27 @@ if (isset($_POST['message-submit'])){
 	if (strlen($_POST['email']) > 0 && 
 		strlen($_POST['description']) > 0 &&
 		strlen($_POST['message']) > 0){
-			
-		$result = nonQuery("INSERT INTO ContactMessage(Email, Posted, Description, Message) VALUES(:email, NOW(), :description, :message)",
-			array(
-				':email' => $_POST['email'],
-				':description' => $_POST['description'],
-				':message' => $_POST['message']
-			)
-		);
 
-		if ($result['err'] == null){
+		$headers = 'From: ' . $_POST['email'];
+
+		if ($_POST['sendToSender']){
+			$headers = $headers . '\r\n' . 'CC: ' . $_POST['email'];
+		}
+
+		$sent = mail(
+			'robert.barlin@gmail.com', 
+			$_POST['description'],
+			$_POST['message'],
+			$headers
+		);
+			
+		if ($sent){
 			$sendMessageSuccess = 'Meddelande skickat!';
 		} else {
 			$sendMessageError = 'Gick inte att skicka meddelandet, prova igen.';
 		}
 	} else {
-		$sendMessageError = 'Saknar värden...';
+		$sendMessageError = 'Saknar värden för att skicka mail.';
 	}
 }
 ?>
@@ -75,6 +80,10 @@ if (isset($_POST['message-submit'])){
 			  </div>
 			  <label for="message">Meddelande *</label>
 			  <textarea class="u-full-width" placeholder="Skriv ditt meddelande här... " id="message" maxlength="255" name="message"></textarea>
+				<label>
+				    <input type="checkbox" name="sendToSender" value="Yes" checked>
+				    <span class="label-body">Skicka till mig också</span>
+			 	</label>
 			  <input class="button-primary" type="submit" value="Skicka" name="message-submit">
 				<?php
 				  	if (isset($sendMessageError)){
