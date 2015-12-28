@@ -79,7 +79,7 @@ if(isset($_POST['submit_post'])){
 					echo '</span>';
 					echo '<br><br>';
 					if($row['PostImagePath'] !== null){
-						echo '<img src="uploads/'.$row['PostImagePath'].'" alt="" width="150" height="150">';
+						echo '<img class="hide-img" src="uploads/'.$row['PostImagePath'].'" alt="" width="150" height="150">';
 					}
 					echo '</li>';
 				}			

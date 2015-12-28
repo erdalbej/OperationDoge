@@ -463,6 +463,11 @@ section#gallery a {
 	.mapRow iframe {
 		display: none;
 	}
+
+	.hide-img {
+		display: none;
+	}
+
 }
 
 .contactRow {
