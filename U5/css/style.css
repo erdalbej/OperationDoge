@@ -16,6 +16,15 @@ ul li {
 	margin: 0 auto;
 
 }
+.success-message {
+	width: 100%;
+    position: absolute;
+    background: #3cb667;
+    color: #fff;
+    padding: 10px;
+    top: 0;
+    border-radius: 4px;
+}
 header {
 	background: #26ade4;
 	background-image: url(#);

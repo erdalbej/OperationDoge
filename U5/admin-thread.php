@@ -106,7 +106,7 @@ if(isset($_POST['thread-delete'])){
 		<div id="returnMsg" style="margin-bottom:20px;">
 		<?php
 			if(isset($returnMsgThreadUpdate)){
-				echo $returnMsgThreadUpdate;
+				echo '<span class="success-message">' . $returnMsgThreadUpdate . '</span>';
 			}
 			if(isset($returnMsgThreadDelete)){
 				echo $returnMsgThreadDelete;
