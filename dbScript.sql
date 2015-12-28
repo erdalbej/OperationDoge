@@ -66,6 +66,7 @@ CREATE TABLE DogCourse (
 CREATE TABLE Participant (
     `DogName` varchar(255) NOT NULL,
     `OwnerName` varchar(255) NOT NULL,
+    `Email` varchar(255) NOT NULL,
     `AgeOfDog` int NOT NULL,
     `Gender` varchar(255) NOT NULL,
     `ExtraInfo` varchar(255),
@@ -73,7 +74,7 @@ CREATE TABLE Participant (
     `DogCourse_CourseTeacher` varchar(255) NOT NULL,
     `DogCourse_CourseDate` DATE NOT NULL,
     `RegisterDate` datetime NOT NULL,
-    PRIMARY KEY (`DogName`, `OwnerName`),
+    PRIMARY KEY (`DogName`, `Email`, `DogCourse_CourseName`, `DogCourse_CourseTeacher`, `DogCourse_CourseDate`),
     FOREIGN KEY (`DogCourse_CourseName`,`DogCourse_CourseTeacher`,`DogCourse_CourseDate`) REFERENCES DogCourse (`CourseName`, `CourseTeacher`, `CourseDate`) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

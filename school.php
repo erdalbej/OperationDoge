@@ -13,7 +13,8 @@ include_once 'aside.php';
 		 	strlen($_POST['dogGender']) > 0 &&
 		 	strlen($_POST['courseName']) > 0 &&
 		 	strlen($_POST['courseTeacher']) > 0 &&
-		 	strlen($_POST['courseDate']) > 9){
+		 	strlen($_POST['courseDate']) > 9 && 
+			strlen($_POST['email']) > 0){
 
 			$result = query('SELECT * FROM ComingCourses WHERE CourseName = :courseName AND CourseTeacher = :courseTeacher AND CourseDate = :courseDate',
 				array(
@@ -33,7 +34,7 @@ include_once 'aside.php';
 					if (!isset($_POST['reserveSpot']) && $foundCourse['Participants'] >= 10){ $submitError = 'Kursplatserna hann ta slut, gör anmälan igen om du vill registera dig för en reservplats. Annars kan du gå tillbaka och se övriga kurser.'; }
 
 					if (!isset($submitError)){
-						$insertResult = nonquery('INSERT INTO Participant(DogName, OwnerName, AgeOfDog, Gender, ExtraInfo, DogCourse_CourseName, DogCourse_CourseTeacher, DogCourse_CourseDate, RegisterDate) values(:dogName, :ownerName, :ageOfDog, :gender, :extraInfo, :courseName, :courseTeacher, :courseDate, NOW())',
+						$insertResult = nonquery('INSERT INTO Participant(DogName, OwnerName, AgeOfDog, Gender, ExtraInfo, DogCourse_CourseName, DogCourse_CourseTeacher, DogCourse_CourseDate, RegisterDate, Email) values(:dogName, :ownerName, :ageOfDog, :gender, :extraInfo, :courseName, :courseTeacher, :courseDate, NOW(), :email)',
 							array(
 								':dogName' => $_POST['dogName'],
 								':ownerName' => $_POST['ownerName'],
@@ -42,13 +43,23 @@ include_once 'aside.php';
 								':extraInfo' => $_POST['extraInfo'],
 								':courseName' => $_POST['courseName'],
 								':courseTeacher' => $_POST['courseTeacher'],
-								':courseDate' => $_POST['courseDate'] 
+								':courseDate' => $_POST['courseDate'],
+								':email' => $_POST['email']
 							)
 						);
 
 						if ($insertResult['err'] == null){
 							$submitSuccess = true;
-							#$submitSuccess = 'Grattis ' . $_POST['ownerName']. '! Du är nu registrerad på kursen ' . $_POST['courseName'] . ' med läraren ' . $_POST['courseTeacher'] . ' den ' . $_POST['courseDate'] . ' med din hund ' . $_POST['dogName'];
+							$headers = 'From: ' . 'contact@bejtuladesign.com';
+
+							$sent = mail(
+								$_POST['email'], 
+								'Bekräftelse av bokning',
+								'Grattis ' . $_POST['ownerName']. '! Du är nu registrerad på kursen ' . $_POST['courseName'] . ' med läraren ' . $_POST['courseTeacher'] . ' den ' . $_POST['courseDate'] . ' med din hund ' . $_POST['dogName'],
+								$headers
+							);
+
+							#$submitSuccess = ;
 						} else { $submitError = 'Gick inte att registrera er på kursen, ni är redan registrerade!'; }
 					} 
 				} else { $submitError = 'Den kurs du försöker registerar dig till finns inte!'; }
@@ -105,6 +116,7 @@ include_once 'aside.php';
 
 				if (isset($submitSuccess)){
 					$tempGender = $_POST['dogGender'];
+					$sendMessage = '<span><i>Ett bekräftelsemail har skickats till dig med samma information.</i><span>';
 
 					if ($tempGender == 'F'){
 						$tempGender = 'Tik';
@@ -119,11 +131,16 @@ include_once 'aside.php';
 						$confirm = '<h3>Detta är en bekräftelse på din reservplats.</h3>';
 					}
 
+					if (!$sent){
+						$sendMessage = "<span><b>Ditt bekräftelsemail gick inte att leverera. <a href=\"contact.php\">Kontakta oss här.</a></b></span>";
+					}
+
 					echo 
 						'<div class="row">' .
 						'<div class="twelve columns">' .
 						'<h5>Grattis '. $_POST['ownerName'] .'!</h5>' .
 						$confirm .
+						$sendMessage .
 						'<label>Kursdatum: <span class="label-value course-date">' . $_POST['courseDate'] . '</span></label>' .
 						'<label>Kursnamn: <span class="label-value course-date">' . $_POST['courseName'] . '</span></label>' .
 						'<label>Kurslärare: <span class="label-value course-date">' . $_POST['courseTeacher'] . '</span></label>' .
@@ -162,6 +179,10 @@ include_once 'aside.php';
 		          <option value="M">Hane</option>
 		          <option value="F">Tik</option>
 		        </select>
+		      </div>
+		       <div class="twelve columns">
+		        <label for="email">E-post adress</label>
+		        <input required type="email" class="u-full-width" placeholder="din-epost@mail.com" id="email" name="email">
 		      </div>
 		    </div>
 		    <label for="exampleMessage">Extra information</label>
