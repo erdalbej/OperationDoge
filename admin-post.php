@@ -226,13 +226,6 @@ if(isset($_POST['post-delete'])){
 			<input value="Uppdatera" name="post-update" type="submit">
 			<input value="Radera" name="post-delete" type="submit">
 		</form>
-
-			</div>
-
-			<div class="four columns">
-				
-			</div>
-		</div>
 	</div>
 <script src="js/admin-post.js"></script>
 </main>
