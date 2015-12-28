@@ -349,6 +349,9 @@ section#gallery a {
 	aside {
 		display: none;
 	}
+	.news-image {
+		display: none;
+	}
 	#lightbox-container-image-box {
 		max-width: 100% !important; 
 	}
