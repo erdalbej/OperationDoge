@@ -175,7 +175,7 @@ main {
 	background: #fff;
 	color: #000;
 	overflow: auto;
-	min-height: 800px;
+	min-height: 1000px;
 	height: 100%;
 }
 .floatright {
@@ -212,6 +212,12 @@ p.details {
 }
 .dog-not-available {
 	color: #ca4b4b;
+}
+.news-desc {
+	word-wrap: break-word;
+	text-align: justify;
+	max-width: 180px;
+	text-align: left;
 }
 .news-datetime {
 	font-style: italic;
@@ -254,13 +260,15 @@ audio {
 	clear: left;
 	margin: 1em;
 }
-
+td {
+	word-wrap: break-word;
+	max-width: 200px;
+}
 tbody tr:hover{
  background-color:#E1E1E1;
  cursor: pointer;
  cursor: hand;
 }
-
 
 /* Login */
 section#login {
