@@ -181,6 +181,12 @@ p.details {
 	margin: 0 auto;
 	overflow: auto;
 }
+.dog-available {
+	color: #4bca78;
+}
+.dog-not-available {
+	color: #ca4b4b;
+}
 .news-datetime {
 	font-style: italic;
 	font-weight: bold;
@@ -378,6 +384,9 @@ section#gallery a {
 		display: none;
 	}
 	.news-image {
+		display: none;
+	}
+	.dog-image {
 		display: none;
 	}
 	#lightbox-container-image-box {

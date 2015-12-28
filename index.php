@@ -3,9 +3,7 @@ include_once 'header.php';
 include_once 'aside.php';
 ?>
 <main>
-	<div class="container">
-		
-	</div>
+
 <?php
 $divOne = query("SELECT Title, DateTime, NewsText, NewsImagePath FROM News");
 $divData = $divOne['data'];
