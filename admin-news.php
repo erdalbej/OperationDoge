@@ -62,85 +62,88 @@ if(isset($_POST['submit-news'])){
 
 ?>
 <main>
-	<div class="row">
-		<div class="four columns">
-		</div>
-		<div class="eight columns">
-			<h3>Lägg till nyheter till startsidan</h3>
-		</div>
-	</div>
-	<div class="row">
-		<div class="four columns">
-			
-		</div>
-		<div class="eight columns">
-			<form enctype="multipart/form-data" method="POST" action="" class="news-form">
-				<label for="title">Titel:</label>
-				<input type="text" name="title">
-				<br>
+	<div class="container">
 
-				<label for="news-text">Text:</label>
-				<textarea name="news-text" id="" cols="30" rows="10"></textarea>
-				
-				<br>
-
-				<label for="image-path">Bild:</label>
-				<input type="file" name="news-image" accept=".jpg">
-				<br>
-				
-				<input type="submit" name="submit-news" class="button-primary" value="Lägg till nyheten">
-			</form>
-		</div>
-	</div>
-	<br>
-	<div class="row">
-		<div class="four columns">
-			
-		</div>
-		<div class="eight columns">
-			<h3>Redigera befintliga nyheter</h3>
-			<p>redigera information genom tabell och modal likt tidigre?</p>
-
-			<div class="row">
+		<div class="row">
 			<div class="twelve columns">
-				<table class="u-full-width">
-					<thead>
-						<tr>
-							<th>Titel</th>
-							<th>Datum</th>
-							<th>Text</th>
-							<th>Bild</th>
-						</tr>
-					</thead>
-					<tbody id="newsTable">
-						<?php
-						$divOne = query("SELECT Title, DateTime, NewsText, NewsImagePath FROM News");
-						$divData = $divOne['data'];
-						foreach($divData as $key => $row){
-							echo '<tr id="news' . $key . '">';
-							echo '<td class="titleTd">';
-							echo $row['Title'];
-							echo '</td>';
-							echo '<td class="dateTimeTd">';
-							echo $row["DateTime"];
-							echo '</td>';
-							echo '<td class="newsTextTd">';
-							echo $row["NewsText"];
-							echo '</td>';
-							echo '<td class="newsImagePathTd">';
-							echo $row["NewsImagePath"];
-							echo '</td>';
-							echo '</tr>';
-						}			
-						?>				
-					</tbody>
-				</table>
+				<h5>Lägg till nyheter till startsidan</h5>
+				<p>Lägg till nyheter i det översta formuläret. För att redigera/radera befintliga nyheter, välj nyhet i tabellen nedan genom att klicka på den och redigera/radera den via det nya formuläret som poppar upp.</p>
 			</div>
 		</div>
+		<hr>
+		<form enctype="multipart/form-data" method="POST" action="" class="news-form">
+			<div class="row">
+				<div class="twelve columns">
+					<h3>Lägg till nyhet</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="six columns">
+					<label for="title">Nyhetstitel:</label>
+					<input type="text" name="title">
+				</div>
+				<div class="six columns">
+					<label for="image-path">Bild:</label>
+					<input type="file" name="news-image" accept=".jpg">	
+				</div>
+			</div>
+			<label for="news-text">Text:</label>
+			<textarea name="news-text" id="" class="u-full-width"></textarea>
+			<div class="row">
+				<div class="four columns">
+					<input type="submit" name="submit-news" value="Lägg till">		
+				</div>
+				<div class="eight columns">
+				</div>
+			</div>
+		</form>
+		<hr>
+		<br/>
+		<div class="row">
+			<div class="twelce columns">
+				<h3>Redigera befintliga nyheter</h3>
+				<p>redigera information genom tabell och modal likt tidigre?</p>
 
+				<div class="row">
+				<div class="twelve columns">
+					<table class="u-full-width">
+						<thead>
+							<tr>
+								<th>Nyhetstitel</th>
+								<th>Datum</th>
+								<th>Text</th>
+								<th>Bild</th>
+							</tr>
+						</thead>
+						<tbody id="newsTable">
+							<?php
+							$divOne = query("SELECT Title, DateTime, NewsText, NewsImagePath FROM News");
+							$divData = $divOne['data'];
+							foreach($divData as $key => $row){
+								echo '<tr id="news' . $key . '">';
+								echo '<td class="titleTd">';
+								echo $row['Title'];
+								echo '</td>';
+								echo '<td class="dateTimeTd">';
+								echo $row["DateTime"];
+								echo '</td>';
+								echo '<td class="newsTextTd">';
+								echo $row["NewsText"];
+								echo '</td>';
+								echo '<td class="newsImagePathTd">';
+								echo $row["NewsImagePath"];
+								echo '</td>';
+								echo '</tr>';
+							}			
+							?>				
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			</div>
 		</div>
 	</div>
-
 </main>
 
 <?php
