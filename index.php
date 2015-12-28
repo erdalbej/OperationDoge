@@ -3,6 +3,9 @@ include_once 'header.php';
 include_once 'aside.php';
 ?>
 <main>
+	<div class="container">
+		
+	</div>
 <?php
 $divOne = query("SELECT Title, DateTime, NewsText, NewsImagePath FROM News");
 $divData = $divOne['data'];
@@ -18,11 +21,11 @@ foreach($divData as $key => $row){
 	echo '<h2>';
 	echo $row['Title'];
 	echo '</h2>';
-	echo '<img class="news-image" src="uploads/'.$image.'" width="100" height="100" class="floatleft" alt="">';
+	echo '<img class="news-image floatleft" src="uploads/'.$image.'" width="100" height="100" alt="">';
 	echo '<p class="details">';
 	echo $row['NewsText'];
 	echo '</p>';
-	echo '<span>';
+	echo '<span class="news-datetime">';
 	echo $row['DateTime'];
 	echo '</span>';
 	echo '<br/>';

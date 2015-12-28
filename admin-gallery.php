@@ -2,7 +2,10 @@
 include_once 'admin-header.php';
 
 if(isset($_POST['submit_image'])){
+	$returnMsgGalleryAdd = "Kunde inte lägga till bild.";
+
 	if(strlen($_POST['image_title']) > 0){
+
 		$image_title = $_POST['image_title'];
 
 		if(isset($_FILES['gallery_image'])) {
@@ -30,7 +33,7 @@ if(isset($_POST['submit_image'])){
 							$result = nonQuery("INSERT INTO ImageGallery (`ImagePath`,`ImageTitle`) VALUES (:image_path,:image_title)", array(":image_path" => $file_name_new, ":image_title" => $image_title));
 							
 							if($result["err"] === null){
-
+								$returnMsgGalleryAdd = "Bild tillagd.";
 							}
 						}
 					}
@@ -61,7 +64,11 @@ if(isset($_POST['submit_image'])){
 		</div>
 		<hr>
 	</form>
-
+	<?php
+		if(isset($returnMsgGalleryAdd)){
+			echo $returnMsgGalleryAdd;
+		}
+	?>
 	<div class="row">
 			<div class="twelve columns">
 				<table class="u-full-width">

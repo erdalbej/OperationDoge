@@ -15,7 +15,7 @@
 		echo '<div class="news-desc">';
 		echo $row['Description'];
 		echo '</div>';
-		if($row['NewsLink'] !== null){
+		if(strlen($row['NewsLink']) > 0){
 			echo '<br><a href="'.$row['NewsLink'].'" class="news-more">Läs mer</a>';
 		}
 		echo '<hr class="newsfeed-sep">';

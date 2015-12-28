@@ -23,7 +23,6 @@ header {
 	background-position: center;
 }
 header h1 {
-	/*text-indent: -400%; */
 	text-align: right;
 	color: #fff;
 }
@@ -115,6 +114,7 @@ aside a {
 	background: #304953;
 	padding: 5px;
 	margin-top: 10px;
+	margin-bottom: 10px;
 }
 .news-more {
 	position: relative;
@@ -163,21 +163,25 @@ time a:hover {
     height: 200px;
 }
 main {
-	padding: 10px 20px 30px 20px;
+	padding: 10px 20px 50px 20px;
 	background: #fff;
 	color: #000;
 	overflow: auto;
+	height: 100vh;
 }
 .floatright {
 	float: right;
 	padding-left: 20px;
 }
 p.details {
-	left-padding: 20px;
-	right-padding: 20px;
 	max-width: 650px;
 	margin: 0 auto;
 	overflow: auto;
+}
+.news-datetime {
+	font-style: italic;
+	font-weight: bold;
+	font-size: 12px;
 }
 .floatleft {
 	padding: 0 20px 20px 0;
