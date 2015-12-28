@@ -91,7 +91,7 @@ if(isset($_POST['thread-delete'])){
 								echo $row["Description"];
 								echo '</td>';
 								echo '<td>';
-								echo '<a href="/operationdoge/admin-post.php?title='.$row['Title'].'&createdAt='.$row['CreatedAt'].'">';
+								echo '<a href="/U5/admin-post.php?title='.$row['Title'].'&createdAt='.$row['CreatedAt'].'">';
 								echo 'Redigera inlägg';
 								echo '</a>';
 								echo '</td>';
