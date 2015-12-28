@@ -75,7 +75,7 @@ include_once 'aside.php';
 	}
 ?>
 
-<main>
+<main class="height-uv">
 	<div class="container">
 		<h1 style="text-align: center;">Aktuella kurser</h1>
 		<hr>

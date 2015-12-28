@@ -49,7 +49,7 @@ if(isset($_POST['submit_post'])){
 }
 
 ?>
-<main>
+<main class="height-uv">
 	<div class="container">
 		<div class="row">
 			<div class="twelve columns">

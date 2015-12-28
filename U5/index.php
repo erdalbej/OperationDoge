@@ -2,7 +2,7 @@
 include_once 'header.php';
 include_once 'aside.php';
 ?>
-<main>
+<main class="height-uv">
 
 <?php
 $divOne = query("SELECT Title, DateTime, NewsText, NewsImagePath FROM News");

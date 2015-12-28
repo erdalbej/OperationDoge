@@ -1,7 +1,7 @@
 <?php
 include_once 'header.php';
 ?>
-<main>
+<main class="height-uv">
 	<section id="gallery">
 		<p>
 			<?php

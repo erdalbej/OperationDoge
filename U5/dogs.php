@@ -3,7 +3,7 @@ include_once 'header.php';
 include_once 'aside.php';
 $puppys = $_GET['puppylitter'];
 ?>
-<main>
+<main class="height-uv">
 	<div class="container">
 		<div class="row">
 			<div class="four columns">

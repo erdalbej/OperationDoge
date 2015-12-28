@@ -184,8 +184,10 @@ main {
 	background: #fff;
 	color: #000;
 	overflow: auto;
-	min-height: 1300px;
 	height: 100%;
+}
+.height-uv {
+	min-height: 1300px;
 }
 .floatright {
 	float: right;
