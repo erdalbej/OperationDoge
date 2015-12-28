@@ -59,7 +59,7 @@ if (strlen($courseName) > 0 &&
 						if (!isset($participantError)){
 							if (count($participants) > 0){
 								foreach($participants as $key => $p){
-									if (($key+1) > 10){
+									if ($key == 10){
 										echo '<p><b style="color: red;">Reservdeltagare</b></p>';
 									}
 

@@ -16,7 +16,7 @@ include_once 'aside.php';
 		 	strlen($_POST['courseDate']) > 9 && 
 			strlen($_POST['email']) > 0){
 
-			$result = query('SELECT * FROM ComingCourses WHERE CourseName = :courseName AND CourseTeacher = :courseTeacher AND CourseDate = :courseDate',
+			$result = query('SELECT CourseName, CourseTeacher, CourseDate, AgeOfDog, Gender, PriorKnowledge, CourseText, Participants FROM ComingCourses WHERE CourseName = :courseName AND CourseTeacher = :courseTeacher AND CourseDate = :courseDate',
 				array(
 					':courseName' => $_POST['courseName'],
 					':courseTeacher' => $_POST['courseTeacher'],
@@ -50,12 +50,14 @@ include_once 'aside.php';
 
 						if ($insertResult['err'] == null){
 							$submitSuccess = true;
+
+							$courseLink = 'course.php?courseName=' . $_POST['courseName'] . '&courseTeacher=' . $_POST['courseTeacher'] . '&courseDate=' . $_POST['courseDate'];
 							$headers = 'From: ' . 'contact@bejtuladesign.com';
 
 							$sent = mail(
 								$_POST['email'], 
 								'Bekräftelse av bokning',
-								'Grattis ' . $_POST['ownerName']. '! Du är nu registrerad på kursen ' . $_POST['courseName'] . ' med läraren ' . $_POST['courseTeacher'] . ' den ' . $_POST['courseDate'] . ' med din hund ' . $_POST['dogName'],
+								'Grattis ' . $_POST['ownerName']. '! Du är nu registrerad på kursen ' . $_POST['courseName'] . ' med läraren ' . $_POST['courseTeacher'] . ' den ' . $_POST['courseDate'] . ' med din hund ' . $_POST['dogName'] . '<a href="' . $courseLink . '"> Till kursen</a>',
 								$headers
 							);
 
@@ -66,7 +68,7 @@ include_once 'aside.php';
 			} else { $submitError = 'Problem med att hitta kursen, prova igen!'; }
 		} else { $submitError = 'Saknar värden, fyll i igen!'; }
 	} else {
-		$result = query('SELECT * FROM ComingCourses');
+		$result = query('SELECT CourseName, CourseTeacher, CourseDate, AgeOfDog, Gender, PriorKnowledge, CourseText, Participants FROM ComingCourses');
 	
 		if ($result['err'] == null){ $courses = $result['data']; } 
 		else { $coursesError = "Gick inte att läsa kommande kurser"; }
@@ -145,7 +147,8 @@ include_once 'aside.php';
 						'<label>Kursdatum: <span class="label-value course-date">' . $_POST['courseDate'] . '</span></label>' .
 						'<label>Kursnamn: <span class="label-value course-date">' . $_POST['courseName'] . '</span></label>' .
 						'<label>Kurslärare: <span class="label-value course-date">' . $_POST['courseTeacher'] . '</span></label>' .
-						'<label>Din hund: <span class="label-value course-date">' . $_POST['dogName'] . ', ' . $tempGender . ', ' . $_POST['dogAge'] . ' år</span></label>' .
+						'<label>Din hund: <span class="label-value course-date">' . $_POST['dogName'] . ', ' . $tempGender . ', ' . $_POST['dogAge'] . ' år </span></label>' .
+						'<p><a href="' . $courseLink . '">Till kursen</a><p>' .
 						'</div>' .
 						'</div>' .
 						'<hr>';
