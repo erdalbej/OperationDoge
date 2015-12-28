@@ -24,6 +24,9 @@ header {
 }
 header h1 {
 	text-align: right;
+	position: relative;
+	top: 35px;
+	right: 35px;
 	color: #fff;
 }
 nav, main, aside {
@@ -387,7 +390,7 @@ section#gallery a {
 		display: block;
 		padding: 0.2em;
 		width: auto;
-		border-bottom: 1px solid #330000;
+		border-bottom: 1px solid #001f33;
 	}
 	h2 {
 		padding: 0.5em 0 0 0.5em;
