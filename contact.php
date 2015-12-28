@@ -79,9 +79,9 @@ if (isset($_POST['message-submit'])){
 			    </div>
 			  </div>
 			  <label for="message">Meddelande *</label>
-			  <textarea class="u-full-width" placeholder="Skriv ditt meddelande här... " id="message" maxlength="255" name="message"></textarea>
+			  <textarea required class="u-full-width" placeholder="Skriv ditt meddelande här... " id="message" maxlength="255" name="message"></textarea>
 				<label>
-				    <input required type="checkbox" name="sendToSender" value="Yes" checked>
+				    <input type="checkbox" name="sendToSender" value="Yes" checked>
 				    <span class="label-body">Skicka kopia till mig</span>
 			 	</label>
 			  <input class="button-primary" type="submit" value="Skicka" name="message-submit">
