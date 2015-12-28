@@ -153,21 +153,18 @@ if(isset($_POST['delete_newsfeed'])){
 ?>
 
 <main>
+	<div class="container">
 	<form enctype="multipart/form-data" action="" method="post">
 		<h1>Lägg till i sidmenyn</h1>
 		<div class="row">
-			<div class="three columns">
+			<div class="six columns">
 				<label for="news_title">Titel:</label>
 				<input type="text" class="u-full-width"  name="news_title">
 			</div>
-			<div class="three columns">
+			<div class="six columns">
 				<label for="news_link">Länk:</label>
 				<input type="text" class="u-full-width"  name="news_link">
 			</div>
-			<div class="three columns">
-				
-			</div>
-			<div class="three columns"></div>
 		</div>
 		<div class="row">
 			<div class="six columns">
@@ -179,15 +176,14 @@ if(isset($_POST['delete_newsfeed'])){
 			</div>
 		</div>
 		<div class="row">
-			<div class="six columns">
+			<div class="twelve columns">
 				<label for="news_text">Beskrivning:</label>
 				<textarea name="news_text" class="u-full-width"></textarea>
 			</div>
-			<div class="six columns"></div>
 		</div>
 		<div class="row">
 			<div class="six columns">
-				<input value="Lägg till" name="submit_newsfeed" type="submit">
+				<input value="Lägg till" name="submit_newsfeed" class="button-primary" type="submit">
 			</div>
 			<div class="six columns">
 
@@ -210,19 +206,18 @@ if(isset($_POST['delete_newsfeed'])){
 	<h1>Uppdatera / ta bort i sidmenyn</h1>
 	<form enctype="multipart/form-data" action="" method="post">
 		<div class="row">
-			<div class="three columns">
+			<div class="four columns">
 				<label for="alter_news_title">Titel:</label>
 				<input type="text" class="u-full-width" id="newsFeedTitle"  name="alter_news_title" readonly>
 			</div>
-			<div class="three columns">
-				<label for="alter_news_link">Länk:</label>
-				<input type="text" class="u-full-width" id="newsFeedLink" name="alter_news_link">
-			</div>
-			<div class="three columns">
+			<div class="four columns">
 				<label for="alter_news_datetime">Datum:</label>
 				<input type="text" class="u-full-width" id="newsFeedDateTime" name="alter_news_datetime" readonly>
 			</div>
-			<div class="three columns"></div>
+			<div class="four columns">
+				<label for="alter_news_link">Länk:</label>
+				<input type="text" class="u-full-width" id="newsFeedLink" name="alter_news_link">
+			</div>
 		</div>
 		<div class="row">
 			<div class="six columns">
@@ -232,15 +227,14 @@ if(isset($_POST['delete_newsfeed'])){
 			<div class="six columns"></div>
 		</div>
 		<div class="row">
-			<div class="nine columns">
+			<div class="twelve columns">
 				<label for="alter_news_text">Beskrivning:</label>
 				<textarea name="alter_news_text" id="newsFeedDescription" class="u-full-width"></textarea>
 			</div>
-			<div class="three columns"></div>
 		</div>
 		<div class="row">
 			<div class="six columns">
-				<input value="Uppdatera" name="update_newsfeed" type="submit">
+				<input value="Uppdatera" name="update_newsfeed" class="button-primary" type="submit">
 				<input value="Radera" name="delete_newsfeed" type="submit">
 			</div>
 			<div class="six columns">
@@ -259,7 +253,7 @@ if(isset($_POST['delete_newsfeed'])){
 		?>
 	</div>
 	<div class="row">
-		<div class="eight columns">
+		<div class="twelve columns">
 			<h3>Välj objekt att redigera</h3>
 			<div class="row">
 				<div class="twelve columns">
@@ -310,12 +304,9 @@ if(isset($_POST['delete_newsfeed'])){
 			</div>
 
 		</div>
-
-		<div class="four columns">
-
-		</div>
 	</div>
 <script src="js/newsfeed.js"></script>
+</div>
 </main>
 <?php
 include_once 'footer.php';
