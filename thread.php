@@ -2,27 +2,43 @@
 include_once 'header.php';
 include_once 'aside.php';
 
+$allowed_ext = array('jpg');
+
 $thread_title = $_GET['title'];
 $thread_createdAt = $_GET['createdAt'];
 
 if(isset($_POST['submit_post'])){
-	if(strlen($_POST['post_text']) > 0){
+	if(strlen($_POST['post_text']) > 0 &&
+	   strlen($_POST['username']) > 0){
 
 		$username = $_POST['username'];
 		$post_text = $_POST['post_text'];
 		
 		if(isset($_FILES['post_image'])) {
 			$file = $_FILES['post_image'];
+			$file['name'];
+			$file['tmp_name'];
+			$file['size'];
+			$file['error'];
 
-			$file_name = $file['name'];
-			$file_tmp = $file['tmp_name'];
-			$file_size = $file['size'];
-			$file_error = $file['error'];
+			if (!in_array($file_ext, $allowed_ext)){
+				$postError = 'Endast .jpg filer är tillåtna, prova ladda up en anna bild.';
+			} else if (strlen($file['name']) > 0){
+
+			} else if (strlen($file['tmp_name'] > 0){
+
+			} else if (isset($file['error'])){
+				$postError = $file['error'];
+			} else if ($file_size >= 2097152){
+				$postError = 'Filen är för stor, 2mb stora filer är tillåtna';
+			}
+
+			
 
 			$file_ext = explode('.', $file_name);
 			$file_ext = strtolower(end($file_ext));
 
-			$allowed_ext = array('jpg');
+			
 
 			if(in_array($file_ext, $allowed_ext)){
 
@@ -42,18 +58,18 @@ if(isset($_POST['submit_post'])){
 						}
 					}
 				}
-			}else{
+			} else{
 	
 				$result = nonQuery("INSERT INTO Post (`Username`,`CreatedAt`,`PostText`, `Thread_Title`, `Thread_CreatedAt`) VALUES (:username,now(),:post_text,:thread_title,:thread_createdAt)", array(":username" => $username, ":post_text" => $post_text, ":thread_title" => $thread_title, ":thread_createdAt" => $thread_createdAt));
 				
-				if($result["err"] === null){
-				
+				if($result["err"] != null){
+					$postError = 'Gick ej att posta inlägg, prova igen!';
 				}
 			}
 		}
-
+	} else {
+		$postError = 'Saknar värden för att posta inlägg.';
 	}
-
 }
 
 ?>
