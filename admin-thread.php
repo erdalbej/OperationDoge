@@ -3,19 +3,18 @@ include_once 'admin-header.php';
 
 //Update thread
 if(isset($_POST['thread-update'])){
-	$returnMsgThreadUpdate = "Kunde inte uppdatera tråd.";
-
-	if(strlen($_POST['title']) > 0 && strlen($_POST['datetime']) > 0){
+	
+	if(strlen($_POST['title']) > 0 && strlen($_POST['created_at']) > 0){
 
 		$title = $_POST['title'];
-		$datetime = $_POST['datetime'];
+		$created_at = $_POST['created_at'];
 
 		if(isset($_POST['username']) && isset($_POST['description'])){
 			
 			$username = $_POST['username'];
 			$description = $_POST['description'];
 
-			$result = nonQuery("UPDATE GuestbookThread SET `Username` = :username, `Description` = :description WHERE `Title` = :title AND `DateTime` = :datetime", array(":title" => $title, ":datetime" => $datetime, ":username" => $username, ":description" => $description));
+			$result = nonQuery("UPDATE GuestbookThread SET `Username` = :username, `Description` = :description WHERE `Title` = :title AND `CreatedAt` = :created_at", array(":title" => $title, ":created_at" => $created_at, ":username" => $username, ":description" => $description));
 			$result["data"];
 
 			if($result["err"] === NULL){
@@ -31,12 +30,12 @@ if(isset($_POST['thread-update'])){
 if(isset($_POST['thread-delete'])){
 	$returnMsgThreadDelete = "Kunde inte tabort tråd.";
 
-	if(strlen($_POST['title']) > 0 && strlen($_POST['datetime']) > 0){
+	if(strlen($_POST['title']) > 0 && strlen($_POST['created_at']) > 0){
 
 		$title = $_POST['title'];
-		$datetime = $_POST['datetime'];
+		$created_at = $_POST['created_at'];
 
-		$result = nonQuery("DELETE FROM GuestbookThread WHERE `Title` = :title AND `DateTime` = :datetime", array(":title" => $title, ":datetime" => $datetime));
+		$result = nonQuery("DELETE FROM GuestbookThread WHERE `Title` = :title AND `CreatedAt` = :created_at", array(":title" => $title, ":created_at" => $created_at));
 		$result["data"];
 
 		if($result["err"] === NULL){
@@ -75,24 +74,24 @@ if(isset($_POST['thread-delete'])){
 						</thead>
 						<tbody id="Threadtable">
 							<?php
-							$divOne = query("SELECT Title, DateTime, Username, Description FROM GuestbookThread");
+							$divOne = query("SELECT Title, CreatedAt, Username, Description FROM GuestbookThread");
 							$divData = $divOne['data'];
 							foreach($divData as $key => $row){
 								echo '<tr id="threads' . $key . '">';
-								echo '<td class="titleTd">';
+								echo '<td>';
 								echo $row['Title'];
 								echo '</td>';
-								echo '<td class="dateTimeTd">';
-								echo $row["DateTime"];
+								echo '<td>';
+								echo $row["CreatedAt"];
 								echo '</td>';
-								echo '<td class="Username">';
+								echo '<td>';
 								echo $row["Username"];
 								echo '</td>';
 								echo '<td class="Description" style = "display:none">';
 								echo $row["Description"];
 								echo '</td>';
-								echo '<td class="Edit">';
-								echo '<a href="/operationdoge/admin-post.php?title='.$row['Title'].'&datetime='.$row['DateTime'].'">';
+								echo '<td>';
+								echo '<a href="/operationdoge/admin-post.php?title='.$row['Title'].'&createdAt='.$row['CreatedAt'].'">';
 								echo 'Redigera inlägg';
 								echo '</a>';
 								echo '</td>';
@@ -126,8 +125,8 @@ if(isset($_POST['thread-delete'])){
 				<input class="u-full-width" type="text" name="title" id="threadTitle" readonly>
 			</div>
 			<div class="four columns">
-				<label for="datetime">Datum:</label>
-				<input class="u-full-width" type="text" name="datetime" id="threadDateTime" readonly>
+				<label for="CreatedAt">Datum:</label>
+				<input class="u-full-width" type="text" name="created_at" id="threadCreatedAt" readonly>
 			</div>
 			<div class="four columns">
 				<label for="username">Användare:</label>

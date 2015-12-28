@@ -5,13 +5,13 @@ $(document).ready(function(){
 
 		var data = {};
 		data.threadTitle = $(parent).children().eq(0).text();
-		data.threadDateTime = $(parent).children().eq(1).text();
+		data.threadCreatedAt = $(parent).children().eq(1).text();
 		data.threadUsername = $(parent).children().eq(2).text();
 		data.threadDescription = $(parent).children().eq(3).text();
 
 
 		$("#threadTitle").val(data.threadTitle);
-		$("#threadDateTime").val(data.threadDateTime);
+		$("#threadCreatedAt").val(data.threadCreatedAt);
 		$("#threadUsername").val(data.threadUsername);
 		$("#threadDescription").val(data.threadDescription);
 		$("#returnMsg").html("");
