@@ -53,6 +53,7 @@ if(isset($_POST['thread-delete'])){
 		<div class="row">
 			<div class="twelve columns">
 				<h5>Gästbok - Redigera trådar</h5>
+				<p>För att redigera en tråd, klicka på den i listan för att få upp Trådinformaion. För att redigera en posts inlägg, klicka på hyperlänken "Redigera inlägg" längst ut till höger i tabellen.</p>
 				<hr>
 			</div>
 		</div>

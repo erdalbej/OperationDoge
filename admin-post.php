@@ -124,6 +124,7 @@ if(isset($_POST['post-delete'])){
 	<div class="row">
 		<div class="twelve columns">
 			<h5>Gästbok - Redigera poster</h5>
+			<p>För att redigera ett inlägg, klicka på kommentaren i listan för att få upp kommentarinformation. </p>
 		</div>
 	</div>
 	<div class="row">
