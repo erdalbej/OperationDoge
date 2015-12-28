@@ -18,12 +18,21 @@ ul li {
 }
 .success-message {
 	width: 100%;
-    position: absolute;
+	display:inline-block;
     background: #3cb667;
     color: #fff;
     padding: 10px;
-    top: 0;
     border-radius: 4px;
+    margin-bottom: 10px;
+}
+.error-message {
+	width: 100%;
+	display:inline-block;
+    background: #F02634;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
 }
 header {
 	background: #26ade4;

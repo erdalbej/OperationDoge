@@ -18,9 +18,9 @@ if(isset($_POST['thread-update'])){
 			$result["data"];
 
 			if($result["err"] === NULL){
-				$returnMsgThreadUpdate = "Tråd uppdaterad"; 
+				$thread_success = "Tråd uppdaterad"; 
 			}else{
-				$returnMsgThreadUpdate = "Kunde inte uppdatera tråd.";
+				$thread_error = "Kunde inte uppdatera tråd.";
 			}
 		}
 	}
@@ -49,10 +49,22 @@ if(isset($_POST['thread-delete'])){
 
 <main>
 	<div class="container">
+	<div class="row">
+			<div class="twelve columns">
+				<?php
+					if(isset($thread_success)){
+						echo '<span id="returnMsg" class="success-message">' . $thread_success . '</span>';
+					}
+					if(isset($thread_error)){
+						echo '<span id="returnMsg" class="error-message">' . $thread_error . '</span>';
+					}
+				?>
+			</div>
+		</div>
 		<div class="row">
 			<div class="twelve columns">
 				<h5>Gästbok - Redigera trådar</h5>
-				<p>För att redigera en tråd, klicka på den i listan för att få upp Trådinformaion. För att redigera en posts inlägg, klicka på hyperlänken "Redigera inlägg" längst ut till höger i tabellen.</p>
+				<p>För att redigera en tråd, klicka på den i listan för att få upp trådinformaion. För att redigera inlägg, klicka på hyperlänken "Redigera inlägg" längst ut till höger i tabellen.</p>
 				<hr>
 			</div>
 		</div>
@@ -103,16 +115,6 @@ if(isset($_POST['thread-delete'])){
 					<br/>
 				</div>
 			</div>
-		<div id="returnMsg" style="margin-bottom:20px;">
-		<?php
-			if(isset($returnMsgThreadUpdate)){
-				echo '<span class="success-message">' . $returnMsgThreadUpdate . '</span>';
-			}
-			if(isset($returnMsgThreadDelete)){
-				echo $returnMsgThreadDelete;
-			}
-		?>
-		</div>
 		<form hidden enctype="multipart/form-data" action="" method="post">
 		<div class="row">
 			<div class="twelve columns">
