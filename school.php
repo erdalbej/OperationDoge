@@ -29,7 +29,7 @@ include_once 'aside.php';
 					$foundCourse = $data[0];
 
 					if ($foundCourse['AgeOfDog'] > $_POST['dogAge']){ $submitError = 'Kursen kräver att din hund är äldre'; }
-					if (!$foundCourse['Gender'] && $foundCourse['Gender'] != $_POST['dogGender']){ $submitError = 'Kursen tar ej emot hundar av angivet kön'; }
+					if ($foundCourse['Gender'] != 'B' && $foundCourse['Gender'] != $_POST['dogGender']){ $submitError = 'Kursen tar ej emot hundar av angivet kön'; }
 					if (!isset($_POST['reserveSpot']) && $foundCourse['Participants'] >= 10){ $submitError = 'Kursplatserna hann ta slut, gör anmälan igen om du vill registera dig för en reservplats. Annars kan du gå tillbaka och se övriga kurser.'; }
 
 					if (!isset($submitError)){
@@ -47,9 +47,9 @@ include_once 'aside.php';
 						);
 
 						if ($insertResult['err'] == null){
-							$submitSuccess = 'Grattis ' . $_POST['ownerName']. '! Du är nu registrerad på kursen ' . $_POST['courseName'] . ' med läraren ' . $_POST['courseTeacher'] . ' den ' . $_POST['courseDate'] . ' med din hund ' . $_POST['dogName'];
-						} else { $submitError = $insertResult['err']; }
-						#else { $submitError = 'Gick inte att registrera er på kursen, prova igen!'; }
+							$submitSuccess = true;
+							#$submitSuccess = 'Grattis ' . $_POST['ownerName']. '! Du är nu registrerad på kursen ' . $_POST['courseName'] . ' med läraren ' . $_POST['courseTeacher'] . ' den ' . $_POST['courseDate'] . ' med din hund ' . $_POST['dogName'];
+						} else { $submitError = 'Gick inte att registrera er på kursen, ni är redan registrerade!'; }
 					} 
 				} else { $submitError = 'Den kurs du försöker registerar dig till finns inte!'; }
 			} else { $submitError = 'Problem med att hitta kursen, prova igen!'; }
@@ -102,7 +102,34 @@ include_once 'aside.php';
 				}
 
 				if (isset($submitSuccess)){
-					print_r($submitSuccess);
+					$tempGender = $_POST['dogGender'];
+
+					if ($tempGender == 'F'){
+						$tempGender = 'Tik';
+					} else if ($tempGender == 'M'){
+						$tempGender = 'Hane';
+					} else {
+						$tempGender = 'Båda';
+					}
+
+					$confirm = '<h3>Detta är en bekräftelse på din bokning.</h3>';
+					if ($_POST['reserveSpot']){
+						$confirm = '<h3>Detta är en bekräftelse på din reservplats.</h3>';
+					}
+
+					echo 
+						'<hr>' .
+						'<div class="row">' .
+						'<div class="twelve columns">' .
+						'<h5>Grattis '. $_POST['ownerName'] .'!</h5>' .
+						$confirm .
+						'<label>Kursdatum: <span class="label-value course-date">' . $_POST['courseDate'] . '</span></label>' .
+						'<label>Kursnamn: <span class="label-value course-date">' . $_POST['courseName'] . '</span></label>' .
+						'<label>Kurslärare: <span class="label-value course-date">' . $_POST['courseTeacher'] . '</span></label>' .
+						'<label>Din hund: <span class="label-value course-date">' . $_POST['dogName'] . ', ' . $tempGender . ', ' . $_POST['dogAge'] . ' år</span></label>' .
+						'</div>' .
+						'</div>' .
+						'<hr>';
 				}
 				echo ' <a href="school.php">Gå tillbaks här</a>';
 			}
@@ -140,7 +167,7 @@ include_once 'aside.php';
 		    <textarea class="u-full-width" placeholder="Hej! Min hund har problem med..." id="extraInfo" name="extraInfo"></textarea>
 		    <label>
 		      <input style="display:none;" type="checkbox" id="reserveSpot" name="reserveSpot" checked="reserve">
-		      <span hidden class="label-body" id="reserve-spot-label">Reservplats</span>
+		      <span hidden class="label-body" id="reserve-spot-label" style="color: red;"><b>Reservplats</b></span>
 		    </label>
 		    <input class="button-primary" type="submit" value="Skicka anmälan" name="submit-regToCourse">
 		    <input style="display:none" type="text" name="courseName" id="formCourseName">
