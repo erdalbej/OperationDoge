@@ -93,7 +93,8 @@ include_once 'aside.php';
 					echo 
 						'<div class="row">' .
 						'<div class="twelve columns">' .
-						'<h5 class="courseInfoHeader">'. $c['CourseName'] .' - '. $c['CourseTeacher'] . '</h5>' .
+						'<h5 class="courseInfoHeader">'. $c['CourseName'] .' - '. $c['CourseTeacher'] . '</h5> ' .
+						'<label><a href="course.php?courseName=' . $c['CourseName'] . '&courseTeacher=' . $c['CourseTeacher'] . '&courseDate=' . $c['CourseDate'] . '"><i class="fa fa-info-circle"></i> Deltagarinfo</a></label>' .
 						'<label>Kursdatum: <span class="label-value course-date">' . $c['CourseDate'] . '</span></label>' .
 						'<label>Platser: <span class="label-value"><span class="numOfParticipants">' . $c['Participants'] . '</span>/10</span></label>' .
 						'<label>Åldersgräns: <span class="label-value">' . $c['AgeOfDog'] . ' år</span></label>' .
