@@ -49,7 +49,7 @@ if(isset($_POST['submit-thread'])){
 						<p>Tråden är skapad! <a href="thread.php?title=' . $title . '&createdAt=' . $now['now'] . '">Tryck här</a> för att komma till den nyskapade tråden</p>
 					</div>
 				</div>';
-			} else { echo 'Gick inte att skapa tråd, prova igen'; }
+			} else { echo $createError; }
 
 			echo '<p><a href="forum.php">Tillbaka</a></p>';			
 		} else {

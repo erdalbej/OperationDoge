@@ -21,22 +21,28 @@ if(isset($_POST['submit_post'])){
 			$file['size'];
 			$file['error'];
 
-			if (!in_array($file_ext, $allowed_ext)){
+			$file_ext = explode('.', $file_name);
+			$file_ext = strtolower(end($file_ext));
+
+			if (strlen($file['name']) > 0){
+				$postError = 'Saknar filnamn';
+			} else if (!in_array($file_ext, $allowed_ext)){
 				$postError = 'Endast .jpg filer är tillåtna, prova ladda up en anna bild.';
-			} else if (strlen($file['name']) > 0){
-
 			} else if (strlen($file['tmp_name'] > 0){
-
+				$postError = 'Filen saknar temporärt filnamn, prova igen!';
 			} else if (isset($file['error'])){
 				$postError = $file['error'];
 			} else if ($file_size >= 2097152){
 				$postError = 'Filen är för stor, 2mb stora filer är tillåtna';
 			}
 
-			
+			if (!isset($postError)){
 
-			$file_ext = explode('.', $file_name);
-			$file_ext = strtolower(end($file_ext));
+			} else {
+
+			}
+
+			
 
 			
 
