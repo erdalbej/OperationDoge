@@ -50,82 +50,97 @@ if(isset($_POST['submit_post'])){
 
 ?>
 <main>
-	<div class="row">
-		<div class="twelve columns">
-			<?php 
-				echo '<h1 class="post-threadtitle">'.$thread_title.'</h1>';
-				echo '<h3 class="post-threaddatetime">'.$thread_createdAt.'</h3>';
-			?>
-			
-			<?php
-
-				$divOne = query("SELECT Username, CreatedAt, PostText, PostImagePath, Thread_Title, Thread_CreatedAt FROM Post WHERE Thread_Title='$thread_title' AND Thread_CreatedAt='$thread_createdAt'");
-				$divData = $divOne['data'];
-		
-				echo '<ul class="posts">';
-				foreach($divData as $key => $row){
-					echo '<li>';
-					echo '<span id="news' . $key . '"></span>';
-					echo '<span class="post-username"> <b>Användarnamn: &nbsp;</b>';
-					echo $row['Username'];
-					echo '</span>';
-					echo '<span class="post-datetime"> <b>Datum: &nbsp;</b>';
-					echo $row['CreatedAt'];
-					echo '<br><br>';
-					echo '</span>';
-					echo '<br><br>';
-					echo '<span class="post-posttext">';
-					echo $row['PostText'];
-					echo '</span>';
-					echo '<br><br>';
-					if($row['PostImagePath'] !== null){
-						echo '<img class="hide-img" src="uploads/'.$row['PostImagePath'].'" alt="" width="150" height="150">';
-					}
-					echo '</li>';
-				}			
-				echo '</ul>';
+	<div class="container">
+		<div class="row">
+			<div class="twelve columns">
+				<?php 
+					echo '<h1 class="post-threadtitle">'.$thread_title.'</h1>';
+					echo '<h3 class="post-threaddatetime">'.$thread_createdAt.'</h3>';
+					echo '<hr>';
 				?>
+				
+				<?php
 
-			<form enctype="multipart/form-data" method="POST" action="">
-				<div class="row">
-					<div class="twelve columns">
-						<h3>Kommentera</h3>
+					$postsResult = query('SELECT Username, CreatedAt, PostText, PostImagePath, Thread_Title, Thread_CreatedAt FROM Post WHERE Thread_Title = :threadTitle AND Thread_CreatedAt = :threadCreatedAt ORDER BY CreatedAt ASC',
+						array(
+							':threadTitle' => $thread_title,
+							':threadCreatedAt' => $thread_createdAt
+						)
+					);
+
+					if ($postsResult['err'] == null){
+						$posts = $postsResult['data'];
+					} else {
+						$postsError = 'Gick inte att läsa poster för denna tråd';
+					}
+					
+			
+					echo '<ul class="posts">';
+					foreach($posts as $key => $row){
+						echo '<li>';
+						echo '<span id="news' . $key . '"></span>';
+						echo '<span class="post-username"> <b>Användarnamn: &nbsp;</b>';
+						echo $row['Username'];
+						echo '</span>';
+						echo '<span class="post-datetime"> <b>Datum: &nbsp;</b>';
+						echo $row['CreatedAt'];
+						echo '<br><br>';
+						echo '</span>';
+						echo '<br><br>';
+						echo '<span class="post-posttext">';
+						echo $row['PostText'];
+						echo '</span>';
+						echo '<br><br>';
+						if($row['PostImagePath'] !== null){
+							echo '<img class="hide-img" src="uploads/'.$row['PostImagePath'].'" alt="" width="150" height="150">';
+						}
+						echo '</li>';
+					}			
+					echo '</ul>';
+					?>
+
+				<form enctype="multipart/form-data" method="POST" action="">
+					<div class="row">
+						<div class="twelve columns">
+							<h3>Kommentera</h3>
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="six columns">
-						<label for="username">Användarnamn:</label>
-						<input required class="u-full-width" type="text" name="username">
+					<div class="row">
+						<div class="six columns">
+							<label for="username">Användarnamn:</label>
+							<input required class="u-full-width" type="text" name="username">
+						</div>
+						<div class="six columns">
+							<label for="post_image">Infoga bild:</label>
+							<input class="u-full-width" type="file" name="post_image" accept=".jpg">
+						</div>
 					</div>
-					<div class="six columns">
-						<label for="post_image">Infoga bild:</label>
-						<input class="u-full-width" type="file" name="post_image" accept=".jpg">
+					<div class="row">
+						<div class="twleve columns">
+							<label for="post_text">Kommentar:</label>
+							<textarea required class="u-full-width" name="post_text"></textarea>
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="twleve columns">
-						<label for="post_text">Kommentar:</label>
-						<textarea required class="u-full-width" name="post_text"></textarea>
-					</div>
-				</div>
-				<div class="row">
-					<div class="four columns">
-						<input type="submit" name="submit_post" class="button-primary u-full-width" value="Kommentera">
-					</div>
-					<div class="eight columns">
-						<?php
-							if (isset($_POST['submit_post'])){
-								if (isset($postError)){
-									echo "<span style=\"color: red;\">$postError</span>";
+					<div class="row">
+						<div class="four columns">
+							<input type="submit" name="submit_post" class="button-primary u-full-width" value="Kommentera">
+						</div>
+						<div class="eight columns">
+							<?php
+								if (isset($_POST['submit_post'])){
+									if (isset($postError)){
+										echo "<span style=\"color: red;\">$postError</span>";
+									}
 								}
-							}
-						?>
+							?>
+						</div>
 					</div>
-				</div>
-				<hr>
-			</form>
+					<hr>
+				</form>
+			</div>
 		</div>
 	</div>
+	
 </main>
 <?php
 include_once 'footer.php';
