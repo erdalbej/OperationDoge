@@ -16,66 +16,36 @@ if(isset($_POST['submit_post'])){
 		
 		if(isset($_FILES['post_image'])) {
 			$file = $_FILES['post_image'];
-			$file['name'];
-			$file['tmp_name'];
-			$file['size'];
-			$file['error'];
 
-			$file_ext = explode('.', $file_name);
+			if (strlen($file['name']) == 0){ $postError = 'Saknar filnamn'; }
+
+			$file_ext = explode('.', $file['name']);
 			$file_ext = strtolower(end($file_ext));
 
-			if (strlen($file['name']) > 0){
-				$postError = 'Saknar filnamn';
-			} else if (!in_array($file_ext, $allowed_ext)){
-				$postError = 'Endast .jpg filer är tillåtna, prova ladda up en anna bild.';
-			} else if (strlen($file['tmp_name'] > 0){
-				$postError = 'Filen saknar temporärt filnamn, prova igen!';
-			} else if (isset($file['error'])){
-				$postError = $file['error'];
-			} else if ($file_size >= 2097152){
-				$postError = 'Filen är för stor, 2mb stora filer är tillåtna';
-			}
+			if (!in_array($file_ext, $allowed_ext)){ $postError = 'Endast .jpg filer är tillåtna, prova ladda up en anna bild.'; }
+			if (strlen($file['tmp_name']) == 0){ $postError = 'Filen saknar temporärt filnamn, prova igen!'; }
+			if ($file['size'] >= 2097152){ $postError = 'Filen är för stor, 2mb stora filer är tillåtna'; }
+			if ($file['error'] !== 0){ $postError = 'Filen gick inte att ladda upp, prova igen!'; }
 
 			if (!isset($postError)){
+				$file_name_new = uniqid('', true) . '.' . $file_ext;
+				$file_destination = 'uploads/' . $file_name_new;
 
-			} else {
-
+				if(move_uploaded_file($file['tmp_name'], $file_destination)){
+					$result = nonQuery("INSERT INTO Post (`Username`,`CreatedAt`,`PostText`, `PostImagePath`, `Thread_Title`, `Thread_CreatedAt`) VALUES (:username, now(), :post_text, :image, :thread_title, :thread_createdAt)", array(":username" => $username, ":post_text" => $post_text, ":image" => $file_name_new, ":thread_title" => $thread_title, ":thread_createdAt" => $thread_createdAt));
+					
+					if($result["err"] != null){
+						$postError = 'Gick inte att spara ditt inlägg, prova igen!';
+						unlink($file_destination);
+					} 
+				} else { $postError = 'Gick inte att flytta filen till servern, prova igen'; }
 			}
-
-			
-
-			
-
-			if(in_array($file_ext, $allowed_ext)){
-
-				if($file_error === 0){
-					//2mb
-					if($file_size < 2097152){
-
-						$file_name_new = uniqid('', true) . '.' . $file_ext;
-						$file_destination = 'uploads/' . $file_name_new;
-
-						if(move_uploaded_file($file_tmp, $file_destination)){
-							$result = nonQuery("INSERT INTO Post (`Username`,`CreatedAt`,`PostText`, `PostImagePath`, `Thread_Title`, `Thread_CreatedAt`) VALUES (:username,now(),:post_text,:image,:thread_title,:thread_createdAt)", array(":username" => $username, ":post_text" => $post_text, ":image" => $file_name_new, ":thread_title" => $thread_title, ":thread_createdAt" => $thread_createdAt));
-							
-							if($result["err"] === null){
-							
-							}
-						}
-					}
-				}
-			} else{
-	
-				$result = nonQuery("INSERT INTO Post (`Username`,`CreatedAt`,`PostText`, `Thread_Title`, `Thread_CreatedAt`) VALUES (:username,now(),:post_text,:thread_title,:thread_createdAt)", array(":username" => $username, ":post_text" => $post_text, ":thread_title" => $thread_title, ":thread_createdAt" => $thread_createdAt));
+		} else {
+			$result = nonQuery("INSERT INTO Post (`Username`,`CreatedAt`,`PostText`, `Thread_Title`, `Thread_CreatedAt`) VALUES (:username,now(),:post_text,:thread_title,:thread_createdAt)", array(":username" => $username, ":post_text" => $post_text, ":thread_title" => $thread_title, ":thread_createdAt" => $thread_createdAt));
 				
-				if($result["err"] != null){
-					$postError = 'Gick ej att posta inlägg, prova igen!';
-				}
-			}
+			if($result["err"] != null){ $postError = 'Gick ej att posta inlägg, prova igen!'; }
 		}
-	} else {
-		$postError = 'Saknar värden för att posta inlägg.';
-	}
+	} else { $postError = 'Saknar värden för att posta inlägg.'; }
 }
 
 ?>
@@ -88,6 +58,7 @@ if(isset($_POST['submit_post'])){
 			?>
 			
 			<?php
+
 				$divOne = query("SELECT Username, CreatedAt, PostText, PostImagePath, Thread_Title, Thread_CreatedAt FROM Post WHERE Thread_Title='$thread_title' AND Thread_CreatedAt='$thread_createdAt'");
 				$divData = $divOne['data'];
 		
@@ -124,7 +95,7 @@ if(isset($_POST['submit_post'])){
 				<div class="row">
 					<div class="six columns">
 						<label for="username">Användarnamn:</label>
-						<input class="u-full-width" type="text" name="username">
+						<input required class="u-full-width" type="text" name="username">
 					</div>
 					<div class="six columns">
 						<label for="post_image">Infoga bild:</label>
@@ -134,7 +105,7 @@ if(isset($_POST['submit_post'])){
 				<div class="row">
 					<div class="twleve columns">
 						<label for="post_text">Kommentar:</label>
-						<textarea class="u-full-width" name="post_text"></textarea>
+						<textarea required class="u-full-width" name="post_text"></textarea>
 					</div>
 				</div>
 				<div class="row">
@@ -142,6 +113,13 @@ if(isset($_POST['submit_post'])){
 						<input type="submit" name="submit_post" class="button-primary u-full-width" value="Kommentera">
 					</div>
 					<div class="eight columns">
+						<?php
+							if (isset($_POST['submit_post'])){
+								if (isset($postError)){
+									echo "<span style=\"color: red;\">$postError</span>";
+								}
+							}
+						?>
 					</div>
 				</div>
 				<hr>
