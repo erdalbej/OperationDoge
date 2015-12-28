@@ -12,7 +12,7 @@ if (isset($_POST['message-submit'])){
 		$headers = 'From: ' . $_POST['email'];
 
 		if ($_POST['sendToSender']){
-			$headers = $headers . '\r\n' . 'CC: ' . $_POST['email'];
+			$headers = $headers . "\r\n" . "CC: " . $_POST['email'];
 		}
 
 		$sent = mail(
