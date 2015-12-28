@@ -115,7 +115,7 @@ include_once 'aside.php';
 					}
 
 					$confirm = '<h3>Detta är en bekräftelse på din bokning.</h3>';
-					if ($_POST['reserveSpot']){
+					if (isset($_POST['reserveSpot'])){
 						$confirm = '<h3>Detta är en bekräftelse på din reservplats.</h3>';
 					}
 
