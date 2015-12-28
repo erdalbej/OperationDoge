@@ -64,6 +64,8 @@ include_once 'aside.php';
 
 <main>
 	<div class="container">
+		<h1 style="text-align: center;">Aktuella kurser</h1>
+		<hr>
 		<?php 
 			if (isset($courses)){
 				foreach($courses as $key => $c){
