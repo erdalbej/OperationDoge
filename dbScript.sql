@@ -35,21 +35,21 @@ CREATE TABLE ImageGallery (
 
 CREATE TABLE GuestbookThread (
     `Title` varchar(255) NOT NULL,
-    `DateTime` DATETIME NOT NULL,
+    `CreatedAt` DATETIME NOT NULL,
     `Username` varchar(255),
     `Description` varchar(255),
-    PRIMARY KEY (`Title`, `DateTime`)
+    PRIMARY KEY (`Title`, `CreatedAt`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE Post (
     `Username` varchar(255) NOT NULL,
-    `DateTime` DATETIME NOT NULL,
+    `CreatedAt` DATETIME NOT NULL,
     `PostText` varchar(255),
     `PostImagePath` varchar(255),
     `Thread_Title` varchar(255) NOT NULL,
-    `Thread_DateTime` DATETIME,
-    PRIMARY KEY (`Username`,`DateTime`),
-    FOREIGN KEY  (`Thread_Title`, `Thread_DateTime`) REFERENCES GuestbookThread (`Title`, `DateTime`) ON DELETE CASCADE
+    `Thread_CreatedAt` DATETIME,
+    PRIMARY KEY (`Username`,`CreatedAt`),
+    FOREIGN KEY  (`Thread_Title`, `Thread_CreatedAt`) REFERENCES GuestbookThread (`Title`, `CreatedAt`) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE DogCourse (
