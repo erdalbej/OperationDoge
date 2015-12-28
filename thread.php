@@ -3,7 +3,7 @@ include_once 'header.php';
 include_once 'aside.php';
 
 $thread_title = $_GET['title'];
-$thread_datetime = $_GET['datetime'];
+$thread_createdAt = $_GET['createdAt'];
 
 if(isset($_POST['submit_post'])){
 	if(strlen($_POST['post_text']) > 0){
@@ -34,7 +34,7 @@ if(isset($_POST['submit_post'])){
 						$file_destination = 'uploads/' . $file_name_new;
 
 						if(move_uploaded_file($file_tmp, $file_destination)){
-							$result = nonQuery("INSERT INTO Post (`Username`,`DateTime`,`PostText`, `PostImagePath`, `Thread_Title`, `Thread_DateTime`) VALUES (:username,now(),:post_text,:image,:thread_title,:thread_datetime)", array(":username" => $username, ":post_text" => $post_text, ":image" => $file_name_new, ":thread_title" => $thread_title, ":thread_datetime" => $thread_datetime));
+							$result = nonQuery("INSERT INTO Post (`Username`,`CreatedAt`,`PostText`, `PostImagePath`, `Thread_Title`, `Thread_CreatedAt`) VALUES (:username,now(),:post_text,:image,:thread_title,:thread_createdAt)", array(":username" => $username, ":post_text" => $post_text, ":image" => $file_name_new, ":thread_title" => $thread_title, ":thread_createdAt" => $thread_createdAt));
 							
 							if($result["err"] === null){
 							
@@ -44,7 +44,7 @@ if(isset($_POST['submit_post'])){
 				}
 			}else{
 	
-				$result = nonQuery("INSERT INTO Post (`Username`,`DateTime`,`PostText`, `Thread_Title`, `Thread_DateTime`) VALUES (:username,now(),:post_text,:thread_title,:thread_datetime)", array(":username" => $username, ":post_text" => $post_text, ":thread_title" => $thread_title, ":thread_datetime" => $thread_datetime));
+				$result = nonQuery("INSERT INTO Post (`Username`,`CreatedAt`,`PostText`, `Thread_Title`, `Thread_CreatedAt`) VALUES (:username,now(),:post_text,:thread_title,:thread_createdAt)", array(":username" => $username, ":post_text" => $post_text, ":thread_title" => $thread_title, ":thread_createdAt" => $thread_createdAt));
 				
 				if($result["err"] === null){
 				
@@ -62,11 +62,11 @@ if(isset($_POST['submit_post'])){
 		<div class="twelve columns">
 			<?php 
 				echo '<h1 class="post-threadtitle">'.$thread_title.'</h1>';
-				echo '<h3 class="post-threaddatetime">'.$thread_datetime.'</h3>';
+				echo '<h3 class="post-threaddatetime">'.$thread_createdAt.'</h3>';
 			?>
 			
 			<?php
-				$divOne = query("SELECT Username, DateTime, PostText, PostImagePath, Thread_Title, Thread_DateTime FROM Post WHERE Thread_Title='$thread_title' AND Thread_DateTime='$thread_datetime'");
+				$divOne = query("SELECT Username, CreatedAt, PostText, PostImagePath, Thread_Title, Thread_CreatedAt FROM Post WHERE Thread_Title='$thread_title' AND Thread_CreatedAt='$thread_createdAt'");
 				$divData = $divOne['data'];
 		
 				echo '<ul class="posts">';
@@ -77,7 +77,7 @@ if(isset($_POST['submit_post'])){
 					echo $row['Username'];
 					echo '</span>';
 					echo '<span class="post-datetime"> <b>Datum: &nbsp;</b>';
-					echo $row['DateTime'];
+					echo $row['CreatedAt'];
 					echo '<br><br>';
 					echo '</span>';
 					echo '<br><br>';

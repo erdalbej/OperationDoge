@@ -8,7 +8,7 @@ if(isset($_POST['submit-thread'])){
 		$title = $_POST['title'];
 		$description = $_POST['description'];
 		$username = $_POST['username'];
-		$result = nonQuery("INSERT INTO GuestbookThread (`Title`,`DateTime`,`Description`,`Username`) VALUES (:title, NOW(), :description, :username)", 
+		$result = nonQuery("INSERT INTO GuestbookThread (Title, CreatedAt, Description, Username) VALUES (:title, NOW(), :description, :username)", 
 			array(
 				':title' => $title, 
 				':description' => $description, 
@@ -24,7 +24,7 @@ if(isset($_POST['submit-thread'])){
 	}
 } else {
 
-	$threadResult = query("SELECT Title, DateTime, Description, Username FROM GuestbookThread");
+	$threadResult = query("SELECT Title, CreatedAt, Description, Username FROM GuestbookThread");
 
 	if ($threadResult['err'] == null){
 		$threads = $threadResult['data'];
@@ -48,7 +48,22 @@ if(isset($_POST['submit-thread'])){
 		</div>
 	
 		<?php
-		foreach($threads as $key => $row){
+
+		if (isset($_POST['submit-thread'])){
+			if (!isset($createError)){
+				echo 
+				'<div class="row">
+					<div class="twelve columns">
+						<p><a>Tryck här<a/> för att komma till den nyskapade tråden</p>
+					</div>
+				</div>';
+			} else {
+				echo 'Gick inte att skapa tråd, prova igen';
+			}
+
+			echo '<p><a href="forum.php">Tillbaka</a></p>';			
+		} else {
+			foreach($threads as $key => $row){
 			echo 
 				'<div class="row">
 					<div class="twelve columns">
@@ -56,12 +71,12 @@ if(isset($_POST['submit-thread'])){
 							'<span id="news' . $key . '"></span>' .
 							'<li>' .
 								'<span class="thread-title">' .
-									'<a href="/thread.php?title='.$row['Title'].'&datetime='.$row['DateTime'].'">' .
+									'<a href="/thread.php?title='.$row['Title'].'&createdAt='.$row['CreatedAt'].'">' .
 										$row['Title'] .
 									'</a>' .
 								'</span>' .
 								'<span class="thread-date">' .
-									$row['DateTime'] .
+									$row['CreatedAt'] .
 								'</span>' .
 								'<br>' .
 								'<span class="thread-username">Startad av: ' . $row['Username'] . '</span>' .
@@ -106,6 +121,7 @@ if(isset($_POST['submit-thread'])){
 					</form>
 				</div>
 			</div>';
+		}
 		?>
 	</div>
 </main>
