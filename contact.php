@@ -96,8 +96,6 @@ if (isset($_POST['message-submit'])){
 				 ?>
 			</form>
 
-			
-		
 		<div class="row mapRow">
 			<div class="twelve columns">
 				<iframe 
