@@ -41,7 +41,7 @@ if (isset($_POST['message-submit'])){
 				<h5>Kontaktinfo</h5>
 				<hr>
 				<label>Namn </label>
-				<span>John Doe</span>
+				<span>Perry</span>
 			</div>
 		</div>
 
@@ -62,7 +62,7 @@ if (isset($_POST['message-submit'])){
 		<div class="row contactRow">
 			<div class="twelve columns">
 				<label>Mail </label>
-				<span><a href="mailto:john.doe@mail.com">john.doe@mail.com</a></span>
+				<span><a href="mailto:john.doe@mail.com">batuulis@mail.com</a></span>
 				<hr>
 				<h5>Kontakta oss</h5>
 			</div>
