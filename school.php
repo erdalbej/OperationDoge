@@ -5,7 +5,7 @@ include_once 'aside.php';
 
 <?php
 	date_default_timezone_set('Europe/Stockholm');
-	
+
 	if (isset($_POST['submit-regToCourse'])){
 		if (strlen($_POST['dogName']) > 0 &&
 		 	strlen($_POST['ownerName']) > 0 && 
@@ -15,7 +15,7 @@ include_once 'aside.php';
 		 	strlen($_POST['courseTeacher']) > 0 &&
 		 	strlen($_POST['courseDate']) > 9){
 
-			$result = query('SELECT * FROM DogCourse WHERE CourseName = :courseName AND CourseTeacher = :courseTeacher AND CourseDate = :courseDate',
+			$result = query('SELECT * FROM ComingCourses WHERE CourseName = :courseName AND CourseTeacher = :courseTeacher AND CourseDate = :courseDate',
 				array(
 					':courseName' => $_POST['courseName'],
 					':courseTeacher' => $_POST['courseTeacher'],
@@ -28,16 +28,28 @@ include_once 'aside.php';
 					$data = $result['data'];
 					$foundCourse = $data[0];
 
-					if ($foundCourse['CourseDate'] <= date('Y-m-d')){
-						$submitError = 'Kursen du försöker registerar dig till har utgått';
-					}
+					if ($foundCourse['AgeOfDog'] > $_POST['dogAge']){ $submitError = 'Kursen kräver att din hund är äldre'; }
+					if (!$foundCourse['Gender'] && $foundCourse['Gender'] != $_POST['dogGender']){ $submitError = 'Kursen tar ej emot hundar av angivet kön'; }
+					if (!isset($_POST['reserveSpot']) && $foundCourse['Participants'] >= 10){ $submitError = 'Kursplatserna hann ta slut, gör anmälan igen om du vill registera dig för en reservplats. Annars kan du gå tillbaka och se övriga kurser.'; }
 
-					#if ($foundCourse['AgeOfDog'])
+					if (!isset($submitError)){
+						$insertResult = nonquery('INSERT INTO Participant(DogName, OwnerName, AgeOfDog, Gender, ExtraInfo, DogCourse_CourseName, DogCourse_CourseTeacher, DogCourse_CourseDate) values(:dogName, :ownerName, :ageOfDog, :gender, :extraInfo, :courseName, :courseTeacher, :courseDate)',
+							array(
+								':dogName' => $_POST['dogName'],
+								':ownerName' => $_POST['ownerName'],
+								':ageOfDog' => $_POST['dogAge'],
+								':gender' => $_POST['dogGender'],
+								':extraInfo' => $_POST['extraInfo'],
+								':courseName' => $_POST['courseName'],
+								':courseTeacher' => $_POST['courseTeacher'],
+								':courseDate' => $_POST['courseDate'] 
+							)
+						);
 
-
-
-					if (!isset($submit)){
-
+						if ($insertResult['err'] == null){
+							$submitSuccess = 'Grattis ' . $_POST['ownerName']. '! Du är nu registrerad på kursen ' . $_POST['courseName'] . ' med läraren ' . $_POST['courseTeacher'] . ' den ' . $_POST['courseDate'] . ' med din hund ' . $_POST['dogName'];
+						} else { $submitError = $insertResult['err']; }
+						#else { $submitError = 'Gick inte att registrera er på kursen, prova igen!'; }
 					} 
 				} else { $submitError = 'Den kurs du försöker registerar dig till finns inte!'; }
 			} else { $submitError = 'Problem med att hitta kursen, prova igen!'; }
@@ -55,6 +67,16 @@ include_once 'aside.php';
 		<?php 
 			if (isset($courses)){
 				foreach($courses as $key => $c){
+					$tempGender = $c['Gender'];
+
+					if ($tempGender == 'F'){
+						$tempGender = 'Tik';
+					} else if ($tempGender == 'M'){
+						$tempGender = 'Hane';
+					} else {
+						$tempGender = 'Båda';
+					}
+
 					echo 
 						'<div class="row">' .
 						'<div class="twelve columns">' .
@@ -62,7 +84,7 @@ include_once 'aside.php';
 						'<label>Kursdatum: <span class="label-value course-date">' . $c['CourseDate'] . '</span></label>' .
 						'<label>Platser: <span class="label-value"><span class="numOfParticipants">' . $c['Participants'] . '</span>/10</span></label>' .
 						'<label>Åldersgräns: <span class="label-value">' . $c['AgeOfDog'] . ' år</span></label>' .
-						'<label>Kön: <span class="label-value">' . $c['Gender'] . '</span></label>' .
+						'<label>Kön: <span class="label-value">' . $tempGender . '</span></label>' .
 						'<label>Om kursen: </label>' .
 						'<p>' . $c['CourseText'] . '<br><i>Förkunskaper: </i>' . $c['PriorKnowledge'] .'</p>' .
 						'<span class="reg-course" id="course'. $key .'"><i class="fa fa-pencil-square-o fa-lg"></i><b> Registrera dig på kursen </b></span>' . 
@@ -71,9 +93,17 @@ include_once 'aside.php';
 						'<hr>';
 				}
 			} else {
-				print_r($coursesError);
-				print_r($submitError);
-				print_r($_POST);
+				if (isset($coursesError)){
+					print_r($coursesError);
+				}
+
+				if (isset($submitError)){
+					print_r($submitError);
+				}
+
+				if (isset($submitSuccess)){
+					print_r($submitSuccess);
+				}
 				echo ' <a href="school.php">Gå tillbaks här</a>';
 			}
 		?>
