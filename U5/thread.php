@@ -7,16 +7,42 @@ $allowed_ext = array('jpg');
 $thread_title = $_GET['title'];
 $thread_createdAt = $_GET['createdAt'];
 
+$resultThread = query('SELECT Title, CreatedAt, Description, Username FROM GuestbookThread WHERE Title = :title AND CreatedAt = :createdAt',
+	array(
+		':title' => $thread_title,
+		':createdAt' => $thread_createdAt
+	)
+);
+
+if ($resultThread['err'] == null){
+	if (count($resultThread['data']) == 0){
+		$threadError = "Tråden du söker finns inte";
+	} else {
+		$postsResult = query('SELECT Username, CreatedAt, PostText, PostImagePath, Thread_Title, Thread_CreatedAt FROM Post WHERE Thread_Title = :threadTitle AND Thread_CreatedAt = :threadCreatedAt ORDER BY CreatedAt ASC',
+			array(
+					':threadTitle' => $thread_title,
+					':threadCreatedAt' => $thread_createdAt
+				)
+			);
+
+			if ($postsResult['err'] == null){
+				$posts = $postsResult['data'];
+			} else {
+				$postsError = 'Gick inte att läsa poster för denna tråd';
+			}
+	}
+}
+
 if(isset($_POST['submit_post'])){
-	if(strlen($_POST['post_text']) > 0 &&
+	if(strlen($_POST['post_text'] && !isset($threadError)) > 0 &&
 	   strlen($_POST['username']) > 0){
 
 		$username = $_POST['username'];
 		$post_text = $_POST['post_text'];
 		
-		if(isset($_FILES['post_image'])) {
-			$file = $_FILES['post_image'];
-
+		$file = $_FILES['post_image'];
+		if(isset($file) && $file['size'] > 0) {
+			
 			if (strlen($file['name']) == 0){ $postError = 'Saknar filnamn'; }
 
 			$file_ext = explode('.', $file['name']);
@@ -32,7 +58,15 @@ if(isset($_POST['submit_post'])){
 				$file_destination = 'uploads/' . $file_name_new;
 
 				if(move_uploaded_file($file['tmp_name'], $file_destination)){
-					$result = nonQuery("INSERT INTO Post (`Username`,`CreatedAt`,`PostText`, `PostImagePath`, `Thread_Title`, `Thread_CreatedAt`) VALUES (:username, now(), :post_text, :image, :thread_title, :thread_createdAt)", array(":username" => $username, ":post_text" => $post_text, ":image" => $file_name_new, ":thread_title" => $thread_title, ":thread_createdAt" => $thread_createdAt));
+					$result = nonQuery("INSERT INTO Post (`Username`,`CreatedAt`,`PostText`, `PostImagePath`, `Thread_Title`, `Thread_CreatedAt`) VALUES (:username, now(), :post_text, :image, :thread_title, :thread_createdAt)", 
+						array(
+							":username" => $username, 
+							":post_text" => $post_text, 
+							":image" => $file_name_new, 
+							":thread_title" => $thread_title, 
+							":thread_createdAt" => $thread_createdAt
+						)
+					);
 					
 					if($result["err"] != null){
 						$postError = 'Gick inte att spara ditt inlägg, prova igen!';
@@ -41,7 +75,14 @@ if(isset($_POST['submit_post'])){
 				} else { $postError = 'Gick inte att flytta filen till servern, prova igen'; }
 			}
 		} else {
-			$result = nonQuery("INSERT INTO Post (`Username`,`CreatedAt`,`PostText`, `Thread_Title`, `Thread_CreatedAt`) VALUES (:username,now(),:post_text,:thread_title,:thread_createdAt)", array(":username" => $username, ":post_text" => $post_text, ":thread_title" => $thread_title, ":thread_createdAt" => $thread_createdAt));
+			$result = nonQuery("INSERT INTO Post (`Username`,`CreatedAt`,`PostText`, `Thread_Title`, `Thread_CreatedAt`) VALUES (:username,now(),:post_text,:thread_title,:thread_createdAt)", 
+				array(
+					":username" => $username, 
+					":post_text" => $post_text, 
+					":thread_title" => $thread_title, 
+					":thread_createdAt" => $thread_createdAt
+				)
+			);
 				
 			if($result["err"] != null){ $postError = 'Gick ej att posta inlägg, prova igen!'; }
 		}
@@ -52,29 +93,13 @@ if(isset($_POST['submit_post'])){
 <main class="height-uv">
 	<div class="container">
 		<div class="row">
-			<div class="twelve columns">
-				<?php 
+			<div class="twelve columns">				
+				<?php
+				if (!isset($threadError)){
 					echo '<h1 class="post-threadtitle">'.$thread_title.'</h1>';
 					echo '<h3 class="post-threaddatetime">'.$thread_createdAt.'</h3>';
 					echo '<hr>';
-				?>
-				
-				<?php
 
-					$postsResult = query('SELECT Username, CreatedAt, PostText, PostImagePath, Thread_Title, Thread_CreatedAt FROM Post WHERE Thread_Title = :threadTitle AND Thread_CreatedAt = :threadCreatedAt ORDER BY CreatedAt ASC',
-						array(
-							':threadTitle' => $thread_title,
-							':threadCreatedAt' => $thread_createdAt
-						)
-					);
-
-					if ($postsResult['err'] == null){
-						$posts = $postsResult['data'];
-					} else {
-						$postsError = 'Gick inte att läsa poster för denna tråd';
-					}
-					
-			
 					echo '<ul class="posts">';
 					foreach($posts as $key => $row){
 						echo '<li>';
@@ -137,6 +162,12 @@ if(isset($_POST['submit_post'])){
 					</div>
 					<hr>
 				</form>
+
+				<?php
+				} else {
+					echo $threadError;
+				}
+				?>	
 			</div>
 		</div>
 	</div>

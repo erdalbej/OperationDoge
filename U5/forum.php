@@ -51,7 +51,7 @@ if(isset($_POST['submit-thread'])){
 				</div>';
 			} else { echo $createError; }
 
-			echo '<p><a href="forum.php">Tillbaka</a></p>';			
+			echo '<p><a href="forum.php">Tillbaka</a></p>';		
 		} else {
 			if (count($threads) > 0){
 				foreach($threads as $key => $t){
@@ -62,7 +62,7 @@ if(isset($_POST['submit-thread'])){
 								'<span id="news' . $key . '"></span>' .
 								'<li>' .
 									'<span class="thread-title">' .
-										'<a href="/thread.php?title='.$t['Title'].'&createdAt='.$t['CreatedAt'].'">' .
+										'<a href="thread.php?title='.$t['Title'].'&createdAt='.$t['CreatedAt'].'">' .
 											$t['Title'] .
 										'</a>' .
 									'</span>' .
