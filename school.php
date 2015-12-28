@@ -33,7 +33,7 @@ include_once 'aside.php';
 					if (!isset($_POST['reserveSpot']) && $foundCourse['Participants'] >= 10){ $submitError = 'Kursplatserna hann ta slut, gör anmälan igen om du vill registera dig för en reservplats. Annars kan du gå tillbaka och se övriga kurser.'; }
 
 					if (!isset($submitError)){
-						$insertResult = nonquery('INSERT INTO Participant(DogName, OwnerName, AgeOfDog, Gender, ExtraInfo, DogCourse_CourseName, DogCourse_CourseTeacher, DogCourse_CourseDate) values(:dogName, :ownerName, :ageOfDog, :gender, :extraInfo, :courseName, :courseTeacher, :courseDate)',
+						$insertResult = nonquery('INSERT INTO Participant(DogName, OwnerName, AgeOfDog, Gender, ExtraInfo, DogCourse_CourseName, DogCourse_CourseTeacher, DogCourse_CourseDate, RegisterDate) values(:dogName, :ownerName, :ageOfDog, :gender, :extraInfo, :courseName, :courseTeacher, :courseDate, NOW())',
 							array(
 								':dogName' => $_POST['dogName'],
 								':ownerName' => $_POST['ownerName'],
@@ -101,7 +101,6 @@ include_once 'aside.php';
 
 				if (isset($submitError)){
 					print_r($submitError);
-					print_r($_POST);
 				}
 
 				if (isset($submitSuccess)){

@@ -72,6 +72,7 @@ CREATE TABLE Participant (
     `DogCourse_CourseName` varchar(255) NOT NULL,
     `DogCourse_CourseTeacher` varchar(255) NOT NULL,
     `DogCourse_CourseDate` DATE NOT NULL,
+    `RegisterDate` datetime NOT NULL,
     PRIMARY KEY (`DogName`, `OwnerName`),
     FOREIGN KEY (`DogCourse_CourseName`,`DogCourse_CourseTeacher`,`DogCourse_CourseDate`) REFERENCES DogCourse (`CourseName`, `CourseTeacher`, `CourseDate`) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
