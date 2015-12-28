@@ -12,7 +12,7 @@ if (strlen($courseName) > 0 &&
 	strlen($courseTeacher) > 0 &&
 	strlen($courseDate) > 0){
 
-	$courseResult = query('SELECT * FROM ComingCourses WHERE CourseName = :courseName AND CourseTeacher = :courseTeacher AND CourseDate = :courseDate',
+	$courseResult = query('SELECT CourseName, CourseTeacher, CourseDate, AgeOfDog, Gender, PriorKnowledge, CourseText, Participants FROM ComingCourses WHERE CourseName = :courseName AND CourseTeacher = :courseTeacher AND CourseDate = :courseDate',
 		array (
 			':courseName' => $courseName,
 			':courseTeacher' => $courseTeacher,
@@ -25,7 +25,7 @@ if (strlen($courseName) > 0 &&
 		if (count($courses) > 0){
 			$foundCourse = $courses[0];
 
-			$participantResult = query('SELECT * FROM Participant WHERE DogCourse_CourseName = :courseName AND DogCourse_CourseTeacher = :courseTeacher AND DogCourse_CourseDate = :courseDate ORDER BY RegisterDate ASC', 
+			$participantResult = query('SELECT DogName, OwnerName, Email, AgeOfDog, Gender, ExtraInfo, RegisterDate FROM Participant WHERE DogCourse_CourseName = :courseName AND DogCourse_CourseTeacher = :courseTeacher AND DogCourse_CourseDate = :courseDate ORDER BY RegisterDate ASC', 
 				array(
 					':courseName' => $courseName,
 					':courseTeacher' => $courseTeacher,
