@@ -1,6 +1,7 @@
 <?php
 include_once 'header.php';
 include_once 'aside.php';
+$puppys = $_GET['puppylitter'];
 ?>
 <main>
 	<div class="container">
@@ -19,10 +20,10 @@ include_once 'aside.php';
 					}
 					?>
 				</select>
-					
 			</div>
 			<div class="four columns">
-
+				<label for="">&nbsp;</label>
+				<a id="puppylink" href="">Visa kull</a>
 			</div>
 			<div class="four columns">
 
@@ -30,39 +31,39 @@ include_once 'aside.php';
 		</div>
 		<div class="row">
 			<div class="twelve columns">
-			</div>
-			<?php
-			$divOne = query("SELECT DogName, Gender, Price, PuppyImagePath, Available, BirthDate, PuppyLitter_LitterTitle FROM Puppy WHERE PuppyLitter_LitterTitle = '$puppylitter' ORDER BY PuppyLitter_LitterTitle");
-			$divData = $divOne['data'];
-			foreach($divData as $key => $row){
+				<?php
+				$divOne = query("SELECT DogName, Gender, Price, PuppyImagePath, Available, BirthDate, PuppyLitter_LitterTitle FROM Puppy WHERE PuppyLitter_LitterTitle = '$puppys' ORDER BY PuppyLitter_LitterTitle");
+				$divData = $divOne['data'];
+				foreach($divData as $key => $row){
 
-				if($row['NewsImagePath'] === NULL){
-					$image = "noimage.jpg";
-				}else{
-					$image = $row['PuppyImagePath'];
-				}
-				echo '<span id="dogs' . $key . '"></span>';
-				echo '<h2>';
-				echo $row['DogName'];
-				echo '</h2>';
-				echo '<img class="dog-image floatleft" src="uploads/'.$image.'" width="100" height="100" alt="">';
-				echo '<p class="details">';
-				echo '<b>Kull: </b>' . $row['PuppyLitter_LitterTitle'] . '<br>';
-				echo '<b>Födelsedatum: </b>' . $row['BirthDate'] . '<br>';
-				echo '<b>Kön: </b>' . $row['Gender'] . '<br>';
-				echo '<b>Pris: </b>' . $row['Price'] . ' kr<br>';
-				echo '<b>Tillgänglig: </b>';
-				if($row['Available'] === "1"){
-					echo '<span class="dog-available">Ja</span><br>'; 
-				}
-				else {
-					echo '<span class="dog-not-available">Nej</span><br>'; 
-				}
-				echo '</p>';
-				echo '<br/>';
-				echo '<br class="clearleft">';
-			}			
-			?>	
+					if($row['NewsImagePath'] === NULL){
+						$image = "noimage.jpg";
+					}else{
+						$image = $row['PuppyImagePath'];
+					}
+					echo '<span id="dogs' . $key . '"></span>';
+					echo '<h2>';
+					echo $row['DogName'];
+					echo '</h2>';
+					echo '<img class="dog-image floatleft" src="uploads/'.$image.'" width="100" height="100" alt="">';
+					echo '<p class="details">';
+					echo '<b>Kull: </b>' . $row['PuppyLitter_LitterTitle'] . '<br>';
+					echo '<b>Födelsedatum: </b>' . $row['BirthDate'] . '<br>';
+					echo '<b>Kön: </b>' . $row['Gender'] . '<br>';
+					echo '<b>Pris: </b>' . $row['Price'] . ' kr<br>';
+					echo '<b>Tillgänglig: </b>';
+					if($row['Available'] === "1"){
+						echo '<span class="dog-available">Ja</span><br>'; 
+					}
+					else {
+						echo '<span class="dog-not-available">Nej</span><br>'; 
+					}
+					echo '</p>';
+					echo '<br/>';
+					echo '<br class="clearleft">';
+				}			
+				?>
+			</div>
 		</div>
 	</div>
 </main>
