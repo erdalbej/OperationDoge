@@ -90,6 +90,7 @@ CREATE TABLE Puppy (
     `Gender` varchar(255) NOT NULL,
     `Price` varchar(255) NOT NULL,
     `Available` BOOLEAN,
+    `BirthDate` VARCHAR(45),
     `PuppyLitter_LitterTitle` varchar(255) NOT NULL,
     PRIMARY KEY (`DogName`),
     FOREIGN KEY (`PuppyLitter_LitterTitle`) REFERENCES PuppyLitter (`LitterTitle`) ON DELETE CASCADE
