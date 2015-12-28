@@ -8,11 +8,17 @@ if(isset($_POST['submit-thread'])){
 		$title = $_POST['title'];
 		$description = $_POST['description'];
 		$username = $_POST['username'];
-		$result = nonQuery("INSERT INTO GuestbookThread (`Title`,`DateTime`,`Description`,`Username`) VALUES (:title,now(),:description,:username)", array(":title" => $title, ":description" => $description, ":username" => $username ));
+		$result = nonQuery("INSERT INTO GuestbookThread (`Title`,`DateTime`,`Description`,`Username`) VALUES (:title, NOW(), :description, :username)", 
+			array(
+				':title' => $title, 
+				':description' => $description, 
+				':username' => $username 
+			)
+		);
 
-		if($result["err"] === null){
-
-		}
+		if($result["err"] != null){
+			$threadError = 'Det gick inte att skapa tråden, tråden kan redan existera.';
+		} 
 	}
 }
 
@@ -53,29 +59,41 @@ if(isset($_POST['submit-thread'])){
 		<div class="twelve columns">
 			<ul class="threads">
 				<?php
-				$divOne = query("SELECT Title, DateTime, Description, Username FROM GuestbookThread");
-				$divData = $divOne['data'];
-				foreach($divData as $key => $row){
-					echo '<span id="news' . $key . '"></span>';
-					echo '<li>';
-					echo '<span class="thread-title">';
-					echo '<a href="/operationdoge/thread.php?title='.$row['Title'].'&datetime='.$row['DateTime'].'">';
-					echo $row['Title'];
-					echo '</a>';
-					echo '</span>';
-					echo '<span class="thread-date">';
-					echo $row['DateTime'];
-					echo '</span>';
-					echo '<br>';
-					echo '<span class="thread-username">';
-					echo '<b>Startad av:</b> ' . $row['Username'];
-					echo '</span>';
-					echo '<br>';
-					echo '<span class="thread-description">';
-					echo $row['Description'];
-					echo '</span>';
-					echo '</li>';
-				}			
+					if (isset($_POST['submit-thread']) && isset($threadError)){
+
+					} else {
+						$threadResult = query("SELECT Title, DateTime, Description, Username FROM GuestbookThread");
+
+						if ($threadResult['err'] == null){
+							$threads = $threadResult['data'];
+
+							if (count($threads) <= 0){
+								$threadError = 'Det finns inga trådar för tillfället';
+							}
+						} else {
+							$threadError = 'Det gick inte att läsa in forumstrådarna, prova igen!';
+						}
+
+						foreach($threads as $key => $row){
+							echo '<span id="news' . $key . '"></span>';
+							echo '<li>';
+							echo '<span class="thread-title">';
+							echo '<a href="/thread.php?title='.$row['Title'].'&datetime='.$row['DateTime'].'">';
+							echo $row['Title'];
+							echo '</a>';
+							echo '</span>';
+							echo '<span class="thread-date">';
+							echo $row['DateTime'];
+							echo '</span>';
+							echo '<br>';
+							echo '<span class="thread-username">Startad av: ' . $row['Username'] . '</span>';
+							echo '<br>';
+							echo '<span class="thread-description">';
+							echo $row['Description'];
+							echo '</span>';
+							echo '</li>';
+						}	
+					}						
 				?>
 			</ul>
 		</div>

@@ -24,12 +24,8 @@ if (isset($_POST['message-submit'])){
 			
 		if ($sent){
 			$sendMessageSuccess = 'Meddelande skickat!';
-		} else {
-			$sendMessageError = 'Gick inte att skicka meddelandet, prova igen.';
-		}
-	} else {
-		$sendMessageError = 'Saknar värden för att skicka mail.';
-	}
+		} else { $sendMessageError = 'Gick inte att skicka meddelandet, prova igen.'; }
+	} else { $sendMessageError = 'Saknar värden för att skicka mail.'; }
 }
 ?>
 
