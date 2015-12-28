@@ -8,35 +8,28 @@ if(isset($_POST['submit-thread'])){
 		$title = $_POST['title'];
 		$description = $_POST['description'];
 		$username = $_POST['username'];
-		$result = nonQuery("INSERT INTO GuestbookThread (Title, CreatedAt, Description, Username) VALUES (:title, NOW(), :description, :username)", 
+		$now = query('SELECT NOW() as now');
+		$now = $now['data'];
+		$now = $now[0];
+
+		$result = nonQuery("INSERT INTO GuestbookThread (Title, CreatedAt, Description, Username) VALUES (:title, :createdAt, :description, :username)", 
 			array(
 				':title' => $title, 
 				':description' => $description, 
-				':username' => $username 
+				':username' => $username,
+				':createdAt' => $now['now']
 			)
 		);
 
-		if($result["err"] != null){
-			$createError = 'Det gick inte att skapa tråden, prova igen!';
-		} 
-	} else {
-		$createError = 'Saknar värden';
-	}
+		if($result["err"] != null){ $createError = 'Det gick inte att skapa tråden, prova igen!'; } 
+	} else { $createError = 'Saknar värden'; }
 } else {
-
-	$threadResult = query("SELECT Title, CreatedAt, Description, Username FROM GuestbookThread");
+	$threadResult = query("SELECT Title, CreatedAt, Description, Username FROM GuestbookThread ORDER BY CreatedAt DESC");
 
 	if ($threadResult['err'] == null){
 		$threads = $threadResult['data'];
-
-		if (count($threads) <= 0){
-			$threadError = 'Det finns inga trådar för tillfället';
-		}
-	} else {
-		$threadError = 'Det gick inte att läsa in forumstrådarna, prova igen!';
-	}
+	} else { $threadError = 'Det gick inte att läsa in forumstrådarna, prova igen!'; }
 }
-
 ?>
 <main>
 	<div class="container">
@@ -48,79 +41,84 @@ if(isset($_POST['submit-thread'])){
 		</div>
 	
 		<?php
-
 		if (isset($_POST['submit-thread'])){
 			if (!isset($createError)){
 				echo 
 				'<div class="row">
 					<div class="twelve columns">
-						<p><a>Tryck här<a/> för att komma till den nyskapade tråden</p>
+						<p>Tråden är skapad! <a href="thread.php?title=' . $title . '&createdAt=' . $now['now'] . '">Tryck här</a> för att komma till den nyskapade tråden</p>
 					</div>
 				</div>';
-			} else {
-				echo 'Gick inte att skapa tråd, prova igen';
-			}
+			} else { echo 'Gick inte att skapa tråd, prova igen'; }
 
 			echo '<p><a href="forum.php">Tillbaka</a></p>';			
 		} else {
-			foreach($threads as $key => $row){
+			if (count($threads) > 0){
+				foreach($threads as $key => $t){
+				echo 
+					'<div class="row">
+						<div class="twelve columns">
+							<ul class="threads">' . 
+								'<span id="news' . $key . '"></span>' .
+								'<li>' .
+									'<span class="thread-title">' .
+										'<a href="/thread.php?title='.$t['Title'].'&createdAt='.$t['CreatedAt'].'">' .
+											$t['Title'] .
+										'</a>' .
+									'</span>' .
+									'<span class="thread-date">' .
+										$t['CreatedAt'] .
+									'</span>' .
+									'<br>' .
+									'<span class="thread-username"><b>Startad av: </b>' . $t['Username'] . '</span>' .
+									'<br>' .
+									'<span class="thread-description">' .
+										$t['Description'] .
+									'</span>
+								</li> 
+							</ul>
+						</div>
+					</div>';
+				}	
+			} else {
+				echo
+					'<div class="row">
+						<div class="twelve columns">
+							<p>Inga trådar är ännu skapade</p>
+						</div>
+					</div>';
+			}
+
 			echo 
-				'<div class="row">
+				'<hr>
+				<div class="row">
 					<div class="twelve columns">
-						<ul class="threads">' . 
-							'<span id="news' . $key . '"></span>' .
-							'<li>' .
-								'<span class="thread-title">' .
-									'<a href="/thread.php?title='.$row['Title'].'&createdAt='.$row['CreatedAt'].'">' .
-										$row['Title'] .
-									'</a>' .
-								'</span>' .
-								'<span class="thread-date">' .
-									$row['CreatedAt'] .
-								'</span>' .
-								'<br>' .
-								'<span class="thread-username">Startad av: ' . $row['Username'] . '</span>' .
-								'<br>' .
-								'<span class="thread-description">' .
-									$row['Description'] .
-								'</span>' .
-							'</li>' .
-						'</ul>
+						<form method="POST" action="" class="thread-form">
+							<div class="row">
+								<div class="six columns">
+									<label required for="title">Trådtitel:</label>
+									<input required type="text" name="title">
+								</div>
+								<div class="six columns">
+									<label for="username">Användarnamn:</label>
+									<input type="text" name="username">
+								</div>
+							</div>
+							<div class="row">
+								<div class="twelve columns">
+									<label for="description">Beskrivning:</label>
+									<textarea name="description" class="u-full-width" id="description"></textarea>
+								</div>
+							</div>
+							<div class="row">
+								<div class="twelve columns">
+									<label for="submit-thread">&nbsp;</label>
+									<input type="submit" name="submit-thread" class="btn-primary" value="Skapa en ny tråd">
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>';
-		}
-	
-		echo 
-			'<div class="row">
-				<div class="twelve columns">
-					<form method="POST" action="" class="thread-form">
-						<div class="row">
-							<div class="six columns">
-								<label required for="title">Trådtitel:</label>
-								<input type="text" name="title">
-							</div>
-							<div class="six columns">
-								<label for="username">Användarnamn:</label>
-								<input type="text" name="username">
-							</div>
-						</div>
-						<div class="row">
-							<div class="twelve columns">
-								<label for="description">Beskrivning:</label>
-								<textarea name="description" class="u-full-width" id="description"></textarea>
-							</div>
-						</div>
-						<div class="row">
-							<div class="four columns">
-								<label for="submit-thread">&nbsp;</label>
-								<input type="submit" name="submit-thread" value="Skapa en ny tråd">
-							</div>
-							<div class="eight columns">
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>';
 		}
 		?>
 	</div>
