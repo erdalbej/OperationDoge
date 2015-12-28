@@ -71,17 +71,17 @@ if (isset($_POST['message-submit'])){
 			  <div class="row">
 			    <div class="six columns">
 			      <label for="email">E-post *</label>
-			      <input class="u-full-width" type="email" placeholder="din-epost@mailbox.com" id="email" name="email">
+			      <input required class="u-full-width" type="email" placeholder="din-epost@mailbox.com" id="email" name="email">
 			    </div>
 			    <div class="six columns">
 			      <label for="description">Ämne *</label>
-			      <input class="u-full-width" type="text" placeholder="Ämne" id="description" maxlength="255" name="description">
+			      <input required class="u-full-width" type="text" placeholder="Ämne" id="description" maxlength="255" name="description">
 			    </div>
 			  </div>
 			  <label for="message">Meddelande *</label>
 			  <textarea class="u-full-width" placeholder="Skriv ditt meddelande här... " id="message" maxlength="255" name="message"></textarea>
 				<label>
-				    <input type="checkbox" name="sendToSender" value="Yes" checked>
+				    <input required type="checkbox" name="sendToSender" value="Yes" checked>
 				    <span class="label-body">Skicka kopia till mig</span>
 			 	</label>
 			  <input class="button-primary" type="submit" value="Skicka" name="message-submit">
