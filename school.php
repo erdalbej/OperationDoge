@@ -145,21 +145,21 @@ include_once 'aside.php';
 		    <div class="row">
 		      <div class="six columns">
 		        <label for="dogName">Hundnamn</label>
-		        <input class="u-full-width" type="text" placeholder="Buster" id="dogName" name="dogName">
+		        <input required class="u-full-width" type="text" placeholder="Buster" id="dogName" name="dogName">
 		      </div>
 		      <div class="six columns">
 		        <label for="ownerName">Ägarenamn</label>
-		        <input class="u-full-width" type="text" placeholder="Anna Svensson" id="ownerName" name="ownerName">
+		        <input required class="u-full-width" type="text" placeholder="Anna Svensson" id="ownerName" name="ownerName">
 		      </div>
 		    </div>
 		    <div class="row">
 		      <div class="six columns">
 		        <label for="dogAge">Hundålder</label>
-		        <input class="u-full-width" type="number" min="0" step="1" value="0" id="dogAge" name="dogAge">
+		        <input required class="u-full-width" type="number" min="0" step="1" value="0" id="dogAge" name="dogAge">
 		      </div>
 		      <div class="six columns">
 		        <label for="dogGender">Hundkön</label>
-		        <select class="u-full-width" id="dogGender" name="dogGender">
+		        <select required class="u-full-width" id="dogGender" name="dogGender">
 		          <option value="M">Hane</option>
 		          <option value="F">Tik</option>
 		        </select>
@@ -172,9 +172,9 @@ include_once 'aside.php';
 		      <span hidden class="label-body" id="reserve-spot-label" style="color: red;"><b>Reservplats</b></span>
 		    </label>
 		    <input class="button-primary" type="submit" value="Skicka anmälan" name="submit-regToCourse">
-		    <input style="display:none" type="text" name="courseName" id="formCourseName">
-		    <input style="display:none" type="text" name="courseTeacher" id="formCourseTeacher">
-		    <input style="display:none" type="text" name="courseDate" id="formCourseDate">
+		    <input required style="display:none" type="text" name="courseName" id="formCourseName">
+		    <input required style="display:none" type="text" name="courseTeacher" id="formCourseTeacher">
+		    <input required style="display:none" type="text" name="courseDate" id="formCourseDate">
 		    <form>
 	</div>		
 </main>
