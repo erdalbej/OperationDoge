@@ -99,20 +99,41 @@ aside img {
 aside a {
 	color: #478dc4;
 }
-.course-name {
+.aside-title {
+	font-size: 18px;
+	margin-left: 0;
+	text-transform: uppercase;
+}
+.newsfeed-img {
+	width: 150px !important;
+	height: 150px !important;
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+.news-title {
 	font-size: 16px;
+	background: #304953;
+	padding: 5px;
+	margin-top: 10px;
 }
-.course-desc {
-	max-height: 70px;
-	overflow: hidden;
-	color: #4c7484;
-}
-.course-more {
+.news-more {
 	position: relative;
 	top: -10px;
 	padding: 10px;
 	border-radius: 4px;
 	background: #26ade4;
+	color: #fff;
+	margin: 0 auto;
+	display: block;
+	max-width: 55px;
+	text-align: center;
+	text-decoration: none;
+}
+.news-more:hover {
+	color: #fff;
+}
+.newsfeed-sep {
+	border-color: #304953;
 }
 time {
 	background: #111a1d;
