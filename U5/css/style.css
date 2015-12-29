@@ -109,9 +109,6 @@ nav ul {
 	padding-left: 0;
 	list-style-type: none;
 }
-.sidebar-item {
-	margin-bottom: 25px;
-}
 aside {
 	float: right;
 	padding: 15px;
@@ -175,15 +172,6 @@ time {
 	font-size: 14px;
 	text-align: center;
 	font-style: italic;
-}
-time a:link {
-	color: #ffffcc;
-}
-time a:visited {
-	color: #f2eab7;
-}
-time a:hover {
-	color: #330000;
 }
 .textarea {
 	text-align: left;
@@ -312,7 +300,6 @@ td {
  cursor: pointer;
 }
 
-/* Login */
 section#login {
 	background: #fff;
 	max-width: 500px;
@@ -326,8 +313,6 @@ section#login input {
 	width: 100% !important;
 }
 
-
-/* Gallery */
 section#gallery {
 	margin: 0 auto;
 	max-width: 750px;
@@ -335,7 +320,6 @@ section#gallery {
 section#gallery a {
 }
 
-/* News */
 .news-form {
 	margin: 0 auto;
 }
@@ -344,7 +328,6 @@ section#gallery a {
 	width: 100%;
 }
 
-/* Thread */
 .thread-form input {
 	width: 100%;
 }
@@ -368,7 +351,6 @@ section#gallery a {
 .post-threadtitle {
 	display: inline-block;
 }
-/* Post */
 .posts {
 	margin-top: 25px;
 }
@@ -392,7 +374,6 @@ section#gallery a {
 .posts img {
 	
 }
-/* Gallery */
 .gallery-img {
 	margin: 25px;
 }
@@ -459,17 +440,17 @@ section#gallery a {
 	aside {
 		display: none;
 	}
-	.news-image {
+	.news-image, .dog-image, .gen-pic {
 		display: none;
 	}
-	.dog-image {
-		display: none;
+	.dog-details {
+		padding-bottom: 20px;
 	}
-	#lightbox-container-image-box {
-		max-width: 100% !important; 
+	#mydogslink, #puppylink {
+		margin-bottom: 15px;
 	}
-	#jquery-lightbox a img {
-		max-width: 100% !important;
+	.gen-heading {
+		margin-top: 20px;
 	}
 	nav ul li a {
 		display: block;

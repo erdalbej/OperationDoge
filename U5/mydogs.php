@@ -54,7 +54,7 @@ if(isset($_GET['dog'])){
 				echo $dog['Name'];
 				echo '</h2>';
 				echo '<img class="dog-image floatleft" src="uploads/'.$image.'" width="100" height="100" alt="">';
-				echo '<p class="details">';
+				echo '<p class="details dog-details">';
 				echo $dog['Description'];
 				echo '</p>';
 				echo '</div>';
@@ -85,7 +85,7 @@ if(isset($_GET['dog'])){
 
 				echo '<div class="row">';
 				echo '<div class="twelve columns">';
-				echo '<h1>Stamtavla</h1>';
+				echo '<h1 class="gen-heading">Stamtavla</h1>';
 				echo '<img class="gen-pic" src="uploads/'.$dog['GenImagePath'].'" alt="">';
 				echo '</div>';
 				echo '</div>';
