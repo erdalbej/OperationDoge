@@ -129,6 +129,27 @@ if (isset($_POST['submit-new-dog'])){
 		$submitNewDogError = 'Saknar värden';
 	}
 } else if (isset($_POST['submit-update-dog'])){
+	if (strlen($_POST['dogName']) > 0 &&
+		strlen($_POST['officialName']) > 0) {
+
+		$findDogResult = query('SELECT * FROM MyDog WHERE Name = :dogName AND OfficialName = :officialName',
+			array(
+				':dogName' => $_POST['dogName'],
+				':officialName' => $_POST['officialName']
+			)
+		);
+
+		if ($findDogResult['err'] == null){
+			if (count($findDogResult['data']) == 0){
+				$submitUpdateDogError = 'Hunden du försöker ta bort finns ej.';
+			} 
+		}  else { $submitUpdateDogError = 'Gick inte att bekräfta hunden, prova igen.'; }
+
+		if (!isset($submitUpdateDogError)){
+
+		} 
+		else { $submitUpdateDogError = 'Gick inte att bekräfta att hund finns, prova igen!'; }
+	} else { $submitUpdateDogError = 'Saknar värden för att ta bort hund'; }
 
 } else if (isset($_POST['submit-delete-dog'])) {
 	if (strlen($_POST['dogName']) > 0 &&
@@ -184,6 +205,7 @@ if ($myDogsResult['err'] == null){
 		<hr>
 		<div id="returnMsg" style="margin:20px 0 50px 0;">
 			<?php
+				print_r($_POST);
 				if (isset($submitNewDogError)){
 					echo $submitNewDogError;
 				}
@@ -287,9 +309,6 @@ if ($myDogsResult['err'] == null){
 							</thead>
 							<tbody id="newsTable">
 								<?php
-
-								#print_r($_POST);
-								print_r($insertResult['err']);
 									if (!isset($myDogsError)){
 										if (count($myDogs) > 0){
 											foreach($myDogs as $key => $d){
@@ -343,7 +362,7 @@ if ($myDogsResult['err'] == null){
 		</div>
 		<br/>
 
-		<form hidden enctype="multipart/form-data" action="" method="post">
+		<form hidden enctype="multipart/form-data" action="" method="post" id="update-delete-form">
 			<div class="row">
 				<div class="twelve columns">
 					<h3>Redigera Hund</h3>
@@ -352,31 +371,33 @@ if ($myDogsResult['err'] == null){
 			<div class="row">	
 				<div class="six columns">
 					<label for="title">Hundnamn</label>
-					<input disabled maxlength="255" type="text" name="title" class="u-full-width" id="edit-dog-name">
+					<span maxlength="255" type="text" class="u-full-width" id="text-dog-name"></span>
+					<input hidden maxlength="255" type="text" name="dogName" class="u-full-width" id="edit-dog-name">
 				</div>
 				<div class="six columns">
 					<label for="title">Officiellt namn</label>
-					<input disabled maxlength="255" type="text" name="title" class="u-full-width" id="edit-official-name">
+					<span maxlength="255" type="text" class="u-full-width" id="text-official-name"></span>
+					<input hidden maxlength="255" type="text" name="officialName" class="u-full-width" id="edit-official-name">
 				</div>
 			</div>
 			<div class="row">
 				<div class="six columns">
 					<label for="title">Färg</label>
-					<input maxlength="255" type="text" name="title" class="u-full-width" id="edit-color">
+					<input maxlength="255" type="text" name="color" class="u-full-width" id="edit-color">
 				</div>
 				<div class="six columns">
 					<label for="title">Uppfödare</label>
-					<input maxlength="255" type="text" name="title" class="u-full-width" id="edit-breader">
+					<input maxlength="255" type="text" name="breader" class="u-full-width" id="edit-breader">
 				</div>
 			</div>
 			<div class="row">
 				<div class="six columns">
 					<label for="title">Vikt i kg</label>
-					<input min="0" step="0.1" value="0" type="number" name="title" class="u-full-width" id="edit-weight">
+					<input min="0" step="0.01" value="0" type="number" name="weight" class="u-full-width" id="edit-weight">
 				</div>
 				<div class="six columns">
 					<label for="title">Mankhöjd i meter</label>
-					<input min="0" step="0.1" type="number" name="title" class="u-full-width" id="edit-height">
+					<input min="0" step="0.01" type="number" name="height" class="u-full-width" id="edit-height">
 				</div>
 			</div>
 			<div class="row">
@@ -392,11 +413,11 @@ if ($myDogsResult['err'] == null){
 			<div class="row">
 				<div class="six columns">
 					<label for="image-path">Bild på hund:</label>
-					<input type="file" name="n" accept=".jpg" id="edit-img-dog">	
+					<input type="file" name="dogImg" accept=".jpg" id="edit-img-dog">	
 				</div>
 				<div class="six columns">
 					<label for="image-path">Stamtavla:</label>
-					<input type="file" name="news-image" accept=".jpg" id="edit-img-gen-table">	
+					<input type="file" name="genImg" accept=".jpg" id="edit-img-gen-table">	
 				</div>
 			</div>
 			<label for="news-text">Beskrivning:</label>
@@ -406,7 +427,7 @@ if ($myDogsResult['err'] == null){
 					<input value="Uppdatera" name="news-update" type="submit">		
 				</div>
 				<div class="six columns">
-					<input value="Radera" name="news-delete" type="submit">	
+					<input value="Radera" name="submit-delete-dog" type="submit">	
 				</div>
 			</div>
 		</form>

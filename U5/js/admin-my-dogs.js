@@ -20,6 +20,8 @@ $(document).ready(function(){
 
 		$("#edit-dog-name").val(data.dogName);
 		$("#edit-official-name").val(data.officialName);
+		$("#text-dog-name").html(data.dogName);
+		$("#text-official-name").html(data.officialName);
 		$("#edit-color").val(data.color);
 		$("#edit-breader").val(data.breader);
 		$("#edit-weight").val(data.weight);
@@ -31,7 +33,7 @@ $(document).ready(function(){
 		$("#edit-description").val(data.description);
 		
 		$('html, body').animate({ scrollTop: $(document).height() }, 500);
-		$('form').show(300);	
+		$('#update-delete-form').show(300);	
 	});
 	//<i class="fa fa-minus"></i>
 	$('#add-dog-header').click(function(){
