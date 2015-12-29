@@ -189,6 +189,9 @@ main {
 	overflow: auto;
 	height: 100%;
 }
+.hide-td {
+	display: none;
+}
 .height-uv {
 	min-height: 1300px;
 }
