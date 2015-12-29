@@ -5,7 +5,7 @@ include_once 'aside.php';
 <main class="height-uv">
 
 <?php
-$result = query("SELECT Title, CreatedAt, NewsText, NewsImagePath FROM News ORDER BY CreatedAt DESC");
+$result = query("SELECT Title, CreatedAt, NewsText, NewsImagePath FROM News ORDER BY CreatedAt DESC LIMIT 10");
 $newsData = $result['data'];
 foreach($newsData as $key => $n){
 
