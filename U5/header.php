@@ -25,7 +25,7 @@
     <body>
         <div id="wrapper">
             <header>
-                <h1>Operation Doge</h1>
+                <h1>Kennel Batuulis - <span>Rhodesian Ridgeback</span></h1>
             </header>
             <nav>
                 <ul>

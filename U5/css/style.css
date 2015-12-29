@@ -39,8 +39,6 @@ ul li {
 }
 header {
 	background: #26ade4;
-	background-image: url(#);
-	background-repeat: no-repeat;
 	color: #000;
 	text-align: left;
 	margin: 0;
@@ -53,6 +51,11 @@ header h1 {
 	top: 35px;
 	right: 35px;
 	color: #fff;
+}
+header h1 span {
+	color: #74d7ff;
+	font-size: 18px;
+	font-style: italic;
 }
 nav, main, aside {
 	min-height: 500px;
