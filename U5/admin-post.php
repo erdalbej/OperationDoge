@@ -11,14 +11,11 @@ if(isset($_GET['title']) && isset($_GET['createdAt'])){
 
 //Post update
 if(isset($_POST['post-update'])){
-
-	$returnMsgPostUpdate = "Kunde inte uppdatera post.";
-
 	
-	if(strlen($_POST['username']) > 0 && strlen($_POST['datetime']) > 0){
+	if(strlen($_POST['username']) > 0 && strlen($_POST['createdAt']) > 0){
 
 		$username = $_POST['username'];
-		$datetime = $_POST['datetime'];
+		$createdAt = $_POST['createdAt'];
 		$post_text = $_POST['postText'];
 
 
@@ -49,7 +46,7 @@ if(isset($_POST['post-update'])){
 						if(move_uploaded_file($file_tmp, $file_destination)){
 
 							//Deletes old picture
-							$result = query("SELECT `PostImagePath` FROM Post WHERE `Username` = :username AND `DateTime` = :datetime", array(":username" => $username, ":datetime" => $datetime));
+							$result = query("SELECT `PostImagePath` FROM Post WHERE `Username` = :username AND `CreatedAt` = :createdAt", array(":username" => $username, ":createdAt" => $createdAt));
 							$resData = $result["data"];
 
 							if($resData[0]["PostImagePath"] !== NULL){
@@ -59,7 +56,7 @@ if(isset($_POST['post-update'])){
 						    	}
 							}
 
-							$result = nonQuery("UPDATE Post SET `PostText` = :post_text, `PostImagePath` = :image_path WHERE `Username` = :username AND `DateTime` = :datetime", array(":username" => $username, ":datetime" => $datetime, ":post_text" => $post_text, ":image_path" => $file_name_new));
+							$result = nonQuery("UPDATE Post SET `PostText` = :post_text, `PostImagePath` = :image_path WHERE `Username` = :username AND `CreatedAt` = :createdAt", array(":username" => $username, ":createdAt" => $createdAt, ":post_text" => $post_text, ":image_path" => $file_name_new));
 							
 							if($result["err"] === null){
 								$returnMsgPostUpdate = "Post uppdaterad"; 
@@ -71,12 +68,12 @@ if(isset($_POST['post-update'])){
 				}
 			}else{
 	
-				$result = nonQuery("UPDATE Post SET `PostText` = :post_text WHERE `Username` = :username AND `DateTime` = :datetime", array(":username" => $username, ":datetime" => $datetime, ":post_text" => $post_text));
+				$result = nonQuery("UPDATE Post SET `PostText` = :post_text WHERE `Username` = :username AND `CreatedAt` = :createdAt", array(":username" => $username, ":createdAt" => $createdAt, ":post_text" => $post_text));
 				
 				if($result["err"] === null){
-					$returnMsgPostUpdate = "Post uppdaterad"; 
+					$post_success = "Post uppdaterad"; 
 				}else{
-					$returnMsgPostUpdate = "Kunde inte uppdatera post.";
+					$post_error = "Kunde inte uppdatera post.";
 				}
 			}
 		}
@@ -87,15 +84,13 @@ if(isset($_POST['post-update'])){
 //Post delete
 if(isset($_POST['post-delete'])){
 
-	$returnMsgPostDelete = "Kunde inte tabort post.";
-
-	if(strlen($_POST['username']) > 0 && strlen($_POST['datetime']) > 0){
+	if(strlen($_POST['username']) > 0 && strlen($_POST['createdAt']) > 0){
 
 		$username = $_POST['username'];
-		$datetime = $_POST['datetime'];
+		$createdAt = $_POST['createdAt'];
 
 		//Deletes old picture
-		$result = query("SELECT `PostImagePath` FROM Post WHERE `Username` = :username AND `DateTime` = :datetime", array(":username" => $username, ":datetime" => $datetime));
+		$result = query("SELECT `PostImagePath` FROM Post WHERE `Username` = :username AND `CreatedAt` = :createdAt", array(":username" => $username, ":createdAt" => $createdAt));
 		$resData = $result["data"];
 
 		if($resData[0]["PostImagePath"] !== NULL){
@@ -105,15 +100,15 @@ if(isset($_POST['post-delete'])){
 	    	}
 		}
 
-		$result = nonQuery("DELETE FROM Post WHERE `Username` = :username AND `DateTime` = :datetime", array(":username" => $username, ":datetime" => $datetime));
+		$result = nonQuery("DELETE FROM Post WHERE `Username` = :username AND `CreatedAt` = :createdAt", array(":username" => $username, ":createdAt" => $createdAt));
 		$result["data"];
 
 		if($result["err"] === NULL){
 
-			$returnMsgPostDelete = "Tråd raderad."; 
+			$post_success = "Tråd raderad."; 
 
 		}else{
-			$returnMsgPostDelete = "Kunde inte tabort tråd.";
+			$post_error = "Kunde inte tabort tråd, prova igen.";
 		}
 	}
 }
@@ -121,6 +116,18 @@ if(isset($_POST['post-delete'])){
 
 <main>
 	<div class="container">
+	<div class="row">
+			<div class="twelve columns">
+				<?php
+					if(isset($post_success)){
+						echo '<span id="returnMsg" class="success-message">' . $post_success . '</span>';
+					}
+					if(isset($post_error)){
+						echo '<span id="returnMsg" class="error-message">' . $post_error . '</span>';
+					}
+				?>
+			</div>
+		</div>
 	<div class="row">
 		<div class="twelve columns">
 			<h5>Gästbok - Redigera poster</h5>
@@ -152,10 +159,10 @@ if(isset($_POST['post-delete'])){
 						<tbody>
 							<?php
 
-							$divOne = query("SELECT Username, CreatedAt, PostText, PostImagePath FROM Post WHERE Thread_Title = :thread_title AND Thread_CreatedAt = :thread_datetime", array(":thread_title" => $thread_title, ":thread_datetime" => $thread_createdAt));
+							$divOne = query("SELECT Username, CreatedAt, PostText, PostImagePath FROM Post WHERE Thread_Title = :thread_title AND Thread_CreatedAt = :thread_createdAt", array(":thread_title" => $thread_title, ":thread_createdAt" => $thread_createdAt));
 
 							if($divOne["err"] != null){
-								$load_error = "Kunde inte ladda trådar, prova att ladda om sidan.";
+								$load_error = "Kunde inte ladda inlägg, prova att ladda om sidan.";
 							}else{
 								$divData = $divOne['data'];
 
@@ -166,7 +173,7 @@ if(isset($_POST['post-delete'])){
 										echo '<td class="usernameTd">';
 										echo $row['Username'];
 										echo '</td>';
-										echo '<td class="dateTimeTd">';
+										echo '<td>';
 										echo $row["CreatedAt"];
 										echo '</td>';
 										echo '<td class="postTextTd" style = "display:none">';
@@ -181,23 +188,23 @@ if(isset($_POST['post-delete'])){
 										echo '</tr>';
 										
 									}
+								}else{
+									$load_error = "Det finns inga inlägg i denna tråd.";
 								}
 							}
 							?>				
 						</tbody>
 					</table>
+					<?php
+
+					if(isset($load_error)){
+						echo $load_error;
+					}
+
+					?>
+					
 					<br/>
 				</div>
-			</div>
-			<div id="returnMsg" style="margin-bottom:20px;">
-			<?php
-				if(isset($returnMsgPostUpdate)){
-					echo $returnMsgPostUpdate;
-				}
-				if(isset($returnMsgPostDelete)){
-					echo $returnMsgPostDelete;
-				}
-			?>
 			</div>
 			</div>
 			<form hidden enctype="multipart/form-data" action="" method="post">
@@ -212,8 +219,8 @@ if(isset($_POST['post-delete'])){
 					<input class="u-full-width" type="text" name="username" id="postUsername" readonly>
 				</div>
 				<div class="six columns">
-					<label for="postDateTime">Datum:</label>
-					<input class="u-full-width" type="text" name="datetime" id="postDateTime" readonly>
+					<label for="createdAt">Datum:</label>
+					<input class="u-full-width" type="text" name="createdAt" id="postcreatedAt" readonly>
 				</div>
 			</div>
 			<div class="row">

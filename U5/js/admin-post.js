@@ -4,13 +4,13 @@ $(document).ready(function(){
 		var parent = $(this).parent();
 		var data = {};
 		data.postUsername = $(parent).children().eq(0).text();
-		data.postDateTime = $(parent).children().eq(1).text();
+		data.postcreatedAt = $(parent).children().eq(1).text();
 		data.postText = $(parent).children().eq(2).text();
 		data.postImagePath = $(parent).children().eq(3).text();
 
 
 		$("#postUsername").val(data.postUsername);
-		$("#postDateTime").val(data.postDateTime);
+		$("#postcreatedAt").val(data.postcreatedAt);
 		$("#postText").val(data.postText);
 		if(data.postImagePath !== ""){
 			$("#postImage").attr('src', 'uploads/' + data.postImagePath);
