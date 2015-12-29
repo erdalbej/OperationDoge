@@ -178,7 +178,7 @@ if(isset($_POST['news-delete'])){
 ?>
 <main>
 	<div class="container">
-	<div class="row">
+		<div class="row">
 			<div class="twelve columns">
 				<?php
 					if(isset($news_success)){
@@ -207,7 +207,7 @@ if(isset($_POST['news-delete'])){
 			<div class="row">
 				<div class="six columns">
 					<label for="title">Nyhetstitel:</label>
-					<input type="text" name="title">
+					<input type="text" name="title" placeholder="Ny hundkurs" required>
 				</div>
 				<div class="six columns">
 					<label for="image-path">Bild:</label>
@@ -215,7 +215,7 @@ if(isset($_POST['news-delete'])){
 				</div>
 			</div>
 			<label for="news-text">Text:</label>
-			<textarea name="news-text" id="" class="u-full-width"></textarea>
+			<textarea name="news-text" id="" placeholder="Ny hundkurs med nya möjligheter..." class="u-full-width"></textarea>
 			<div class="row">
 				<div class="four columns">
 					<input type="submit" name="submit-news" value="Lägg till">		
