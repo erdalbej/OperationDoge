@@ -80,7 +80,8 @@ $dogName = $_GET['dog'];
 
 				echo '<div class="row">';
 				echo '<div class="twelve columns">';
-				echo '<img class="gen-pic" src="'.$dog['GenImagePath'].'" alt="">';
+				echo '<h1>Stamtavla</h1>';
+				echo '<img class="gen-pic" src="uploads/'.$dog['GenImagePath'].'" alt="">';
 				echo '</div>';
 				echo '</div>';
 			}	

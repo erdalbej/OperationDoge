@@ -238,6 +238,8 @@ p.details {
 .gen-pic {
 	display: block;
 	text-align: center;
+	max-width: 500px;
+	max-height: 500px;
 	margin: 20px;
 }
 .dog-information {
