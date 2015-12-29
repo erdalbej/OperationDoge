@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="description" content="We are doing operation doge">
+     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>Operation Doge - admin</title>	
     <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
