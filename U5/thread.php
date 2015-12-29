@@ -3,9 +3,13 @@ include_once 'header.php';
 include_once 'aside.php';
 
 $allowed_ext = array('jpg');
+$thread_title = NULL;
+$thread_createdAt = NULL;
 
-$thread_title = $_GET['title'];
-$thread_createdAt = $_GET['createdAt'];
+if(isset($_GET['title']) && isset($_GET['createdAt'])){
+	$thread_title = $_GET['title'];
+	$thread_createdAt = $_GET['createdAt'];
+}
 
 $resultThread = query('SELECT Title, CreatedAt, Description, Username FROM GuestbookThread WHERE Title = :title AND CreatedAt = :createdAt',
 	array(
@@ -17,9 +21,7 @@ $resultThread = query('SELECT Title, CreatedAt, Description, Username FROM Guest
 if ($resultThread['err'] == null){
 	if (count($resultThread['data']) == 0){
 		$threadError = "Tråden du söker finns inte";
-	} else {
-		
-	}
+	} 
 }
 
 if(isset($_POST['submit_post'])){
