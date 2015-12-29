@@ -1,7 +1,13 @@
 <?php
 include_once 'header.php';
 include_once 'aside.php';
-$puppyName = $_GET['puppylitter'];
+
+$puppyName = NULL;
+
+if(isset($_GET['puppylitter'])){
+	$puppyName = $_GET['puppylitter'];
+}
+
 ?>
 <main class="height-uv">
 	<div class="container">
