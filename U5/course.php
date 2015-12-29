@@ -4,9 +4,16 @@ include_once 'aside.php';
 ?>
 
 <?php
-$courseName = $_GET['courseName'];
-$courseTeacher = $_GET['courseTeacher'];
-$courseDate = $_GET['courseDate'];
+
+$courseName = null;
+$courseTeacher = null;
+$courseDate = null;
+
+if(isset($_GET['courseName']) && isset($_GET['courseTeacher']) && isset($_GET['courseTeacher'])){
+	$courseName = $_GET['courseName'];
+	$courseTeacher = $_GET['courseTeacher'];
+	$courseDate = $_GET['courseDate'];
+}
 
 if (strlen($courseName) > 0 &&
 	strlen($courseTeacher) > 0 &&
