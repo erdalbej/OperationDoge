@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS `DogCourse`;
 DROP TABLE IF EXISTS `Puppy`;
 DROP TABLE IF EXISTS `PuppyLitter`;
 DROP TABLE IF EXISTS `NewsFeed`;
+DROP TABLE IF EXISTS `MyDog`;
 DROP VIEW IF EXISTS `ParticipantsPerCourse`;
 DROP VIEW IF EXISTS `ComingCourses`;
 
@@ -123,6 +124,21 @@ AS SELECT
    `DC`.`PriorKnowledge` AS `PriorKnowledge`,
    `DC`.`CourseText` AS `CourseText`,IF((`p`.`NumOfParticipants` > 0),`p`.`NumOfParticipants`,0) AS `Participants`
 FROM (`dogcourse` `DC` left join `participantspercourse` `P` on(((`DC`.`CourseName` = `p`.`DogCourse_CourseName`) and (`DC`.`CourseTeacher` = `p`.`DogCourse_CourseTeacher`) and (`DC`.`CourseDate` = `p`.`DogCourse_CourseDate`)))) where (`DC`.`CourseDate` > now()) order by `DC`.`CourseDate`;
+
+CREATE TABLE MyDog (
+    `OfficialName` varchar(255) NOT NULL,
+    `Name` varchar(255) NOT NULL,
+    `Birthdate` DATE,
+    `Desciption` nvarchar(500),
+    `Color` nvarchar(255),
+    `Height` decimal,
+    `Weight` decimal,
+    `Teeth` nvarchar(255),
+    `MentalStatus` nvarchar(255),
+    `Breader` nvarchar(255),
+    `GenImagePath`nvarchar(255),
+     constraint PK_MyDog PRIMARY KEY (`OfficialName`, `Name`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 /* DATA */
