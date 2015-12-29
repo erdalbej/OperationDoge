@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	$("#edit-thread").click(function (event) {    
+	$(".edit-thread").click(function (event) {    
 		var parent = $(this).parent();
 
 		var data = {};

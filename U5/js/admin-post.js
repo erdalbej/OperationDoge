@@ -1,8 +1,7 @@
 $(document).ready(function(){
 
-	$("tbody tr").click(function (event) {    
-		var parent = $(event.target).parent();
-
+	$(".edit-post").click(function (event) {    
+		var parent = $(this).parent();
 		var data = {};
 		data.postUsername = $(parent).children().eq(0).text();
 		data.postDateTime = $(parent).children().eq(1).text();

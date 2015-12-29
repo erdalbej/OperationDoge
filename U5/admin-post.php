@@ -2,11 +2,11 @@
 include_once 'admin-header.php';
 
 $thread_title = NULL;
-$thread_datetime = NULL;
+$thread_createdAt = NULL;
 
-if(isset($_GET['title']) && isset($_GET['datetime'])){
+if(isset($_GET['title']) && isset($_GET['createdAt'])){
 	$thread_title = $_GET['title'];
-	$thread_datetime = $_GET['datetime'];
+	$thread_createdAt = $_GET['createdAt'];
 }
 
 //Post update
@@ -146,34 +146,43 @@ if(isset($_POST['post-delete'])){
 							<tr>
 								<th>Användare</th>
 								<th>Datum</th>
-								<th>Text</th>
+								<th><center>Redigera inlägg</center></th>
 							</tr>
 						</thead>
-						<tbody id="Threadtable">
+						<tbody>
 							<?php
 
-							$result = query("SELECT Username, DateTime, PostText, PostImagePath FROM Post WHERE Thread_Title = :thread_title AND Thread_DateTime = :thread_datetime", array(":thread_title" => $thread_title, ":thread_datetime" => $thread_datetime));
-							$divData = $result["data"];
+							$divOne = query("SELECT Username, CreatedAt, PostText, PostImagePath FROM Post WHERE Thread_Title = :thread_title AND Thread_CreatedAt = :thread_datetime", array(":thread_title" => $thread_title, ":thread_datetime" => $thread_createdAt));
 
-							foreach($divData as $key => $row){
-								echo '<tr id="news' . $key . '">';
-								echo '<td class="usernameTd">';
-								echo $row['Username'];
-								echo '</td>';
-								echo '<td class="dateTimeTd">';
-								echo $row["DateTime"];
-								echo '</td>';
-								echo '<td class="postTextTd">';
-								echo $row["PostText"];
-								echo '</td>';
-								echo '<td class="postImagePath" style = "display:none">';
-								echo $row['PostImagePath'];
-								echo '</td>';
-								echo '</tr>';
-								
+							if($divOne["err"] != null){
+								$load_error = "Kunde inte ladda trådar, prova att ladda om sidan.";
+							}else{
+								$divData = $divOne['data'];
+
+								if(count($divData) > 0){
+
+									foreach($divData as $key => $row){
+										echo '<tr id="news' . $key . '">';
+										echo '<td class="usernameTd">';
+										echo $row['Username'];
+										echo '</td>';
+										echo '<td class="dateTimeTd">';
+										echo $row["CreatedAt"];
+										echo '</td>';
+										echo '<td class="postTextTd" style = "display:none">';
+										echo $row["PostText"];
+										echo '</td>';
+										echo '<td class="postImagePath" style = "display:none">';
+										echo $row['PostImagePath'];
+										echo '</td>';
+										echo '<td class="edit-post">';
+										echo '<center><i class="cursor-pointer fa fa-pencil-square-o fa-lg"></i></center>';
+										echo '</td>';
+										echo '</tr>';
+										
+									}
+								}
 							}
-							
-							//<img src="uploads/" alt="" width="200" height="200">
 							?>				
 						</tbody>
 					</table>

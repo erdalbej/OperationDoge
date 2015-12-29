@@ -15,20 +15,22 @@ if(isset($_POST['thread-update'])){
 			$description = $_POST['description'];
 
 			$result = nonQuery("UPDATE GuestbookThread SET `Username` = :username, `Description` = :description WHERE `Title` = :title AND `CreatedAt` = :created_at", array(":title" => $title, ":created_at" => $created_at, ":username" => $username, ":description" => $description));
-			$result["data"];
 
-			if($result["err"] === NULL){
-				$thread_success = "Tråd uppdaterad"; 
+			if($result["err"] == null){
+				$thread_success = "Tråd uppdaterad!"; 
 			}else{
-				$thread_error = "Kunde inte uppdatera tråd.";
+				$thread_error = "Kunde inte uppdatera tråd, prova igen.";
 			}
+		}else{
+			$thread_error = "Saknar värden för att uppdatera tråd.";
 		}
+	}else{
+		$thread_error = "Saknar värden för att uppdatera tråd.";
 	}
 }
 
 //Delete thread
 if(isset($_POST['thread-delete'])){
-	$returnMsgThreadDelete = "Kunde inte tabort tråd.";
 
 	if(strlen($_POST['title']) > 0 && strlen($_POST['created_at']) > 0){
 
@@ -36,13 +38,14 @@ if(isset($_POST['thread-delete'])){
 		$created_at = $_POST['created_at'];
 
 		$result = nonQuery("DELETE FROM GuestbookThread WHERE `Title` = :title AND `CreatedAt` = :created_at", array(":title" => $title, ":created_at" => $created_at));
-		$result["data"];
 
 		if($result["err"] === NULL){
-			$returnMsgThreadDelete = "Tråd raderad."; 
+			$thread_success = "Tråd raderad!"; 
 		}else{
-			$returnMsgThreadDelete = "Kunde inte tabort tråd.";
+			$thread_error = "Kunde inte radera tråd, prova igen.";
 		}
+	}else{
+		$thread_error = "Saknar värden för att radera tråd.";
 	}
 }
 ?>
@@ -86,35 +89,53 @@ if(isset($_POST['thread-delete'])){
 						</thead>
 						<tbody>
 							<?php
+
 							$divOne = query("SELECT Title, CreatedAt, Username, Description FROM GuestbookThread");
-							$divData = $divOne['data'];
-							foreach($divData as $key => $row){
-								echo '<tr>';
-								echo '<td >';
-								echo $row['Title'];
-								echo '</td>';
-								echo '<td>';
-								echo $row["CreatedAt"];
-								echo '</td>';
-								echo '<td style = "display:none">';
-								echo $row["Username"];
-								echo '</td>';
-								echo '<td style = "display:none">';
-								echo $row["Description"];
-								echo '</td>';
-								echo '<td id="edit-thread">';
-								echo '<center><i class="cursor-pointer fa fa-pencil-square-o fa-lg"></i></center>';
-								echo '</td>';
-								echo '<td>';
-								echo '<center><a href="/U5/admin-post.php?title='.$row['Title'].'&createdAt='.$row['CreatedAt'].'">';
-								echo '<i class="fa fa-comments fa-lg"></i>';
-								echo '</a></center>';
-								echo '</td>';
-								echo '</tr>';
-							}			
+
+							if($divOne["err"] != null){
+								$load_error = "Kunde inte ladda trådar, prova att ladda om sidan.";
+							}else{
+								$divData = $divOne['data'];
+
+								if(count($divData) > 0){
+									foreach($divData as $key => $row){
+										echo '<tr>';
+										echo '<td >';
+										echo $row['Title'];
+										echo '</td>';
+										echo '<td>';
+										echo $row["CreatedAt"];
+										echo '</td>';
+										echo '<td style = "display:none">';
+										echo $row["Username"];
+										echo '</td>';
+										echo '<td style = "display:none">';
+										echo $row["Description"];
+										echo '</td>';
+										echo '<td class="edit-thread">';
+										echo '<center><i class="cursor-pointer fa fa-pencil-square-o fa-lg"></i></center>';
+										echo '</td>';
+										echo '<td>';
+										echo '<center><a href="/U5/admin-post.php?title='.$row['Title'].'&createdAt='.$row['CreatedAt'].'">';
+										echo '<i class="fa fa-comments fa-lg"></i>';
+										echo '</a></center>';
+										echo '</td>';
+										echo '</tr>';
+									}	
+								}else{
+									$load_error = "Inga trådar tillagda i gästboken.";
+								}
+							}
 							?>				
 						</tbody>
 					</table>
+					<?php
+
+					if(isset($load_error)){
+						echo $load_error;
+					}
+
+					?>
 					<br/>
 				</div>
 			</div>
