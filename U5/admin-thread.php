@@ -80,32 +80,35 @@ if(isset($_POST['thread-delete'])){
 							<tr>
 								<th>Tråd</th>
 								<th>Datum</th>
-								<th>Användare</th>
-								<th>Redigera inlägg</th>
+								<th><center>Redigera Tråd</center></th>
+								<th><center>Redigera Inlägg</center></th>
 							</tr>
 						</thead>
-						<tbody id="Threadtable">
+						<tbody>
 							<?php
 							$divOne = query("SELECT Title, CreatedAt, Username, Description FROM GuestbookThread");
 							$divData = $divOne['data'];
 							foreach($divData as $key => $row){
-								echo '<tr id="threads' . $key . '">';
-								echo '<td>';
+								echo '<tr>';
+								echo '<td >';
 								echo $row['Title'];
 								echo '</td>';
 								echo '<td>';
 								echo $row["CreatedAt"];
 								echo '</td>';
-								echo '<td>';
+								echo '<td style = "display:none">';
 								echo $row["Username"];
 								echo '</td>';
-								echo '<td class="Description" style = "display:none">';
+								echo '<td style = "display:none">';
 								echo $row["Description"];
 								echo '</td>';
+								echo '<td id="edit-thread">';
+								echo '<center><i class="cursor-pointer fa fa-pencil-square-o fa-lg"></i></center>';
+								echo '</td>';
 								echo '<td>';
-								echo '<a href="/U5/admin-post.php?title='.$row['Title'].'&createdAt='.$row['CreatedAt'].'">';
-								echo 'Redigera inlägg';
-								echo '</a>';
+								echo '<center><a href="/U5/admin-post.php?title='.$row['Title'].'&createdAt='.$row['CreatedAt'].'">';
+								echo '<i class="fa fa-comments fa-lg"></i>';
+								echo '</a></center>';
 								echo '</td>';
 								echo '</tr>';
 							}			
@@ -124,11 +127,11 @@ if(isset($_POST['thread-delete'])){
 		<div class="row">
 			<div class="four columns">
 				<label for="title">Tråd:</label>
-				<input class="u-full-width" type="text" name="title" id="threadTitle" readonly>
+				<input class="u-full-width" type="text" name="title" id="threadTitle" required readonly>
 			</div>
 			<div class="four columns">
 				<label for="CreatedAt">Datum:</label>
-				<input class="u-full-width" type="text" name="created_at" id="threadCreatedAt" readonly>
+				<input class="u-full-width" type="text" name="created_at" id="threadCreatedAt" required readonly>
 			</div>
 			<div class="four columns">
 				<label for="username">Användare:</label>
