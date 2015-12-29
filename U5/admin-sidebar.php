@@ -23,7 +23,7 @@ if(isset($_POST['submit_newsfeed'])){
 		if(isset($file) && (strlen($file['name']) != 0)) {
 			
 			if (strlen($file['name']) == 0){ $image_error = 'Saknar filnamn'; }
- 
+
 			$file_name = $file['name'];
 			$file_tmp = $file['tmp_name'];
 			$file_size = $file['size'];
@@ -281,39 +281,58 @@ if(isset($_POST['delete_newsfeed'])){
 							</thead>
 							<tbody id="NewsFeedTable">
 								<?php
-								$result = query("SELECT NewsTitle, CreatedAt, Description, NewsImagePath, NewsLink FROM NewsFeed");
-								$newsFeedData = $result['data'];
-								foreach($newsFeedData as $key => $n){
-									echo '<tr id="newsfeed' . $key . '">';
-									echo '<td class="newsTitleTd">';
-									echo $n['NewsTitle'];
-									echo '</td>';
-									echo '<td class="dateTimeTd">';
-									echo $n["CreatedAt"];
-									echo '</td>';
-									echo '<td class="Description" style = "display:none">';
-									echo $n["Description"];
-									echo '</td>';
-									echo '<td class="newsLink" style = "display:none">';
-									echo $n["NewsLink"];
-									echo '</td>';
-									if($n['NewsImagePath'] !== null){
-										echo '<td class="newsImagePath">';
-										echo '<img src="uploads/'.$n['NewsImagePath'].'" width="75" height="75" alt="">';
-										echo '</td>';
-									}else {
-										echo '<td class="newsImagePath">';
-										echo 'Ingen bild';
-										echo '</td>';
+
+								$result = query("SELECT NewsTitle, CreatedAt, Description, NewsImagePath, NewsLink FROM NewsFeed ORDER BY CreatedAt DESC");
+								
+								if($result["err"] != null){
+									$load_error = "Kunde inte ladda annonser, prova att ladda om sidan.";
+								}else{
+									$newsFeedData = $result['data'];
+
+									if(count($newsFeedData) > 0){
+
+										foreach($newsFeedData as $key => $n){
+											echo '<tr id="newsfeed' . $key . '">';
+											echo '<td class="newsTitleTd">';
+											echo $n['NewsTitle'];
+											echo '</td>';
+											echo '<td class="dateTimeTd">';
+											echo $n["CreatedAt"];
+											echo '</td>';
+											echo '<td class="Description" style = "display:none">';
+											echo $n["Description"];
+											echo '</td>';
+											echo '<td class="newsLink" style = "display:none">';
+											echo $n["NewsLink"];
+											echo '</td>';
+											if($n['NewsImagePath'] !== null){
+												echo '<td class="newsImagePath">';
+												echo '<img src="uploads/'.$n['NewsImagePath'].'" width="75" height="75" alt="">';
+												echo '</td>';
+											}else {
+												echo '<td class="newsImagePath">';
+												echo 'Ingen bild';
+												echo '</td>';
+											}
+											echo '<td class="edit-sidebar">';
+											echo '<center><i class="cursor-pointer fa fa-pencil-square-o fa-lg"></i></center>';
+											echo '</td>';
+											echo '</tr>';
+										}
+									}else{
+										$load_error = "Det finns inga annonser.";
 									}
-									echo '<td class="edit-sidebar">';
-									echo '<center><i class="cursor-pointer fa fa-pencil-square-o fa-lg"></i></center>';
-									echo '</td>';
-									echo '</tr>';
 								}			
 								?>				
 							</tbody>
 						</table>
+						<?php
+
+						if(isset($load_error)){
+							echo $load_error;
+						}
+
+						?>
 					</div>
 				</div>
 
