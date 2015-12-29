@@ -15,7 +15,6 @@ $(document).ready(function(){
 		$("#threadCreatedAt").val(data.threadCreatedAt);
 		$("#threadUsername").val(data.threadUsername);
 		$("#threadDescription").val(data.threadDescription);
-		$("#returnMsg").html("");
 
 		$('html, body').animate({ scrollTop: $(document).height() }, 500);
 		$('form').show(300);

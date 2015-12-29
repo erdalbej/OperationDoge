@@ -4,6 +4,8 @@ include_once 'admin-header.php';
 $thread_title = NULL;
 $thread_createdAt = NULL;
 
+$allowed_ext = array('jpg');
+
 if(isset($_GET['title']) && isset($_GET['createdAt'])){
 	$thread_title = $_GET['title'];
 	$thread_createdAt = $_GET['createdAt'];
@@ -18,11 +20,10 @@ if(isset($_POST['post-update'])){
 		$createdAt = $_POST['createdAt'];
 		$post_text = $_POST['postText'];
 
+		$file = $_FILES['newImage'];
+		if(isset($file) && $file['size'] > 0) {
 
-		//if image is set
-		if(isset($_FILES['newImage'])) {
-
-			$file = $_FILES['newImage'];
+			if (strlen($file['name']) == 0){ $image_error = 'Saknar filnamn'; }
 
 			$file_name = $file['name'];
 			$file_tmp = $file['tmp_name'];
@@ -32,53 +33,49 @@ if(isset($_POST['post-update'])){
 			$file_ext = explode('.', $file_name);
 			$file_ext = strtolower(end($file_ext));
 
-			$allowed_ext = array('jpg');
+			if (!in_array($file_ext, $allowed_ext)){ $image_error = 'Endast .jpg filer är tillåtna, prova ladda up en anna bild.'; }
+			if (strlen($file['tmp_name']) == 0){ $image_error = 'Filen saknar temporärt filnamn, prova igen!'; }
+			if ($file['size'] >= 2097152){ $image_error = 'Filen är för stor, 2mb stora filer är tillåtna'; }
+			if ($file['error'] !== 0){ $image_error = 'Filen gick inte att ladda upp, prova igen!'; }
 
-			if(in_array($file_ext, $allowed_ext)){
+			if(!isset($image_error)){
+				$file_name_new = uniqid('', true) . '.' . $file_ext;
+				$file_destination = 'uploads/' . $file_name_new;
 
-				if($file_error === 0){
-					//2mb
-					if($file_size < 2097152){
-
-						$file_name_new = uniqid('', true) . '.' . $file_ext;
-						$file_destination = 'uploads/' . $file_name_new;
-
-						if(move_uploaded_file($file_tmp, $file_destination)){
-
-							//Deletes old picture
-							$result = query("SELECT `PostImagePath` FROM Post WHERE `Username` = :username AND `CreatedAt` = :createdAt", array(":username" => $username, ":createdAt" => $createdAt));
-							$resData = $result["data"];
-
-							if($resData[0]["PostImagePath"] !== NULL){
-								$image_path = "uploads/" . $resData[0]["PostImagePath"];
-								if(file_exists($image_path)){
-						        	unlink($image_path);
-						    	}
-							}
-
-							$result = nonQuery("UPDATE Post SET `PostText` = :post_text, `PostImagePath` = :image_path WHERE `Username` = :username AND `CreatedAt` = :createdAt", array(":username" => $username, ":createdAt" => $createdAt, ":post_text" => $post_text, ":image_path" => $file_name_new));
-							
-							if($result["err"] === null){
-								$returnMsgPostUpdate = "Post uppdaterad"; 
-							}else{
-								$returnMsgPostUpdate = "Kunde inte uppdatera post.";
-							}
-						}
+				$result = query("SELECT `PostImagePath` FROM Post WHERE `Username` = :username AND `CreatedAt` = :createdAt", array(":username" => $username, ":createdAt" => $createdAt));
+				if($result["err"] == null){
+					$resData = $result["data"];
+					if($resData[0]["PostImagePath"] !== NULL){
+						$old_image = "uploads/" . $resData[0]["PostImagePath"];
 					}
 				}
+
+				if(move_uploaded_file($file_tmp, $file_destination)){
+					$result = nonQuery("UPDATE Post SET `PostText` = :post_text, `PostImagePath` = :image_path WHERE `Username` = :username AND `CreatedAt` = :createdAt", array(":username" => $username, ":createdAt" => $createdAt, ":post_text" => $post_text, ":image_path" => $file_name_new));
+					
+					if($result["err"] != null){
+						$post_error = 'Gick inte att spara ditt inlägg, prova igen!';
+						unlink($file_destination);
+					}else{
+						$post_success = 'Post uppdaterad!';
+						if(isset($old_image)){
+							if(file_exists($old_image)){
+						    	unlink($old_image);
+							}
+						}
+					}	
+				}else{ $post_error = 'Gick inte att flytta filen till servern, prova igen'; }			
+			}else{ $post_error = $image_error; }
+		}else{
+			$result = nonQuery("UPDATE Post SET `PostText` = :post_text WHERE `Username` = :username AND `CreatedAt` = :createdAt", array(":username" => $username, ":createdAt" => $createdAt, ":post_text" => $post_text));
+			
+			if($result["err"] != null){
+				$post_error = "Kunde inte uppdatera post, prova igen.";
 			}else{
-	
-				$result = nonQuery("UPDATE Post SET `PostText` = :post_text WHERE `Username` = :username AND `CreatedAt` = :createdAt", array(":username" => $username, ":createdAt" => $createdAt, ":post_text" => $post_text));
-				
-				if($result["err"] === null){
-					$post_success = "Post uppdaterad"; 
-				}else{
-					$post_error = "Kunde inte uppdatera post.";
-				}
+				$post_success = "Post uppdaterad"; 
 			}
 		}
 	}
-	
 }
 
 //Post delete
@@ -89,28 +86,27 @@ if(isset($_POST['post-delete'])){
 		$username = $_POST['username'];
 		$createdAt = $_POST['createdAt'];
 
-		//Deletes old picture
 		$result = query("SELECT `PostImagePath` FROM Post WHERE `Username` = :username AND `CreatedAt` = :createdAt", array(":username" => $username, ":createdAt" => $createdAt));
-		$resData = $result["data"];
-
-		if($resData[0]["PostImagePath"] !== NULL){
-			$image_path = "uploads/" . $resData[0]["PostImagePath"];
-			if(file_exists($image_path)){
-	        	unlink($image_path);
-	    	}
+		if($result["err"] == null){
+			$resData = $result["data"];
+			if($resData[0]["PostImagePath"] !== NULL){
+				$old_image = "uploads/" . $resData[0]["PostImagePath"];
+			}
 		}
 
 		$result = nonQuery("DELETE FROM Post WHERE `Username` = :username AND `CreatedAt` = :createdAt", array(":username" => $username, ":createdAt" => $createdAt));
-		$result["data"];
 
 		if($result["err"] === NULL){
-
 			$post_success = "Tråd raderad."; 
-
+			if(isset($old_image)){
+				if(file_exists($old_image)){
+			    	unlink($old_image);
+				}
+			}
 		}else{
 			$post_error = "Kunde inte tabort tråd, prova igen.";
 		}
-	}
+	}else{ $post_error = "Kunde inte tabort tråd, saknar värden."; }
 }
 ?>
 
@@ -202,7 +198,7 @@ if(isset($_POST['post-delete'])){
 					}
 
 					?>
-					
+
 					<br/>
 				</div>
 			</div>
