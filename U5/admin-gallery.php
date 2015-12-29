@@ -55,55 +55,6 @@ if(isset($_POST['submit_image'])){
 	}else{ $gallery_error = "Ingen titel på bild."; }
 }
 
-
-
-
-
-	/*
-	$returnMsgGalleryAdd = "Kunde inte lägga till bild.";
-
-	if(strlen($_POST['image_title']) > 0){
-
-		$image_title = $_POST['image_title'];
-
-		if(isset($_FILES['gallery_image'])) {
-			$file = $_FILES['gallery_image'];
-
-			$file_name = $file['name'];
-			$file_tmp = $file['tmp_name'];
-			$file_size = $file['size'];
-			$file_error = $file['error'];
-
-			$file_ext = explode('.', $file_name);
-			$file_ext = strtolower(end($file_ext));
-
-			$allowed_ext = array('jpg');
-
-			if(in_array($file_ext, $allowed_ext)){
-
-				if($file_error === 0){
-					//2mb
-					if($file_size < 2097152){	
-						$file_name_new = uniqid('', true) . '.' . $file_ext;
-						$file_destination = 'uploads/' . $file_name_new;
-
-						if(move_uploaded_file($file_tmp, $file_destination)){
-							$result = nonQuery("INSERT INTO ImageGallery (`ImagePath`,`ImageTitle`) VALUES (:image_path,:image_title)", array(":image_path" => $file_name_new, ":image_title" => $image_title));
-							
-							if($result["err"] === null){
-								$returnMsgGalleryAdd = "Bild tillagd.";
-							}
-						}
-					}
-				}
-			}
-		}
-
-	}
-	*/
-
-
-
 ?>
 <main>
 	<div class="container">
