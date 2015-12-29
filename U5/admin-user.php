@@ -27,9 +27,7 @@ if(isset($_POST['submit_update'])){
 						":password" => $password
 						));
 					if($result["err"] === NULL){
-						$userAddSuccess = "Ditt konto är uppdaterat!"; 
-						session_unset();
-						session_destroy();
+						$userAddSuccess = "Ditt konto är uppdaterat!"; 					
 					}else{
 						$userAddError = "Kunde inte uppdatera kontot.";
 					}
@@ -43,8 +41,6 @@ if(isset($_POST['submit_update'])){
 						));
 					if($result["err"] === NULL){
 						$userAddSuccess = "Ditt konto är uppdaterat!"; 
-						session_unset();
-						session_destroy();
 					}else{
 						$userAddError = "Kunde inte uppdatera kontot.";
 					}
