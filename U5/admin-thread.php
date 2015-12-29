@@ -112,10 +112,10 @@ if(isset($_POST['thread-delete'])){
 									echo '<td>';
 									echo $g["CreatedAt"];
 									echo '</td>';
-									echo '<td style = "display:none">';
+									echo '<td class="hide-td">';
 									echo $g["Username"];
 									echo '</td>';
-									echo '<td style = "display:none">';
+									echo '<td class="hide-td">';
 									echo $g["Description"];
 									echo '</td>';
 									echo '<td class="edit-thread">';

@@ -266,10 +266,10 @@ if(isset($_POST['news-delete'])){
 										echo '<td class="CreatedAtTd">';
 										echo $n["CreatedAt"];
 										echo '</td>';
-										echo '<td class="newsTextTd" style = "display:none">';
+										echo '<td class="hide-td">';
 										echo $n["NewsText"];
 										echo '</td>';
-										echo '<td class="newsImagePathTd" style = "display:none">';
+										echo '<td class="hide-td">';
 										echo $n["NewsImagePath"];
 										echo '</td>';
 										echo '<td class="edit-news">';

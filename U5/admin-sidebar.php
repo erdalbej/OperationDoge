@@ -299,10 +299,10 @@ if(isset($_POST['delete_newsfeed'])){
 											echo '<td class="dateTimeTd">';
 											echo $n["CreatedAt"];
 											echo '</td>';
-											echo '<td class="Description" style = "display:none">';
+											echo '<td class="hide-td">';
 											echo $n["Description"];
 											echo '</td>';
-											echo '<td class="newsLink" style = "display:none">';
+											echo '<td class="hide-td">';
 											echo $n["NewsLink"];
 											echo '</td>';
 											if($n['NewsImagePath'] !== null){

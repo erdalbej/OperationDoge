@@ -182,10 +182,10 @@ if(isset($_POST['post-delete'])){
 										echo '<td>';
 										echo $p["CreatedAt"];
 										echo '</td>';
-										echo '<td class="postTextTd" style = "display:none">';
+										echo '<td class="hide-td">';
 										echo $p["PostText"];
 										echo '</td>';
-										echo '<td class="postImagePath" style = "display:none">';
+										echo '<td class="hide-td">';
 										echo $p['PostImagePath'];
 										echo '</td>';
 										echo '<td class="edit-post">';
