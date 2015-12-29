@@ -129,14 +129,15 @@ CREATE TABLE MyDog (
     `OfficialName` varchar(255) NOT NULL,
     `Name` varchar(255) NOT NULL,
     `Birthdate` DATE,
-    `Desciption` nvarchar(500),
-    `Color` nvarchar(255),
+    `Desciption` varchar(500),
+    `Color` varchar(255),
     `Height` decimal,
     `Weight` decimal,
-    `Teeth` nvarchar(255),
-    `MentalStatus` nvarchar(255),
-    `Breader` nvarchar(255),
-    `GenImagePath`nvarchar(255),
+    `Teeth` varchar(255),
+    `MentalStatus` varchar(255),
+    `Breader` varchar(255),
+    `GenImagePath`varchar(255),
+    `DogImagePath`varchar(255),
      constraint PK_MyDog PRIMARY KEY (`OfficialName`, `Name`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
