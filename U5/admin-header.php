@@ -32,10 +32,7 @@
                     <li><a href="admin-news.php">Nyheter</a></li>
                     <li><a href="admin-sidebar.php">Annonser</a></li>
                     <li><a href="#">Mina hundar</a></li>
-                    <li><a href="#">Kennel</a></li>
-                    <li><a href="#">Hundskola</a></li>
                     <li><a href="admin-gallery.php">Bildgalleri</a></li>
                     <li><a href="admin-thread.php">Gästbok</a></li>
-                    <li><a href="#">Kontakt</a></li>
                 </ul>
             </nav>
