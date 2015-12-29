@@ -23,7 +23,7 @@ if(isset($_POST['submit_newsfeed'])){
 		if(isset($file) && (strlen($file['name']) != 0)) {
 			
 			if (strlen($file['name']) == 0){ $image_error = 'Saknar filnamn'; }
-
+ 
 			$file_name = $file['name'];
 			$file_tmp = $file['tmp_name'];
 			$file_size = $file['size'];

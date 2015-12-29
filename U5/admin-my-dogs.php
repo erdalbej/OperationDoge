@@ -88,50 +88,72 @@ if (isset($_POST['submit-new-dog'])){
 				$submitNewDogError = 'Hunden du försöker lägga till finns redan!';
 			}
 		} else {
-			$submitNewDogError = 'Det gick inte att verifiera dubbleter, prova igen!';
+			$submitNewDogError = 'Det gick inte att posta den nya hundern, prova igen!';
 		}
 
+		$genImgPath = isset($gen_name_new) ? $gen_name_new : null;
+		$dogImgPath = isset($dog_name_new) ? $gen_name_new : null;
+
 		if (!isset($submitNewDogError)){	
-				$insertResult = nonquery('INSERT INTO MyDog(Name, OfficialName, Birthdate, Description, Color, Height, Weight, Teeth, MentalStatus, Breader, GenImagePath, DogImagePath) VALUES(:dogName, :officialName, :birthdate, :description, :color, :height, :weight, :teeth, :mental, :breader, :genImgPath, :dogImgPath)',
-					array(
-						':dogName' => $_POST['dogName'],
-						':officialName' => $_POST['officialName'],
-						':color' => $_POST['color'],
-						':birthdate' => $_POST['birthdate'],
-						':description' => $_POST['description'],
-						':height' => $_POST['height'],
-						':weight' => $_POST['weight'],
-						':mental' => $_POST['mental'],
-						':breader' => $_POST['breader'],
-						':genImgPath' => $genImgPath,
-						':dogImgPath' => $dogImgPath
-					)
-				);
-				
-				if($result["err"] != null){
-					$submitNewDogError = 'Gick inte att spara ditt inlägg, prova igen!';
-					unlink($file_destination);
-				} 
+			$insertResult = nonquery('INSERT INTO MyDog(Name, OfficialName, Birthdate, Description, Color, Height, Weight, Teeth, MentalStatus, Breader, GenImagePath, DogImagePath) VALUES(:dogName, :officialName, :birthdate, :description, :color, :height, :weight, :teeth, :mental, :breader, :genImgPath, :dogImgPath)',
+				array(
+					':dogName' => $_POST['dogName'],
+					':officialName' => $_POST['officialName'],
+					':color' => $_POST['color'],
+					':birthdate' => $_POST['birthdate'],
+					':description' => $_POST['description'],
+					':height' => $_POST['height'],
+					':weight' => $_POST['weight'],
+					':mental' => $_POST['mental'],
+					':breader' => $_POST['breader'],
+					':genImgPath' => $genImgPath,
+					':dogImgPath' => $dogImgPath
+				)
+			);
+			
+			if($result["err"] != null){
+				$submitNewDogError = 'Gick inte att spara ditt inlägg, prova igen!';
 			} 
 		} 
-	} 
-}
-		
 
+		if (isset($submitNewDogError)) {
+			if (isset($gen_destination) && file_exists($gen_destination)){
+				unlink($gen_destination)
+			} 
 
-		$genImgPath = null;
-		$dogImgPath = null;
+			if (isset($dog_destination) && file_exists($dog_destination)){
+				unlink($dog_destination)
+			} 
+		} 
+	} else {
+		$submitNewDogError = 'Saknar värden';
+	}
+} else if (isset($_POST['submit-update-dog'])){
 
-		if ($result['err'] == null){
-			if (count($result['data']) == 0){
-				
+} else if (isset($_POST['submit-delete-dog'])) {
+	if (strlen($_POST['dogName']) > 0 &&
+		strlen($_POST['officialName']) > 0) {
 
-				if ($insertResult['err'] != null){
-					$submitNewDogError = 'Det gick inte att lägga in hunden i databasen, prova igen'; 
-				} 
-			} else { $submitNewDogError = 'Hunden du försöker skapa finns redan'; }
-		} else { $submitNewDogError = 'Gick inte att lägga till ny hund, prova igen!'; }
-	} else { $submitNewDogError = 'Saknar värden'; }
+		$findDogResult = query('SELECT * FROM MyDog WHERE Name = :dogName AND OfficialName = :officialName',
+			array(
+				':dogName' => $_POST['dogName'],
+				':officialName' => $_POST['officialName']
+			)
+		);
+
+		if ($findDogResult['err'] == null){
+			if (count($findDogResult['data']) > 0){
+				$deleteResult = nonquery('DELETE FROM MyDog WHERE Name = :dogName AND OfficialName = :officialName',
+					array(
+						':dogName' => $_POST['dogName'],
+						':officialName' => $_POST['officialName']
+					)
+				);
+
+				if ($deleteResult['err'] != null){ $submitDeleteDogError = 'Gick inte att ta bort hund, prova igen.'; }
+			} else { $submitDeleteDogError = 'Hunden du försöker ta bort finns ej.'; }
+		} else { $submitDeleteDogError = 'Gick inte att bekräfta att hund finns, prova igen!'; }
+	} else { $submitDeleteDogError = 'Saknar värden för att ta bort hund'; }
 }
 
 
@@ -210,11 +232,11 @@ if ($myDogsResult['err'] == null){
 			<div class="row">
 				<div class="six columns">
 					<label for="title">Vikt i kg</label>
-					<input min="0" step="0.1" value="0" type="number" name="weight" class="u-full-width">
+					<input min="0" step="0.01" value="0" type="number" name="weight" class="u-full-width">
 				</div>
 				<div class="six columns">
 					<label for="title">Mankhöjd i meter</label>
-					<input min="0" step="0.1" type="number" name="height" class="u-full-width">
+					<input min="0" step="0.01" type="number" name="height" class="u-full-width">
 				</div>
 			</div>
 			<div class="row">
