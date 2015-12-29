@@ -5,11 +5,11 @@ include_once 'header.php';
 	<section id="gallery">
 		<p>
 			<?php
-			$divOne = query("SELECT ImagePath, ImageTitle FROM ImageGallery");
-			$divData = $divOne['data'];
-			foreach($divData as $key => $row){
+			$result = query("SELECT ImagePath, ImageTitle FROM ImageGallery");
+			$galleryData = $result['data'];
+			foreach($galleryData as $key => $g){
 				echo '<tr id="gallery' . $key . '">';
-				echo '<a class="fancybox" href="uploads/'.$row['ImagePath'].'" data-fancybox-group="gallery" title="'.$row['ImageTitle'].'"><img class="gallery-img" src="uploads/'.$row['ImagePath'].'" width="200" height="200" alt="" /></a>';
+				echo '<a class="fancybox" href="uploads/'.$g['ImagePath'].'" data-fancybox-group="gallery" title="'.$g['ImageTitle'].'"><img class="gallery-img" src="uploads/'.$g['ImagePath'].'" width="200" height="200" alt="" /></a>';
 			}			
 			?>
 		</p>

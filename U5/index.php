@@ -5,26 +5,26 @@ include_once 'aside.php';
 <main class="height-uv">
 
 <?php
-$divOne = query("SELECT Title, CreatedAt, NewsText, NewsImagePath FROM News");
-$divData = $divOne['data'];
-foreach($divData as $key => $row){
+$result = query("SELECT Title, CreatedAt, NewsText, NewsImagePath FROM News");
+$newsData = $result['data'];
+foreach($newsData as $key => $n){
 
-	if($row['NewsImagePath'] === NULL){
+	if($n['NewsImagePath'] === NULL){
 		$image = "noimage.jpg";
 	}else{
-		$image = $row['NewsImagePath'];
+		$image = $n['NewsImagePath'];
 	}
 
 	echo '<span id="news' . $key . '"></span>';
 	echo '<h2>';
-	echo $row['Title'];
+	echo $n['Title'];
 	echo '</h2>';
 	echo '<img class="news-image floatleft" src="uploads/'.$image.'" width="100" height="100" alt="">';
 	echo '<p class="details">';
-	echo $row['NewsText'];
+	echo $n['NewsText'];
 	echo '</p>';
 	echo '<span class="news-datetime">';
-	echo $row['CreatedAt'];
+	echo $n['CreatedAt'];
 	echo '</span>';
 	echo '<br/>';
 	echo '<br class="clearleft">';

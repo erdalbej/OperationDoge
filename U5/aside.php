@@ -1,22 +1,22 @@
 <aside>
 	<span class="aside-title">Nyheter</span>
 	<?php
-	$divOne = query("SELECT NewsTitle, CreatedAt, Description, NewsImagePath, NewsLink FROM NewsFeed ORDER BY CreatedAt LIMIT 3");
-	$divData = $divOne['data'];
-	foreach($divData as $key => $row){
+	$result = query("SELECT NewsTitle, CreatedAt, Description, NewsImagePath, NewsLink FROM NewsFeed ORDER BY CreatedAt LIMIT 3");
+	$newsFeedData = $result['data'];
+	foreach($newsFeedData as $key => $n){
 		echo '<span id="newsfeed' . $key . '"></span>';
 		echo '<div class="sidebar-item">';
 		echo '<div class="news-title">';
-		echo $row['NewsTitle'];
+		echo $n['NewsTitle'];
 		echo '</div>';
-		if($row['NewsImagePath'] !== null){
-			echo '<img src="uploads/'.$row['NewsImagePath'].'" class="newsfeed-img" alt="">';
+		if($n['NewsImagePath'] !== null){
+			echo '<img src="uploads/'.$n['NewsImagePath'].'" class="newsfeed-img" alt="">';
 		}
 		echo '<div class="news-desc">';
-		echo $row['Description'];
+		echo $n['Description'];
 		echo '</div>';
-		if(strlen($row['NewsLink']) > 0){
-			echo '<br><a href="'.$row['NewsLink'].'" class="news-more">Läs mer</a>';
+		if(strlen($n['NewsLink']) > 0){
+			echo '<br><a href="'.$n['NewsLink'].'" class="news-more">Läs mer</a>';
 		}
 		echo '<hr class="newsfeed-sep">';
 		echo '</div>';
