@@ -125,21 +125,21 @@ AS SELECT
    `DC`.`CourseText` AS `CourseText`,IF((`p`.`NumOfParticipants` > 0),`p`.`NumOfParticipants`,0) AS `Participants`
 FROM (`dogcourse` `DC` left join `participantspercourse` `P` on(((`DC`.`CourseName` = `p`.`DogCourse_CourseName`) and (`DC`.`CourseTeacher` = `p`.`DogCourse_CourseTeacher`) and (`DC`.`CourseDate` = `p`.`DogCourse_CourseDate`)))) where (`DC`.`CourseDate` > now()) order by `DC`.`CourseDate`;
 
-CREATE TABLE MyDog (
-    `OfficialName` varchar(255) NOT NULL,
-    `Name` varchar(255) NOT NULL,
-    `Birthdate` DATE,
-    `Description` varchar(500),
-    `Color` varchar(255),
-    `Height` decimal,
-    `Weight` decimal,
-    `Teeth` varchar(255),
-    `MentalStatus` varchar(255),
-    `Breader` varchar(255),
-    `GenImagePath`varchar(255),
-    `DogImagePath`varchar(255),
-     constraint PK_MyDog PRIMARY KEY (`OfficialName`, `Name`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `MyDog` (
+  `OfficialName` varchar(255) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  `Birthdate` date DEFAULT NULL,
+  `Description` varchar(500) DEFAULT NULL,
+  `Color` varchar(255) DEFAULT NULL,
+  `Height` decimal(10,1) DEFAULT NULL,
+  `Weight` decimal(10,1) DEFAULT NULL,
+  `Teeth` varchar(255) DEFAULT NULL,
+  `MentalStatus` varchar(255) DEFAULT NULL,
+  `Breader` varchar(255) DEFAULT NULL,
+  `GenImagePath` varchar(255) DEFAULT NULL,
+  `DogImagePath` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`OfficialName`,`Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 /* DATA */
