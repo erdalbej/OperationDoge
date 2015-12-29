@@ -55,27 +55,27 @@ if ($myDogsResult['err'] == null){
 			<div class="row">
 				<div class="six columns">
 					<label for="title">Färg</label>
-					<input type="text" name="title" class="u-full-width">
+					<input maxlength="255" type="text" name="title" class="u-full-width">
 				</div>
 				<div class="six columns">
 					<label for="title">Uppfödare</label>
-					<input type="number" name="title" class="u-full-width">
+					<input maxlength="255" type="text" name="title" class="u-full-width">
 				</div>
 			</div>
 			<div class="row">
 				<div class="six columns">
 					<label for="title">Vikt i kg</label>
-					<input type="number" name="title" class="u-full-width">
+					<input min="0" step="0.1" value="0" type="number" name="title" class="u-full-width">
 				</div>
 				<div class="six columns">
 					<label for="title">Mankhöjd i meter</label>
-					<input type="number" name="title" class="u-full-width">
+					<input min="0" step="0.1" type="number" name="title" class="u-full-width">
 				</div>
 			</div>
 			<div class="row">
 				<div class="six columns">
 					<label for="title">MentalStatus</label>
-					<input type="number" name="title" class="u-full-width">
+					<input maxlength="255" type="text" name="title" class="u-full-width">
 				</div>
 				<div class="six columns">
 					<label for="title">Födelsedag</label>
@@ -105,38 +105,32 @@ if ($myDogsResult['err'] == null){
 		<hr>
 		<br/>
 		<div class="row">
-			<div class="twelce columns">
-				<h3>Redigera befintliga nyheter</h3>
-				<p>Välj en post i listan genom att klicka på den. Redigera den sedan i det nya formuläret som poppade upp.</p>
+			<div class="twelve columns">
+				<h3>Redigera befintliga hundar</h3>
+				<p>Välj en hund i listan genom att klicka på den. Redigera den sedan i det nya formuläret som poppar upp.</p>
 
 				<div class="row">
 				<div class="twelve columns">
 					<table class="u-full-width">
 						<thead>
 							<tr>
-								<th>Nyhetstitel</th>
-								<th>Datum</th>
+								<th>Namn</th>
+								<th>Officielt Namn</th>
 							</tr>
 						</thead>
 						<tbody id="newsTable">
 							<?php
-							$divOne = query("SELECT Title, DateTime, NewsText, NewsImagePath FROM News");
-							$divData = $divOne['data'];
-							foreach($divData as $key => $row){
-								echo '<tr id="news' . $key . '">';
-								echo '<td class="titleTd">';
-								echo $row['Title'];
-								echo '</td>';
-								echo '<td class="dateTimeTd">';
-								echo $row["DateTime"];
-								echo '</td>';
-								echo '<td class="newsTextTd" style = "display:none">';
-								echo $row["NewsText"];
-								echo '</td>';
-								echo '<td class="newsImagePathTd" style = "display:none">';
-								echo $row["NewsImagePath"];
-								echo '</td>';
-								echo '</tr>';
+								if (!isset($myDogsError)){
+									foreach($myDogs as $key => $d){
+									echo '<tr id="dog' . $key . '">';
+									echo '<td class="nameTd">';
+									echo $d['Name'];
+									echo '</td>';
+									echo '<td class="officialNameTd">';
+									echo $d["OfficialName"];
+									echo '</td>';
+									echo '</tr>';
+								}
 							}			
 							?>				
 						</tbody>
@@ -151,33 +145,59 @@ if ($myDogsResult['err'] == null){
 		<form hidden enctype="multipart/form-data" action="" method="post">
 		<div class="row">
 			<div class="twelve columns">
-				<h3>Redigera Nyhet</h3>
+				<h3>Redigera Hund</h3>
 			</div>
 		</div>
-		<div class="row">
-			<div class="six columns">
-				<label for="edit-title">Nyhetstitel:</label>
-				<input class="u-full-width" type="text" name="edit-title" id="edit-title-id" readonly>
+			<div class="row">
+				<div class="six columns">
+					<label for="title">Färg</label>
+					<input maxlength="255" type="text" name="title" class="u-full-width">
+				</div>
+				<div class="six columns">
+					<label for="title">Uppfödare</label>
+					<input maxlength="255" type="text" name="title" class="u-full-width">
+				</div>
 			</div>
-			<div class="six columns">
-				<label for="edit-date">Datum:</label>
-				<input class="u-full-width" type="text" name="edit-date" id="edit-date-id" readonly>
+			<div class="row">
+				<div class="six columns">
+					<label for="title">Vikt i kg</label>
+					<input min="0" step="0.1" value="0" type="number" name="title" class="u-full-width">
+				</div>
+				<div class="six columns">
+					<label for="title">Mankhöjd i meter</label>
+					<input min="0" step="0.1" type="number" name="title" class="u-full-width">
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="six columns">
-				<label for="edit-old-image">Bild:</label>
-				<img id="edit-old-image-id" src="" alt="" width="100" height="100">
+			<div class="row">
+				<div class="six columns">
+					<label for="title">MentalStatus</label>
+					<input maxlength="255" type="text" name="title" class="u-full-width">
+				</div>
+				<div class="six columns">
+					<label for="title">Födelsedag</label>
+					<input required type="date" name="title" class="u-full-width">
+				</div>
 			</div>
-			<div class="six columns">
-				<label for="edit-new-image">Välj ny bild:</label>
-				<input class="u-full-width" name="edit-new-image" id="pictureFile" accept=".jpg" id="edit-new-image-id" type="file">
+			<div class="row">
+				<div class="six columns">
+					<label for="image-path">Bild på hund:</label>
+					<input type="file" name="news-image" accept=".jpg">	
+				</div>
+				<div class="six columns">
+					<label for="image-path">Stamtavla:</label>
+					<input type="file" name="news-image" accept=".jpg">	
+				</div>
 			</div>
-		</div>
-		<label for="edit-text">Text:</label>
-		<textarea name="edit-text" class="u-full-width" id="edit-text-id"></textarea>	
-		<input value="Uppdatera" name="news-update" type="submit">
-		<input value="Radera" name="news-delete" type="submit">
+			<label for="news-text">Beskrivning:</label>
+			<textarea name="news-text" id="" class="u-full-width"></textarea>
+			<div class="row">
+				<div class="six columns">
+					<input value="Uppdatera" name="news-update" type="submit">		
+				</div>
+				<div class="six columns">
+					<input value="Radera" name="news-delete" type="submit">	
+				</div>
+			</div>
 		</form>
 
 	</div>
