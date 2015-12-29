@@ -30,7 +30,7 @@ if(isset($_POST['submit_post'])){
 		$post_text = $_POST['post_text'];
 		
 		$file = $_FILES['post_image'];
-		if(isset($file) && $file['size'] > 0) {
+		if(isset($file) && ($file['error'] == 1 || $file['size'] > 0)) {
 			
 			if (strlen($file['name']) == 0){ $postError = 'Saknar filnamn'; }
 
@@ -40,7 +40,10 @@ if(isset($_POST['submit_post'])){
 			if (!in_array($file_ext, $allowed_ext)){ $postError = 'Endast .jpg filer är tillåtna, prova ladda up en anna bild.'; }
 			if (strlen($file['tmp_name']) == 0){ $postError = 'Filen saknar temporärt filnamn, prova igen!'; }
 			if ($file['size'] >= 2097152){ $postError = 'Filen är för stor, 2mb stora filer är tillåtna'; }
-			if ($file['error'] !== 0){ $postError = 'Filen gick inte att ladda upp, prova igen!'; }
+
+			if ($file['error'] != 0){ 
+				$postError = 'Filen gick inte att ladda upp, prova igen!'; 
+			}
 
 			if (!isset($postError)){
 				$file_name_new = uniqid('', true) . '.' . $file_ext;
@@ -98,6 +101,8 @@ if (!isset($threadError)){
 		<div class="row">
 			<div class="twelve columns">				
 				<?php
+				print_r($file);
+				
 				if (!isset($threadError)){
 					echo '<h1 class="post-threadtitle">'.$thread_title.'</h1>';
 					echo '<h3 class="post-threaddatetime">'.$thread_createdAt.'</h3>';

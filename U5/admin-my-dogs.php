@@ -36,23 +36,63 @@ if ($myDogsResult['err'] == null){
 				}
 			?>
 		</div>
-		<form enctype="multipart/form-data" method="POST" action="" class="news-form">
+		<form enctype="multipart/form-data" method="POST" action="" >
 			<div class="row">
 				<div class="twelve columns">
-					<h3>Lägg till nyhet</h3>
+					<h3>Lägg till hund</h3>
 				</div>
 			</div>
 			<div class="row">
 				<div class="six columns">
-					<label for="title">Nyhetstitel:</label>
-					<input type="text" name="title">
+					<label for="title">Hundnamn</label>
+					<input required maxlength="255" type="text" name="title" class="u-full-width">
 				</div>
 				<div class="six columns">
-					<label for="image-path">Bild:</label>
+					<label for="title">Officiellt namn</label>
+					<input required maxlength="255" type="text" name="title" class="u-full-width">
+				</div>
+			</div>
+			<div class="row">
+				<div class="six columns">
+					<label for="title">Färg</label>
+					<input type="text" name="title" class="u-full-width">
+				</div>
+				<div class="six columns">
+					<label for="title">Uppfödare</label>
+					<input type="number" name="title" class="u-full-width">
+				</div>
+			</div>
+			<div class="row">
+				<div class="six columns">
+					<label for="title">Vikt i kg</label>
+					<input type="number" name="title" class="u-full-width">
+				</div>
+				<div class="six columns">
+					<label for="title">Mankhöjd i meter</label>
+					<input type="number" name="title" class="u-full-width">
+				</div>
+			</div>
+			<div class="row">
+				<div class="six columns">
+					<label for="title">MentalStatus</label>
+					<input type="number" name="title" class="u-full-width">
+				</div>
+				<div class="six columns">
+					<label for="title">Födelsedag</label>
+					<input required type="date" name="title" class="u-full-width">
+				</div>
+			</div>
+			<div class="row">
+				<div class="six columns">
+					<label for="image-path">Bild på hund:</label>
+					<input type="file" name="news-image" accept=".jpg">	
+				</div>
+				<div class="six columns">
+					<label for="image-path">Stamtavla:</label>
 					<input type="file" name="news-image" accept=".jpg">	
 				</div>
 			</div>
-			<label for="news-text">Text:</label>
+			<label for="news-text">Beskrivning:</label>
 			<textarea name="news-text" id="" class="u-full-width"></textarea>
 			<div class="row">
 				<div class="four columns">
@@ -141,7 +181,7 @@ if ($myDogsResult['err'] == null){
 		</form>
 
 	</div>
-<script src="js/admin-news.js"></script>
+<script src="js/admin-my-dogs.js"></script>
 	</div>
 </main>
 
