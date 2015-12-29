@@ -1,178 +1,195 @@
 <?php
 include_once 'admin-header.php';
 
+$allowed_ext = array('jpg');
+
 //News create
 if(isset($_POST['submit-news'])){
-
-	$submit_news_msg = "Kunde inte lägga till nyhet.";
 
 	if(strlen($_POST['title']) > 0){
 
 		$title = $_POST['title'];
 		$news_text = $_POST['news-text'];
 
-		if(isset($_FILES['news-image'])) {
-			$file = $_FILES['news-image'];
+		$file = $_FILES['news-image'];
+		if(isset($file) && (strlen($file['name']) != 0)) {
+			
+			if (strlen($file['name']) == 0){ $image_error = 'Saknar filnamn'; }
 
 			$file_name = $file['name'];
 			$file_tmp = $file['tmp_name'];
 			$file_size = $file['size'];
 			$file_error = $file['error'];
-
 			$file_ext = explode('.', $file_name);
 			$file_ext = strtolower(end($file_ext));
 
-			$allowed_ext = array('jpg');
-
-			if(in_array($file_ext, $allowed_ext)){
-
-				if($file_error === 0){
-					//2mb
-					if($file_size < 2097152){
-
-						$file_name_new = uniqid('', true) . '.' . $file_ext;
-						$file_destination = 'uploads/' . $file_name_new;
-
-						if(move_uploaded_file($file_tmp, $file_destination)){
-							$result = nonQuery("INSERT INTO News (`Title`,`CreatedAt`,`NewsText`,`NewsImagePath`) VALUES (:title,now(),:news_text,:image)", array(":title" => $title, ":news_text" => $news_text, ":image" => $file_name_new));
-							
-							if($result["err"] === null){
-								$submit_news_msg = "Nyhet tillagd.";
-							}else{
-								$submit_news_msg = "Kunde inte lägga till nyhet.";
-							}
-						}
-					}
-				}
-			}else{
-
-				$result = nonQuery("INSERT INTO News (`Title`,`CreatedAt`,`NewsText`) VALUES (:title,now(),:news_text)", array(":title" => $title, ":news_text" => $news_text));
-				
-				if($result["err"] === null){
-					$submit_news_msg = "Nyhet tillagd.";
-				}else{
-					$submit_news_msg = "Kunde inte lägga till nyhet.";
+			if (!in_array($file_ext, $allowed_ext)){ $image_error = 'Endast .jpg filer är tillåtna, prova ladda up en anna bild.'; }
+			if($file['error'] != UPLOAD_ERR_OK){
+				if ($file['error'] == UPLOAD_ERR_INI_SIZE){ 
+					$image_error = 'Filen är för stor, 2mb stora filer är tillåtna'; 
+				}else if($file['error'] > 1 && $file['error'] < 9){
+					$image_error = 'Filen gick inte att ladda upp, prova igen!';
 				}
 			}
+
+			if(!isset($image_error)){
+				$file_name_new = uniqid('', true) . '.' . $file_ext;
+				$file_destination = 'uploads/' . $file_name_new;
+
+				if(move_uploaded_file($file['tmp_name'], $file_destination)){
+					$result = nonQuery("INSERT INTO News (`Title`,`CreatedAt`,`NewsText`,`NewsImagePath`) VALUES (:title,now(),:news_text,:image)", 
+						array(
+							":title" => $title, 
+							":news_text" => $news_text, 
+							":image" => $file_name_new
+						)
+					);
+					
+					if($result["err"] != null){
+						$news_error = 'Gick inte att ladda upp din nyhet, prova igen.';
+						unlink($file_destination);
+					}else{
+						$news_success = "Nyhet upplagd och publicerad!";
+					}
+				} else { $news_error = 'Gick inte att flytta filen till servern, prova igen'; }
+			}else{ $news_error = $image_error; }
+		}else{
+			$result = nonQuery("INSERT INTO News (`Title`,`CreatedAt`,`NewsText`) VALUES (:title,now(),:news_text)", array(":title" => $title, ":news_text" => $news_text));
+
+			if($result["err"] === null){
+				$news_success = "Nyhet upplagd och publicerad!";
+			}else{
+				$news_error = "Gick inte att flytta filen till servern, prova igen";
+			}
 		}
-
 	}
-
 }
 
 //News update
 if(isset($_POST['news-update'])){
-
-	$update_news_msg = "Kunde inte uppdatera nyhet.";
-
 	
-	if(strlen($_POST['edit-title']) > 0 && strlen($_POST['edit-date']) > 0){
+	if(strlen($_POST['edit-title']) > 0 && strlen($_POST['edit-createdAt']) > 0){
 
 		$news_title = $_POST['edit-title'];
-		$news_createdAt = $_POST['edit-date'];
+		$news_createdAt = $_POST['edit-createdAt'];
 		$news_text = $_POST['edit-text'];
-
-
-		//if image is set
-		if(isset($_FILES['edit-new-image'])) {
-
-			$file = $_FILES['edit-new-image'];
+		
+		$file = $_FILES['edit-new-image'];
+		if(isset($file) && (strlen($file['name']) != 0)) {
+			
+			if (strlen($file['name']) == 0){ $image_error = 'Saknar filnamn'; }
 
 			$file_name = $file['name'];
 			$file_tmp = $file['tmp_name'];
 			$file_size = $file['size'];
 			$file_error = $file['error'];
-
 			$file_ext = explode('.', $file_name);
 			$file_ext = strtolower(end($file_ext));
 
-			$allowed_ext = array('jpg');
+			if (!in_array($file_ext, $allowed_ext)){ $image_error = 'Endast .jpg filer är tillåtna, prova ladda up en anna bild.'; }
+			if($file['error'] != UPLOAD_ERR_OK){
+				if ($file['error'] == UPLOAD_ERR_INI_SIZE){ 
+					$image_error = 'Filen är för stor, 2mb stora filer är tillåtna'; 
+				}else if($file['error'] > 1 && $file['error'] < 9){
+					$image_error = 'Filen gick inte att ladda upp, prova igen!';
+				}
+			}
 
-			if(in_array($file_ext, $allowed_ext)){
+			if(!isset($image_error)){
+				$file_name_new = uniqid('', true) . '.' . $file_ext;
+				$file_destination = 'uploads/' . $file_name_new;
+				
+				$result = query("SELECT `NewsImagePath` FROM News WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt));
+				if($result["err"] == null){
+					$resData = $result["data"];
+					if($resData[0]["NewsImagePath"] !== NULL){
+						$old_image = "uploads/" . $resData[0]["NewsImagePath"];
+					}
+				}
 
-				if($file_error === 0){
-					//2mb
-					if($file_size < 2097152){
-
-						$file_name_new = uniqid('', true) . '.' . $file_ext;
-						$file_destination = 'uploads/' . $file_name_new;
-
-						if(move_uploaded_file($file_tmp, $file_destination)){
-
-							//Deletes old picture
-							$result = query("SELECT `NewsImagePath` FROM News WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt));
-							$resData = $result["data"];
-
-							if($resData[0]["NewsImagePath"] !== NULL){
-								$image_path = "uploads/" . $resData[0]["NewsImagePath"];
-								if(file_exists($image_path)){
-						        	unlink($image_path);
-						    	}
-							}
-
-							$result = nonQuery("UPDATE News SET `NewsText` = :news_text, `NewsImagePath` = :image_path WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt, ":news_text" => $news_text, ":image_path" => $file_name_new));
-							
-							if($result["err"] === null){
-								$update_news_msg = "Nyhet uppdaterad"; 
-							}else{
-								$update_news_msg = "Kunde inte uppdatera nyhet.";
+				if(move_uploaded_file($file['tmp_name'], $file_destination)){
+					$result = nonQuery("UPDATE News SET `NewsText` = :news_text, `NewsImagePath` = :image_path WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", 
+						array(
+							":news_title" => $news_title,
+							":news_createdAt" => $news_createdAt, 
+							":news_text" => $news_text, 
+							":image_path" => $file_name_new
+						)
+					);
+					
+					if($result["err"] != null){
+						$news_error = 'Gick inte att uppdatera nyhet, prova igen.';
+						unlink($file_destination);
+					}else{
+						$news_success = "Nyhet uppdaterad och publicerad!";
+						if(isset($old_image)){
+							if(file_exists($old_image)){
+						    	unlink($old_image);
 							}
 						}
 					}
-				}
-			}else{
+				} else { $news_error = 'Gick inte att flytta filen till servern, prova igen'; }
+			}else{ $news_error = $image_error; }
+		}else{
 	
-				$result = nonQuery("UPDATE News SET `NewsText` = :news_text WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt, ":news_text" => $news_text));
-				
-				if($result["err"] === null){
-					$update_news_msg = "Nyhet uppdaterad"; 
-				}else{
-					$update_news_msg = "Kunde inte uppdatera nyhet.";
-				}
+			$result = nonQuery("UPDATE News SET `NewsText` = :news_text WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt, ":news_text" => $news_text));
+			
+			if($result["err"] === null){
+				$news_success = "Nyhet uppdaterad"; 
+			}else{
+				$news_error = "Kunde inte uppdatera nyhet, prova igen.";
 			}
 		}
 	}
-	
 }
 
 //News delete
 if(isset($_POST['news-delete'])){
 
-	$delete_news_msg = "Kunde inte tabort nyhet.";
-
-	if(strlen($_POST['edit-title']) > 0 && strlen($_POST['edit-date']) > 0){
+	if(strlen($_POST['edit-title']) > 0 && strlen($_POST['edit-createdAt']) > 0){
 
 		$news_title = $_POST['edit-title'];
-		$news_createdAt = $_POST['edit-date'];
+		$news_createdAt = $_POST['edit-createdAt'];
 
-		//Deletes old picture
 		$result = query("SELECT `NewsImagePath` FROM News WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt));
-		$resData = $result["data"];
-
-		if($resData[0]["NewsImagePath"] !== NULL){
-			$image_path = "uploads/" . $resData[0]["NewsImagePath"];
-			if(file_exists($image_path)){
-	        	unlink($image_path);
-	    	}
+		if($result["err"] == null){
+			$resData = $result["data"];
+			if($resData[0]["NewsImagePath"] !== NULL){
+				$old_image = "uploads/" . $resData[0]["NewsImagePath"];
+			}
 		}
 
 		$result = nonQuery("DELETE FROM News WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt));
-		$result["data"];
-
+		
 		if($result["err"] === NULL){
-
-			$delete_news_msg = "Nyhet borttagen."; 
-
+			$news_success = "Nyhet raderad!"; 
+			if(isset($old_image)){
+				if(file_exists($old_image)){
+			    	unlink($old_image);
+				}
+			}
 		}else{
-			$delete_news_msg = "Kunde inte tabort nyhet.";
+			$news_error = "Kunde inte tabort nyhet, prova igen.";
 		}
-	}
+	}else{ $news_error = "Kunde inte tabort nyhet, saknar värden."; }
 }
 
 
 ?>
 <main>
 	<div class="container">
+	<div class="row">
+			<div class="twelve columns">
+				<?php
+					if(isset($news_success)){
+						echo '<span id="returnMsg" class="success-message">' . $news_success . '</span>';
+					}
+					if(isset($news_error)){
+						echo '<span id="returnMsg" class="error-message">' . $news_error . '</span>';
+					}
+				?>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="twelve columns">
@@ -181,19 +198,6 @@ if(isset($_POST['news-delete'])){
 			</div>
 		</div>
 		<hr>
-		<div id="returnMsg" style="margin:20px 0 50px 0;">
-			<?php
-				if(isset($submit_news_msg)){
-					echo $submit_news_msg;
-				}
-				if(isset($delete_news_msg )){
-					echo $delete_news_msg ;
-				}
-				if(isset($update_news_msg)){
-					echo $update_news_msg;
-				}
-			?>
-		</div>
 		<form enctype="multipart/form-data" method="POST" action="" class="news-form">
 			<div class="row">
 				<div class="twelve columns">
@@ -234,31 +238,51 @@ if(isset($_POST['news-delete'])){
 							<tr>
 								<th>Nyhetstitel</th>
 								<th>Datum</th>
+								<th><center>Redigera nyhet</center></th>
 							</tr>
 						</thead>
 						<tbody id="newsTable">
 							<?php
-							$result = query("SELECT Title, CreatedAt, NewsText, NewsImagePath FROM News");
-							$newsData = $result['data'];
-							foreach($newsData as $key => $n){
-								echo '<tr id="news' . $key . '">';
-								echo '<td class="titleTd">';
-								echo $n['Title'];
-								echo '</td>';
-								echo '<td class="CreatedAtTd">';
-								echo $n["CreatedAt"];
-								echo '</td>';
-								echo '<td class="newsTextTd" style = "display:none">';
-								echo $n["NewsText"];
-								echo '</td>';
-								echo '<td class="newsImagePathTd" style = "display:none">';
-								echo $n["NewsImagePath"];
-								echo '</td>';
-								echo '</tr>';
+							$result = query("SELECT Title, CreatedAt, NewsText, NewsImagePath FROM News ORDER BY CreatedAt DESC");
+							if($result["err"] != null){
+								$load_error = "Kunde inte ladda inlägg, prova att ladda om sidan.";
+							}else{
+								$newsData = $result['data'];
+
+								if(count($newsData) > 0){
+									foreach($newsData as $key => $n){
+										echo '<tr id="news' . $key . '">';
+										echo '<td class="titleTd">';
+										echo $n['Title'];
+										echo '</td>';
+										echo '<td class="CreatedAtTd">';
+										echo $n["CreatedAt"];
+										echo '</td>';
+										echo '<td class="newsTextTd" style = "display:none">';
+										echo $n["NewsText"];
+										echo '</td>';
+										echo '<td class="newsImagePathTd" style = "display:none">';
+										echo $n["NewsImagePath"];
+										echo '</td>';
+										echo '<td class="edit-news">';
+										echo '<center><i class="cursor-pointer fa fa-pencil-square-o fa-lg"></i></center>';
+										echo '</td>';
+										echo '</tr>';
+									}
+								}else{
+									$load_error = "Det finns inga nyheter publicerade.";
+								}
 							}			
 							?>				
 						</tbody>
 					</table>
+					<?php
+
+					if(isset($load_error)){
+						echo $load_error;
+					}
+
+					?>
 				</div>
 			</div>
 
@@ -278,8 +302,8 @@ if(isset($_POST['news-delete'])){
 				<input class="u-full-width" type="text" name="edit-title" id="edit-title-id" readonly>
 			</div>
 			<div class="six columns">
-				<label for="edit-date">Datum:</label>
-				<input class="u-full-width" type="text" name="edit-date" id="edit-date-id" readonly>
+				<label for="edit-createdAt">Datum:</label>
+				<input class="u-full-width" type="text" name="edit-createdAt" id="edit-createdAt" readonly>
 			</div>
 		</div>
 		<div class="row">
