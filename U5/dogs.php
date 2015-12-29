@@ -36,7 +36,7 @@ $puppys = $_GET['puppylitter'];
 				$divData = $divOne['data'];
 				foreach($divData as $key => $row){
 
-					if($row['NewsImagePath'] === NULL){
+					if($row['PuppyImagePath'] === NULL){
 						$image = "noimage.jpg";
 					}else{
 						$image = $row['PuppyImagePath'];

@@ -210,7 +210,7 @@ p.details {
 	margin: 0 auto;
 	overflow: auto;
 }
-#puppylink {
+#puppylink, #mydogslink {
 	display: inline-block;
     height: 38px;
     padding: 0 30px;
@@ -242,6 +242,7 @@ p.details {
 }
 .dog-information {
 	float: right;
+	text-align: right;
 }
 .dog-available {
 	color: #4bca78;
