@@ -12,7 +12,7 @@ if(isset($_GET['dog'])){
 	<div class="container">
 		<div class="row">
 			<div class="four columns">
-				<label for="dogs">Välj kull</label>
+				<label for="dogs">Välj hund</label>
 				<select id="dogs" class="u-full-width" name="dogs">
 					<?php
 					$dogData = query("SELECT Name FROM MyDog");
