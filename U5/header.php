@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <head>
 	<meta charset="UTF-8">
-    <meta name="description" content="We are doing operation doge">
+    <meta name="description" content="Kennel Batuulis">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <title>Operation Doge</title>	
+    <title>Kennel Batuulis - Rhodesian Ridgeback</title>	
     <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
