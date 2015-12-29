@@ -230,6 +230,19 @@ p.details {
     cursor: pointer;
     box-sizing: border-box;
 }
+.dog-pic {
+	display: block;
+	text-align: center;
+	margin: 20px;
+}
+.gen-pic {
+	display: block;
+	text-align: center;
+	margin: 20px;
+}
+.dog-information {
+	float: right;
+}
 .dog-available {
 	color: #4bca78;
 }
