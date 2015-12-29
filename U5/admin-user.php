@@ -38,12 +38,16 @@ if(isset($_POST['submit_update'])){
 					}
 				}
 			}
-			
+			else {
+				$userAddError = "Användaren finns ej";
+			}
+		} else {
+			$userAddError = "Något gick snett prova igen.";
 		}
 		
 	}
 	else {
-		$userAddError = "Behövs text i inputs";
+		$userAddError = "Var vänlig och mata in information i inmatningsfälten";
 	}
 }
 ?>
