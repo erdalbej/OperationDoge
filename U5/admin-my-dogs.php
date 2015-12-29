@@ -17,16 +17,14 @@ if (isset($_POST['submit-new-dog'])){
 		$genImgPath = null;
 		$dogImgPath = null;
 
-
-
 		if ($result['err'] == null){
 			if (count($result['data']) == 0){
-				$insertResult = query('INSERT INTO MyDog(Name, OfficialName, Birthdate, Description, Color, Height, Weight, Teeth, MentalStatus, Breader, GenImgPath, DogImagePath VALUES(:dogName, :officialName, :birthdate, :description, :color, :height, :weight, :teeth, :mental, :breader, :genImgPath, :dogImgPath)',
+				$insertResult = nonquery('INSERT INTO MyDog(Name, OfficialName, Birthdate, Description, Color, Height, Weight, Teeth, MentalStatus, Breader, GenImagePath, DogImagePath) VALUES(:dogName, :officialName, :birthdate, :description, :color, :height, :weight, :teeth, :mental, :breader, :genImgPath, :dogImgPath)',
 					array(
 						':dogName' => $_POST['dogName'],
 						':officialName' => $_POST['officialName'],
 						':color' => $_POST['color'],
-						':birthdate' => $_POST['birthDate'],
+						':birthdate' => $_POST['birthdate'],
 						':description' => $_POST['description'],
 						':height' => $_POST['height'],
 						':weight' => $_POST['weight'],
@@ -40,26 +38,11 @@ if (isset($_POST['submit-new-dog'])){
 
 				if ($insertResult['err'] == null){
 
-				} else {
-					$submitNewDogError = 'Det gick inte att lägga in hunden i databasen, prova igen';
-				}
-			} else {
-				$submitNewDogError = 'Hunden du försöker skapa finns redan';
-			}
-		} else {
-			$submitNewDogError = 'Gick inte att lägga till ny hund, prova igen!';
-		}
-
-
-	}
+				} else { $submitNewDogError = 'Det gick inte att lägga in hunden i databasen, prova igen'; }
+			} else { $submitNewDogError = 'Hunden du försöker skapa finns redan'; }
+		} else { $submitNewDogError = 'Gick inte att lägga till ny hund, prova igen!'; }
+	} else { $submitNewDogError = 'Saknar värden'; }
 }
-
-
-
-
-
-
-
 
 
 
@@ -83,6 +66,10 @@ if ($myDogsResult['err'] == null){
 		<hr>
 		<div id="returnMsg" style="margin:20px 0 50px 0;">
 			<?php
+				if (isset($submitNewDogError)){
+					echo $submitNewDogError;
+				}
+
 				if (isset($myDogsError)){
 					echo $myDogsError;
 				}
@@ -98,12 +85,12 @@ if ($myDogsResult['err'] == null){
 				}
 			?>
 		</div>
-		<form enctype="multipart/form-data" method="POST" action="" >
-			<div class="row">
+		<div class="row">
 				<div class="twelve columns">
-					<h3>Lägg till hund</h3>
+					<h3 id="add-dog-header">Lägg till hund  <i class="fa fa-plus" id="add-dog-icon"></i></h3>
 				</div>
 			</div>
+		<form hidden enctype="multipart/form-data" method="POST" action="" id='add-dog-form'>
 			<div class="row">
 				<div class="six columns">
 					<label for="title">Hundnamn</label>
@@ -182,6 +169,9 @@ if ($myDogsResult['err'] == null){
 							</thead>
 							<tbody id="newsTable">
 								<?php
+
+								#print_r($_POST);
+								print_r($insertResult['err']);
 									if (!isset($myDogsError)){
 										if (count($myDogs) > 0){
 											foreach($myDogs as $key => $d){
@@ -274,17 +264,17 @@ if ($myDogsResult['err'] == null){
 			<div class="row">
 				<div class="six columns">
 					<label for="title">MentalStatus</label>
-					<input maxlength="255" type="text" name="title" class="u-full-width" id="edit-mental">
+					<input maxlength="255" type="text" name="mental" class="u-full-width" id="edit-mental">
 				</div>
 				<div class="six columns">
 					<label for="title">Födelsedag</label>
-					<input required type="date" name="title" class="u-full-width" id="edit-birthdate"> 
+					<input required type="date" name="birthday" class="u-full-width" id="edit-birthdate"> 
 				</div>
 			</div>
 			<div class="row">
 				<div class="six columns">
 					<label for="image-path">Bild på hund:</label>
-					<input type="file" name="news-image" accept=".jpg" id="edit-img-dog">	
+					<input type="file" name="n" accept=".jpg" id="edit-img-dog">	
 				</div>
 				<div class="six columns">
 					<label for="image-path">Stamtavla:</label>
@@ -292,7 +282,7 @@ if ($myDogsResult['err'] == null){
 				</div>
 			</div>
 			<label for="news-text">Beskrivning:</label>
-			<textarea name="news-text" id="" class="u-full-width" id="edit-description"></textarea>
+			<textarea name="news-text" id="" class="u-full-width" id="edit-description" name="description"></textarea>
 			<div class="row">
 				<div class="six columns">
 					<input value="Uppdatera" name="news-update" type="submit">		

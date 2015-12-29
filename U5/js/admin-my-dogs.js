@@ -7,14 +7,16 @@ $(document).ready(function(){
 		data.dogName = $(parent).children('.nameTd').text();
 		data.officialName = $(parent).children('.officialNameTd').text();
 		data.color = $(parent).children('.colorTd').text();
-		data.breader = $(parent).children('.breaderId').text();
+		data.breader = $(parent).children('.breaderTd').text();
 		data.weight = $(parent).children('.weightTd').text();
 		data.height = $(parent).children('.heightTd').text();
-		data.mental = $(parent).children('mentalTd').text();
+		data.mental = $(parent).children('.mentalTd').text();
 		data.birthdate = $(parent).children('.birthdateTd').text();
 		data.dogImgPath = $(parent).children('.imageDogTd').text();
 		data.genImgPath = $(parent).children('imageGenTableTd').text();
 		data.description = $(parent).children('.descTd').text();
+
+		console.log(data);
 
 		$("#edit-dog-name").val(data.dogName);
 		$("#edit-official-name").val(data.officialName);
@@ -31,4 +33,9 @@ $(document).ready(function(){
 		$('html, body').animate({ scrollTop: $(document).height() }, 500);
 		$('form').show(300);	
 	});
+	//<i class="fa fa-minus"></i>
+	$('#add-dog-header').click(function(){
+		$('#add-dog-form').toggle(400);
+		$('#add-dog-icon').toggleClass('fa-plus fa-minus');
+	})
 });
