@@ -95,7 +95,7 @@ if (isset($_POST['submit-new-dog'])){
 		$dogImgPath = isset($dog_name_new) ? $gen_name_new : null;
 
 		if (!isset($submitNewDogError)){	
-			$insertResult = nonquery('INSERT INTO MyDog(Name, OfficialName, Birthdate, Description, Color, Height, Weight, Teeth, MentalStatus, Breader, GenImagePath, DogImagePath) VALUES(:dogName, :officialName, :birthdate, :description, :color, :height, :weight, :teeth, :mental, :breader, :genImgPath, :dogImgPath)',
+			$insertResult = nonquery('INSERT INTO MyDog(Name, OfficialName, Birthdate, Description, Color, Height, Weight, MentalStatus, Breader, GenImagePath, DogImagePath) VALUES(:dogName, :officialName, :birthdate, :description, :color, :height, :weight, :mental, :breader, :genImgPath, :dogImgPath)',
 				array(
 					':dogName' => $_POST['dogName'],
 					':officialName' => $_POST['officialName'],
@@ -118,11 +118,11 @@ if (isset($_POST['submit-new-dog'])){
 
 		if (isset($submitNewDogError)) {
 			if (isset($gen_destination) && file_exists($gen_destination)){
-				unlink($gen_destination)
+				unlink($gen_destination);
 			} 
 
 			if (isset($dog_destination) && file_exists($dog_destination)){
-				unlink($dog_destination)
+				unlink($dog_destination);
 			} 
 		} 
 	} else {
