@@ -52,10 +52,15 @@ header h1 {
 	right: 35px;
 	color: #fff;
 }
-header h1 span {
+span.slogan {
 	color: #74d7ff;
 	font-size: 18px;
 	font-style: italic;
+}
+span.logo {
+	position: relative;
+	top: -15px;
+	margin-left: 15px;
 }
 nav, main, aside {
 	min-height: 500px;

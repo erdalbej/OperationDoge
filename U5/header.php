@@ -25,7 +25,7 @@
     <body>
         <div id="wrapper">
             <header>
-                <h1>Kennel Batuulis - <span>Rhodesian Ridgeback</span></h1>
+                <h1><i class="fa fa-lemon-o fa-2x"></i><span class="logo">Kennel Batuulis - <span class="slogan">Rhodesian Ridgeback</span></span></h1>
             </header>
             <nav>
                 <ul>
