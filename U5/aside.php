@@ -1,7 +1,7 @@
 <aside>
 	<span class="aside-title">Nyheter</span>
 	<?php
-	$result = query("SELECT NewsTitle, CreatedAt, Description, NewsImagePath, NewsLink FROM NewsFeed ORDER BY CreatedAt LIMIT 3");
+	$result = query("SELECT NewsTitle, CreatedAt, Description, NewsImagePath, NewsLink FROM NewsFeed ORDER BY CreatedAt DESC LIMIT 3");
 	$newsFeedData = $result['data'];
 	foreach($newsFeedData as $key => $n){
 		echo '<span id="newsfeed' . $key . '"></span>';
