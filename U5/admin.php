@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['login-submit']) && iss
 <head>
 	<meta charset="UTF-8">
 	<title>Login</title>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
 </head>

@@ -36,5 +36,6 @@
                     <li><a href="admin-gallery.php">Bildgalleri</a></li>
                     <li><a href="admin-thread.php">Gästbok</a></li>
                     <li><a href="admin-user.php">Ändra användaruppgifter</a></li>
+                    <li><a href="logout.php">Logga ut</a></li>
                 </ul>
             </nav>
