@@ -80,15 +80,15 @@ if(isset($_POST['submit_image'])){
 					</thead>
 					<tbody id="galleryTable">
 						<?php
-						$divOne = query("SELECT ImagePath, ImageTitle FROM ImageGallery");
-						$divData = $divOne['data'];
-						foreach($divData as $key => $row){
+						$result = query("SELECT ImagePath, ImageTitle FROM ImageGallery");
+						$galleryData = $result['data'];
+						foreach($galleryData as $key => $img){
 							echo '<tr id="gallery' . $key . '">';
 							echo '<td class="galleryImageTd">';
-							echo '<img src="uploads/'.$row['ImagePath'].'" width="100" height="100" alt="">';
+							echo '<img src="uploads/'.$img['ImagePath'].'" width="100" height="100" alt="">';
 							echo '</td>';
 							echo '<td class="galleryTitleTd">';
-							echo $row['ImageTitle'];
+							echo $img['ImageTitle'];
 							echo '</td>';
 							echo '</tr>';
 						}			
@@ -98,5 +98,5 @@ if(isset($_POST['submit_image'])){
 			</div>
 </main>
 <?php
-include_once '../footer.php';
+include_once 'footer.php';
 ?>
