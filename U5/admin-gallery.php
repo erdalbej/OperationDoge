@@ -47,29 +47,42 @@ if(isset($_POST['submit_image'])){
 
 ?>
 <main>
-	<form enctype="multipart/form-data" method="POST" action="">
+	<div class="container">
 		<div class="row">
-			<div class="four columns">
-				<label for="image_title">Bildtitel:</label>
-				<input type="text" name="image_title">
-			</div>
-			<div class="four columns">
-				<label for="gallery_image">Infoga bild:</label>
-				<input type="file" name="gallery_image" accept=".jpg">
-			</div>
-			<div class="four columns">
-				<label for="submit_image">&nbsp;</label>
-				<input type="submit" name="submit_image" class="button-primary" value="Lägg till bild i galleri">
+			<div class="twelve columns">
+				<?php
+				if(isset($gallery_success)){
+					echo '<span id="returnMsg" class="success-message">' . $gallery_success . '</span>';
+				}
+				if(isset($gallery_error)){
+					echo '<span id="returnMsg" class="error-message">' . $gallery_error . '</span>';
+				}
+				?>
 			</div>
 		</div>
-		<hr>
-	</form>
-	<?php
+		<form enctype="multipart/form-data" method="POST" action="">
+			<div class="row">
+				<div class="four columns">
+					<label for="image_title">Bildtitel:</label>
+					<input type="text" name="image_title">
+				</div>
+				<div class="four columns">
+					<label for="gallery_image">Infoga bild:</label>
+					<input type="file" name="gallery_image" accept=".jpg">
+				</div>
+				<div class="four columns">
+					<label for="submit_image">&nbsp;</label>
+					<input type="submit" name="submit_image" class="button-primary" value="Lägg till bild i galleri">
+				</div>
+			</div>
+			<hr>
+		</form>
+		<?php
 		if(isset($returnMsgGalleryAdd)){
 			echo $returnMsgGalleryAdd;
 		}
-	?>
-	<div class="row">
+		?>
+		<div class="row">
 			<div class="twelve columns">
 				<table class="u-full-width">
 					<thead>
@@ -96,7 +109,8 @@ if(isset($_POST['submit_image'])){
 					</tbody>
 				</table>
 			</div>
-</main>
-<?php
-include_once 'footer.php';
-?>
+		</div>
+	</main>
+	<?php
+	include_once 'footer.php';
+	?>

@@ -59,6 +59,15 @@ if ($myDogsResult['err'] == null){
 <main>
 	<div class="container">
 		<div class="row">
+		<div class="twelve columns">
+			<?php
+			if(isset($submitNewDogError)){
+				echo '<span id="returnMsg" class="error-message">' . $submitNewDogError . '</span>';
+			}
+			?>
+		</div>
+	</div>
+		<div class="row">
 			<div class="twelve columns">
 				<h4 style="text-align: center;">Mina Hundar</h4>
 			</div>
