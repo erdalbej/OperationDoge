@@ -90,7 +90,6 @@ CREATE TABLE Puppy (
     `DogName` varchar(255) NOT NULL,
     `Gender` varchar(255) NOT NULL,
     `Price` varchar(255) NOT NULL,
-    `PuppyImagePath` varchar(255),
     `Available` BOOLEAN NOT NULL DEFAULT 1,
     `BirthDate` VARCHAR(45),
     `PuppyLitter_LitterTitle` varchar(255) NOT NULL,
@@ -152,17 +151,17 @@ INSERT INTO `OperationDoge`.`DogCourse` (`CourseName`, `CourseTeacher`, `CourseD
 INSERT INTO `OperationDoge`.`DogCourse` (`CourseName`, `CourseTeacher`, `CourseDate`, `AgeOfDog`, `Gender`, `PriorKnowledge`, `CourseText`) VALUES ('Bruksprov', 'Stefan', NOW()  + INTERVAL 5 DAY, '7', 'B', 'Kommunikation med hunden, god relation med din hund', 'Bruksprov innehåller klassiska arbetsuppgifter för hundar och förare. Du kan träna och tävla i både lydnad och specialgrenarna: spår, sök, rapport, patrull, skydd och IPO.');
 INSERT INTO `OperationDoge`.`DogCourse` (`CourseName`, `CourseTeacher`, `CourseDate`, `AgeOfDog`, `Gender`, `PriorKnowledge`, `CourseText`) VALUES ('Patrullhund', 'Batman', NOW() + INTERVAL 6 DAY, '6', 'B', 'Kommunikation med hunden', 'På uppdrag av Armén/Hemvärnet, Flygvapnet och Marinen kan ni utbilda er inom Brukshundklubben till patrullhund och förare. Du placeras i något av Försvarsmaktens olika förband.');
 
-INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`,  `PuppyImagePath`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aeter', 'Hane', '2000', 'noimage.jpg', '2006-05-14', 'A-Kull');
-INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `PuppyImagePath`,`BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Afrodite', 'Tik', '2500', 'noimage.jpg', '2006-05-14  ', 'A-Kull');
-INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `PuppyImagePath`,`BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aiolos', 'Hane', '2650', 'noimage.jpg', '2006-05-14', 'A-Kull');
-INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `PuppyImagePath`,`BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Ajas', 'Hane', '2650', 'noimage.jpg', '2006-05-14', 'A-Kull');
-INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `PuppyImagePath`,`BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Alectrona', 'Tik', '3000', 'noimage.jpg', '2006-05-14', 'A-Kull');
+INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aeter', 'Hane', '2000', '2006-05-14', 'A-Kull');
+INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Afrodite', 'Tik', '2500', '2006-05-14  ', 'A-Kull');
+INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aiolos', 'Hane', '2650', '2006-05-14', 'A-Kull');
+INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Ajas', 'Hane', '2650', '2006-05-14', 'A-Kull');
+INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Alectrona', 'Tik', '3000', '2006-05-14', 'A-Kull');
 
-INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`,  `PuppyImagePath`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aeter', 'Hane', '2000', 'noimage.jpg', '2006-05-14', 'B-Kull');
-INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `PuppyImagePath`,`BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Afrodite', 'Tik', '2500', 'noimage.jpg', '2006-05-14  ', 'B-Kull');
-INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `PuppyImagePath`,`BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aiolos', 'Hane', '2650', 'noimage.jpg', '2006-05-14', 'B-Kull');
-INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `PuppyImagePath`,`BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Ajas', 'Hane', '2650', 'noimage.jpg', '2006-05-14', 'B-Kull');
-INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `PuppyImagePath`,`BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Alectrona', 'Tik', '3000', 'noimage.jpg', '2006-05-14', 'B-Kull');
+INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`,  `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aeter', 'Hane', '2000', 'noimage.jpg', '2006-05-14', 'B-Kull');
+INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Afrodite', 'Tik', '2500', 'noimage.jpg', '2006-05-14  ', 'B-Kull');
+INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aiolos', 'Hane', '2650', 'noimage.jpg', '2006-05-14', 'B-Kull');
+INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Ajas', 'Hane', '2650', 'noimage.jpg', '2006-05-14', 'B-Kull');
+INSERT INTO `OperationDoge`.`Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Alectrona', 'Tik', '3000', 'noimage.jpg', '2006-05-14', 'B-Kull');
 
 INSERT INTO `OperationDoge`.`MyDog` (`OfficialName`, `Name`, `Birthdate`, `Description`, `Color`, `Height`, `Weight`, `Teeth`, `MentalStatus`, `Breader`) VALUES (' RidgeBow´s Estelle of Canello\n\n RidgeBow´s Estelle of Canello', 'Thea', '2001-06-04', 'Thea är född som valp nr.2. \n Thea har 2 bröder och 1 systrar. Tillsammans är de RidgeBow´s E-kull. \n Thea´s far är S NUCh, LP1 Corleo´s Mosheshwe \"Canello\" och \n mor är INT NORDUCH Lövfällan`s Gucci', 'Vete', '65', '37', 'Fulltandad, korrekt saxbett', 'Känd mentalstatus', 'RidgeBow´s Kennel, Sven & Bitte Stjärnfeldt');
 INSERT INTO `OperationDoge`.`MyDog` (`OfficialName`, `Name`, `Birthdate`, `Description`, `Color`, `Height`, `Weight`, `Teeth`, `MentalStatus`, `Breader`) VALUES ('INT&NORDUCH, S VCH, LP1, LP2 Stenänga Ghali Batuuli', 'Mira', '2002-09-15', 'Mira är född som valp nr.12. \n  Mira har 5 bröder och 7 systrar. Tillsammans är de Stenänga´s  \n  B-kull. Miras far är INTUCH, VDHCH Lionhunt Dayimane Umvuma och mor är Madahiro´s   \n  GoodEnough', 'Rödvete', '68', '41', 'Fulltandad', 'Känd mentalstatus, Skottsäker', 'Kennel Stenänga, Margaretha & Lars-Gunnar Lantz');

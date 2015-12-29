@@ -38,7 +38,7 @@ if(isset($_GET['puppylitter'])){
 			<div class="twelve columns">
 				<?php
 				if(strlen($puppyName) > 0){
-					$result = query("SELECT DogName, Gender, Price, PuppyImagePath, Available, BirthDate, PuppyLitter_LitterTitle FROM Puppy WHERE PuppyLitter_LitterTitle = :puppylitter ORDER BY PuppyLitter_LitterTitle",
+					$result = query("SELECT DogName, Gender, Price, Available, BirthDate, PuppyLitter_LitterTitle FROM Puppy WHERE PuppyLitter_LitterTitle = :puppylitter ORDER BY PuppyLitter_LitterTitle",
 						array(
 							':puppylitter' => $puppyName
 							)
@@ -46,17 +46,10 @@ if(isset($_GET['puppylitter'])){
 					$puppysData = $result['data'];
 					if(count($puppysData) > 0){
 						foreach($puppysData as $key => $p){
-
-							if($p['PuppyImagePath'] === NULL){
-								$image = "noimage.jpg";
-							}else{
-								$image = $p['PuppyImagePath'];
-							}
 							echo '<span id="dogs' . $key . '"></span>';
 							echo '<h2>';
 							echo $p['DogName'];
 							echo '</h2>';
-							echo '<img class="dog-image floatleft" src="uploads/'.$image.'" width="100" height="100" alt="">';
 							echo '<p class="details">';
 							echo '<b>Kull: </b>' . $p['PuppyLitter_LitterTitle'] . '<br>';
 							echo '<b>Födelsedatum: </b>' . $p['BirthDate'] . '<br>';
