@@ -90,33 +90,33 @@ if(isset($_POST['thread-delete'])){
 						<tbody>
 							<?php
 
-							$divOne = query("SELECT Title, CreatedAt, Username, Description FROM GuestbookThread ORDER BY CreatedAt DESC");
+							$result = query("SELECT Title, CreatedAt, Username, Description FROM GuestbookThread ORDER BY CreatedAt DESC");
 
-							if($divOne["err"] != null){
+							if($result["err"] != null){
 								$load_error = "Kunde inte ladda trådar, prova att ladda om sidan.";
 							}else{
-								$divData = $divOne['data'];
+								$guestBookData = $result['data'];
 
-								if(count($divData) > 0){
-									foreach($divData as $key => $row){
+								if(count($guestBookData) > 0){
+									foreach($guestBookData as $key => $g){
 										echo '<tr>';
 										echo '<td >';
-										echo $row['Title'];
+										echo $g['Title'];
 										echo '</td>';
 										echo '<td>';
-										echo $row["CreatedAt"];
+										echo $g["CreatedAt"];
 										echo '</td>';
 										echo '<td style = "display:none">';
-										echo $row["Username"];
+										echo $g["Username"];
 										echo '</td>';
 										echo '<td style = "display:none">';
-										echo $row["Description"];
+										echo $g["Description"];
 										echo '</td>';
 										echo '<td class="edit-thread">';
 										echo '<center><i class="cursor-pointer fa fa-pencil-square-o fa-lg"></i></center>';
 										echo '</td>';
 										echo '<td>';
-										echo '<center><a href="/U5/admin-post.php?title='.$row['Title'].'&createdAt='.$row['CreatedAt'].'">';
+										echo '<center><a href="/U5/admin-post.php?title='.$g['Title'].'&createdAt='.$g['CreatedAt'].'">';
 										echo '<i class="fa fa-comments fa-lg"></i>';
 										echo '</a></center>';
 										echo '</td>';

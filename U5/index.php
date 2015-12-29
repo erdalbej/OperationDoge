@@ -5,7 +5,7 @@ include_once 'aside.php';
 <main class="height-uv">
 
 <?php
-$divOne = query("SELECT Title, DateTime, NewsText, NewsImagePath FROM News");
+$divOne = query("SELECT Title, CreatedAt, NewsText, NewsImagePath FROM News");
 $divData = $divOne['data'];
 foreach($divData as $key => $row){
 
@@ -24,7 +24,7 @@ foreach($divData as $key => $row){
 	echo $row['NewsText'];
 	echo '</p>';
 	echo '<span class="news-datetime">';
-	echo $row['DateTime'];
+	echo $row['CreatedAt'];
 	echo '</span>';
 	echo '<br/>';
 	echo '<br class="clearleft">';

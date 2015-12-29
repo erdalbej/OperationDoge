@@ -158,28 +158,28 @@ if(isset($_POST['post-delete'])){
 						<tbody>
 							<?php
 
-							$divOne = query("SELECT Username, CreatedAt, PostText, PostImagePath FROM Post WHERE Thread_Title = :thread_title AND Thread_CreatedAt = :thread_createdAt ORDER BY CreatedAt DESC", array(":thread_title" => $thread_title, ":thread_createdAt" => $thread_createdAt));
+							$result = query("SELECT Username, CreatedAt, PostText, PostImagePath FROM Post WHERE Thread_Title = :thread_title AND Thread_CreatedAt = :thread_createdAt ORDER BY CreatedAt DESC", array(":thread_title" => $thread_title, ":thread_createdAt" => $thread_createdAt));
 
-							if($divOne["err"] != null){
+							if($result["err"] != null){
 								$load_error = "Kunde inte ladda inlägg, prova att ladda om sidan.";
 							}else{
-								$divData = $divOne['data'];
+								$postData = $result['data'];
 
-								if(count($divData) > 0){
+								if(count($postData) > 0){
 
-									foreach($divData as $key => $row){
+									foreach($postData as $key => $p){
 										echo '<tr id="news' . $key . '">';
 										echo '<td class="usernameTd">';
-										echo $row['Username'];
+										echo $p['Username'];
 										echo '</td>';
 										echo '<td>';
-										echo $row["CreatedAt"];
+										echo $p["CreatedAt"];
 										echo '</td>';
 										echo '<td class="postTextTd" style = "display:none">';
-										echo $row["PostText"];
+										echo $p["PostText"];
 										echo '</td>';
 										echo '<td class="postImagePath" style = "display:none">';
-										echo $row['PostImagePath'];
+										echo $p['PostImagePath'];
 										echo '</td>';
 										echo '<td class="edit-post">';
 										echo '<center><i class="cursor-pointer fa fa-pencil-square-o fa-lg"></i></center>';

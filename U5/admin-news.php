@@ -34,7 +34,7 @@ if(isset($_POST['submit-news'])){
 						$file_destination = 'uploads/' . $file_name_new;
 
 						if(move_uploaded_file($file_tmp, $file_destination)){
-							$result = nonQuery("INSERT INTO News (`Title`,`DateTime`,`NewsText`,`NewsImagePath`) VALUES (:title,now(),:news_text,:image)", array(":title" => $title, ":news_text" => $news_text, ":image" => $file_name_new));
+							$result = nonQuery("INSERT INTO News (`Title`,`CreatedAt`,`NewsText`,`NewsImagePath`) VALUES (:title,now(),:news_text,:image)", array(":title" => $title, ":news_text" => $news_text, ":image" => $file_name_new));
 							
 							if($result["err"] === null){
 								$submit_news_msg = "Nyhet tillagd.";
@@ -46,7 +46,7 @@ if(isset($_POST['submit-news'])){
 				}
 			}else{
 
-				$result = nonQuery("INSERT INTO News (`Title`,`DateTime`,`NewsText`) VALUES (:title,now(),:news_text)", array(":title" => $title, ":news_text" => $news_text));
+				$result = nonQuery("INSERT INTO News (`Title`,`CreatedAt`,`NewsText`) VALUES (:title,now(),:news_text)", array(":title" => $title, ":news_text" => $news_text));
 				
 				if($result["err"] === null){
 					$submit_news_msg = "Nyhet tillagd.";
@@ -69,7 +69,7 @@ if(isset($_POST['news-update'])){
 	if(strlen($_POST['edit-title']) > 0 && strlen($_POST['edit-date']) > 0){
 
 		$news_title = $_POST['edit-title'];
-		$news_datetime = $_POST['edit-date'];
+		$news_createdAt = $_POST['edit-date'];
 		$news_text = $_POST['edit-text'];
 
 
@@ -100,7 +100,7 @@ if(isset($_POST['news-update'])){
 						if(move_uploaded_file($file_tmp, $file_destination)){
 
 							//Deletes old picture
-							$result = query("SELECT `NewsImagePath` FROM News WHERE `Title` = :news_title AND `DateTime` = :news_datetime", array(":news_title" => $news_title, ":news_datetime" => $news_datetime));
+							$result = query("SELECT `NewsImagePath` FROM News WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt));
 							$resData = $result["data"];
 
 							if($resData[0]["NewsImagePath"] !== NULL){
@@ -110,7 +110,7 @@ if(isset($_POST['news-update'])){
 						    	}
 							}
 
-							$result = nonQuery("UPDATE News SET `NewsText` = :news_text, `NewsImagePath` = :image_path WHERE `Title` = :news_title AND `DateTime` = :news_datetime", array(":news_title" => $news_title, ":news_datetime" => $news_datetime, ":news_text" => $news_text, ":image_path" => $file_name_new));
+							$result = nonQuery("UPDATE News SET `NewsText` = :news_text, `NewsImagePath` = :image_path WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt, ":news_text" => $news_text, ":image_path" => $file_name_new));
 							
 							if($result["err"] === null){
 								$update_news_msg = "Nyhet uppdaterad"; 
@@ -122,7 +122,7 @@ if(isset($_POST['news-update'])){
 				}
 			}else{
 	
-				$result = nonQuery("UPDATE News SET `NewsText` = :news_text WHERE `Title` = :news_title AND `DateTime` = :news_datetime", array(":news_title" => $news_title, ":news_datetime" => $news_datetime, ":news_text" => $news_text));
+				$result = nonQuery("UPDATE News SET `NewsText` = :news_text WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt, ":news_text" => $news_text));
 				
 				if($result["err"] === null){
 					$update_news_msg = "Nyhet uppdaterad"; 
@@ -143,10 +143,10 @@ if(isset($_POST['news-delete'])){
 	if(strlen($_POST['edit-title']) > 0 && strlen($_POST['edit-date']) > 0){
 
 		$news_title = $_POST['edit-title'];
-		$news_datetime = $_POST['edit-date'];
+		$news_createdAt = $_POST['edit-date'];
 
 		//Deletes old picture
-		$result = query("SELECT `NewsImagePath` FROM News WHERE `Title` = :news_title AND `DateTime` = :news_datetime", array(":news_title" => $news_title, ":news_datetime" => $news_datetime));
+		$result = query("SELECT `NewsImagePath` FROM News WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt));
 		$resData = $result["data"];
 
 		if($resData[0]["NewsImagePath"] !== NULL){
@@ -156,7 +156,7 @@ if(isset($_POST['news-delete'])){
 	    	}
 		}
 
-		$result = nonQuery("DELETE FROM News WHERE `Title` = :news_title AND `DateTime` = :news_datetime", array(":news_title" => $news_title, ":news_datetime" => $news_datetime));
+		$result = nonQuery("DELETE FROM News WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt));
 		$result["data"];
 
 		if($result["err"] === NULL){
@@ -238,21 +238,21 @@ if(isset($_POST['news-delete'])){
 						</thead>
 						<tbody id="newsTable">
 							<?php
-							$divOne = query("SELECT Title, DateTime, NewsText, NewsImagePath FROM News");
-							$divData = $divOne['data'];
-							foreach($divData as $key => $row){
+							$result = query("SELECT Title, CreatedAt, NewsText, NewsImagePath FROM News");
+							$newsData = $result['data'];
+							foreach($newsData as $key => $n){
 								echo '<tr id="news' . $key . '">';
 								echo '<td class="titleTd">';
-								echo $row['Title'];
+								echo $n['Title'];
 								echo '</td>';
-								echo '<td class="dateTimeTd">';
-								echo $row["DateTime"];
+								echo '<td class="CreatedAtTd">';
+								echo $n["CreatedAt"];
 								echo '</td>';
 								echo '<td class="newsTextTd" style = "display:none">';
-								echo $row["NewsText"];
+								echo $n["NewsText"];
 								echo '</td>';
 								echo '<td class="newsImagePathTd" style = "display:none">';
-								echo $row["NewsImagePath"];
+								echo $n["NewsImagePath"];
 								echo '</td>';
 								echo '</tr>';
 							}			

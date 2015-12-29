@@ -34,7 +34,7 @@ if(isset($_POST['submit_newsfeed'])){
 						$file_destination = 'uploads/' . $file_name_new;
 
 						if(move_uploaded_file($file_tmp, $file_destination)){
-							$result = nonQuery("INSERT INTO NewsFeed (`NewsTitle`,`DateTime`,`Description`,`NewsImagePath`, `NewsLink`) VALUES (:title,now(),:news_text,:image, :news_link)", array(":title" => $title, ":news_text" => $news_text, ":news_link" => $news_link, ":image" => $file_name_new));
+							$result = nonQuery("INSERT INTO NewsFeed (`NewsTitle`,`CreatedAt`,`Description`,`NewsImagePath`, `NewsLink`) VALUES (:title,now(),:news_text,:image, :news_link)", array(":title" => $title, ":news_text" => $news_text, ":news_link" => $news_link, ":image" => $file_name_new));
 							
 							if($result["err"] === null){
 								$returnMsgNewsFeedAdd = "Ditt objekt är tillagt!"; 
@@ -44,7 +44,7 @@ if(isset($_POST['submit_newsfeed'])){
 				}
 			}else{
 				//Ingen bild selectead
-				$result = nonQuery("INSERT INTO NewsFeed (`NewsTitle`,`DateTime`,`Description`, `NewsLink`) VALUES (:title,now(),:news_text,:news_link)", array(":title" => $title, ":news_text" => $news_text, ":news_link" => $news_link));
+				$result = nonQuery("INSERT INTO NewsFeed (`NewsTitle`,`CreatedAt`,`Description`, `NewsLink`) VALUES (:title,now(),:news_text,:news_link)", array(":title" => $title, ":news_text" => $news_text, ":news_link" => $news_link));
 				
 				if($result["err"] === null){
 					$returnMsgNewsFeedAdd = "Ditt objekt är tillagt!"; 
@@ -60,12 +60,12 @@ if(isset($_POST['update_newsfeed'])){
 
 	$returnMsgNewsFeedUpdate = "Kunde inte uppdatera objekt.";
 	
-	if(strlen($_POST['alter_news_title']) > 0 && strlen($_POST['alter_news_datetime']) > 0){
+	if(strlen($_POST['alter_news_title']) > 0 && strlen($_POST['alter_news_createdAt']) > 0){
 
 		$news_title = $_POST['alter_news_title'];
 		$news_text = $_POST['alter_news_text'];
 		$news_link = $_POST['alter_news_link'];
-		$news_datetime = $_POST['alter_news_datetime'];
+		$news_createdAt = $_POST['alter_news_createdAt'];
 
 
 		//if image is set
@@ -95,7 +95,7 @@ if(isset($_POST['update_newsfeed'])){
 						if(move_uploaded_file($file_tmp, $file_destination)){
 
 							//Deletes old picture
-							$result = query("SELECT `NewsImagePath` FROM NewsFeed WHERE `NewsTitle` = :title AND `DateTime` = :datetime", array(":title" => $news_title, ":datetime" => $news_datetime));
+							$result = query("SELECT `NewsImagePath` FROM NewsFeed WHERE `NewsTitle` = :title AND `CreatedAt` = :createdAt", array(":title" => $news_title, ":createdAt" => $news_createdAt));
 							$resData = $result["data"];
 
 							if($resData[0]["NewsImagePath"] !== NULL){
@@ -105,7 +105,7 @@ if(isset($_POST['update_newsfeed'])){
 						    	}
 							}
 
-							$result = nonQuery("UPDATE NewsFeed SET `Description` = :description, `NewsImagePath` = :image_path, `NewsLink` = :newslink WHERE `NewsTitle` = :title AND `DateTime` = :datetime", array(":title" => $news_title, ":datetime" => $news_datetime, ":description" => $news_text, ":image_path" => $file_name_new, ":newslink" => $news_link));
+							$result = nonQuery("UPDATE NewsFeed SET `Description` = :description, `NewsImagePath` = :image_path, `NewsLink` = :newslink WHERE `NewsTitle` = :title AND `CreatedAt` = :createdAt", array(":title" => $news_title, ":createdAt" => $news_createdAt, ":description" => $news_text, ":image_path" => $file_name_new, ":newslink" => $news_link));
 							
 							if($result["err"] === null){
 								$returnMsgNewsFeedUpdate = "Objekt uppdaterat"; 
@@ -117,7 +117,7 @@ if(isset($_POST['update_newsfeed'])){
 				}
 			}else{
 	
-				$result = nonQuery("UPDATE NewsFeed SET `Description` = :description, `NewsLink` = :newslink WHERE `NewsTitle` = :title AND `DateTime` = :datetime", array(":title" => $news_title, ":datetime" => $news_datetime, ":description" => $news_text, ":newslink" => $news_link));
+				$result = nonQuery("UPDATE NewsFeed SET `Description` = :description, `NewsLink` = :newslink WHERE `NewsTitle` = :title AND `CreatedAt` = :createdAt", array(":title" => $news_title, ":createdAt" => $news_createdAt, ":description" => $news_text, ":newslink" => $news_link));
 				
 				if($result["err"] === null){
 					$returnMsgNewsFeedUpdate = "Objekt uppdaterat"; 
@@ -135,12 +135,12 @@ if(isset($_POST['update_newsfeed'])){
 if(isset($_POST['delete_newsfeed'])){
 	$returnMsgNewsFeedDelete = "Kunde inte ta bort objekt.";
 
-	if(strlen($_POST['alter_news_title']) > 0 && strlen($_POST['alter_news_datetime']) > 0){
+	if(strlen($_POST['alter_news_title']) > 0 && strlen($_POST['alter_news_createdAt']) > 0){
 
 		$alter_title = $_POST['alter_news_title'];
-		$alter_datetime = $_POST['alter_news_datetime'];
+		$alter_createdAt = $_POST['alter_news_createdAt'];
 
-		$result = nonQuery("DELETE FROM NewsFeed WHERE `NewsTitle` = :title AND `DateTime` = :datetime", array(":title" => $alter_title, ":datetime" => $alter_datetime));
+		$result = nonQuery("DELETE FROM NewsFeed WHERE `NewsTitle` = :title AND `CreatedAt` = :createdAt", array(":title" => $alter_title, ":createdAt" => $alter_createdAt));
 		$result["data"];
 
 		if($result["err"] === NULL){
@@ -211,8 +211,8 @@ if(isset($_POST['delete_newsfeed'])){
 				<input type="text" class="u-full-width" id="newsFeedTitle"  name="alter_news_title" readonly>
 			</div>
 			<div class="four columns">
-				<label for="alter_news_datetime">Datum:</label>
-				<input type="text" class="u-full-width" id="newsFeedDateTime" name="alter_news_datetime" readonly>
+				<label for="alter_news_createdAt">Datum:</label>
+				<input type="text" class="u-full-width" id="newsFeedDateTime" name="alter_news_createdAt" readonly>
 			</div>
 			<div class="four columns">
 				<label for="alter_news_link">Länk:</label>
@@ -269,25 +269,25 @@ if(isset($_POST['delete_newsfeed'])){
 						</thead>
 						<tbody id="NewsFeedTable">
 							<?php
-							$divOne = query("SELECT NewsTitle, DateTime, Description, NewsImagePath, NewsLink FROM NewsFeed");
-							$divData = $divOne['data'];
-							foreach($divData as $key => $row){
+							$result = query("SELECT NewsTitle, CreatedAt, Description, NewsImagePath, NewsLink FROM NewsFeed");
+							$newsFeedData = $result['data'];
+							foreach($newsFeedData as $key => $n){
 								echo '<tr id="newsfeed' . $key . '">';
 								echo '<td class="newsTitleTd">';
-								echo $row['NewsTitle'];
+								echo $n['NewsTitle'];
 								echo '</td>';
 								echo '<td class="dateTimeTd">';
-								echo $row["DateTime"];
+								echo $n["CreatedAt"];
 								echo '</td>';
 								echo '<td class="Description">';
-								echo $row["Description"];
+								echo $n["Description"];
 								echo '</td>';
 								echo '<td class="newsLink">';
-								echo $row["NewsLink"];
+								echo $n["NewsLink"];
 								echo '</td>';
-								if($row['NewsImagePath'] !== null){
+								if($n['NewsImagePath'] !== null){
 									echo '<td class="newsImagePath">';
-									echo '<img src="uploads/'.$row['NewsImagePath'].'" width="75" height="75" alt="">';
+									echo '<img src="uploads/'.$n['NewsImagePath'].'" width="75" height="75" alt="">';
 									echo '</td>';
 								}
 								else {
