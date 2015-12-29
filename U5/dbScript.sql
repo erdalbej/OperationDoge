@@ -168,3 +168,6 @@ INSERT INTO `OperationDoge`.`MyDog` (`OfficialName`, `Name`, `Birthdate`, `Descr
 INSERT INTO `OperationDoge`.`MyDog` (`OfficialName`, `Name`, `Birthdate`, `Description`, `Color`, `Height`, `Weight`, `Teeth`, `MentalStatus`, `Breader`) VALUES ('INT&NORDUCH, S VCH, LP1, LP2 Stenänga Ghali Batuuli', 'Mira', '2002-09-15', 'Mira är född som valp nr.12. \n  Mira har 5 bröder och 7 systrar. Tillsammans är de Stenänga´s  \n  B-kull. Miras far är INTUCH, VDHCH Lionhunt Dayimane Umvuma och mor är Madahiro´s   \n  GoodEnough', 'Rödvete', '68', '41', 'Fulltandad', 'Känd mentalstatus, Skottsäker', 'Kennel Stenänga, Margaretha & Lars-Gunnar Lantz');
 INSERT INTO `OperationDoge`.`MyDog` (`OfficialName`, `Name`, `Birthdate`, `Description`, `Color`, `Height`, `Weight`, `Teeth`) VALUES ('Batuulis Albion', 'Nino', '2006-05-14', 'Nino är född som valp nr.8. Nino har 9  bröder och 4  systrar. Tillsammans är de Batuulis A-kull. \nNino´s far är Malozi Charaza och  mor är Stenänga Ghali Batuuli.', 'Rödvete', '69', '43', 'Fulltandad');
 INSERT INTO `OperationDoge`.`MyDog` (`OfficialName`, `Name`, `Birthdate`) VALUES (' Batuulis Peak Performance', 'Diva', '2007-07-27');
+
+INSERT INTO `OperationDoge`.`Admin` (`Username`, `Password`) VALUES ('Robot', '1234');
+

@@ -80,14 +80,20 @@ if(isset($_POST['submit_update'])){
 				</div>
 			</div>
 		</form>
-		<?php
-		if(isset($userAddError)){
-			echo $userAddError;
-		}
-		if(isset($userAddSuccess)){
-			echo $userAddSuccess;
-		}
-		?>
+		<div class="row">
+			<div class="two columns"></div>
+			<div class="eight columns">
+				<?php
+				if(isset($userAddError)){
+					echo '<span class="error-message">'.$userAddError.'</span>';
+				}
+				if(isset($userAddSuccess)){
+					echo '<span class="success-message">'.$userAddSuccess.'</span>';
+				}
+				?>
+			</div>
+			<div class="two columns"></div>
+		</div>
 	</div>
 </main>
 <?php
