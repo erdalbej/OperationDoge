@@ -40,11 +40,12 @@ if(isset($_POST['submit_post'])){
 			$file_ext = strtolower(end($file_ext));
 
 			if (!in_array($file_ext, $allowed_ext)){ $postError = 'Endast .jpg filer är tillåtna, prova ladda up en anna bild.'; }
-			if (strlen($file['tmp_name']) == 0){ $postError = 'Filen saknar temporärt filnamn, prova igen!'; }
-			if ($file['size'] >= 2097152){ $postError = 'Filen är för stor, 2mb stora filer är tillåtna'; }
-
-			if ($file['error'] != 0){ 
-				$postError = 'Filen gick inte att ladda upp, prova igen!'; 
+			if($file['error'] != UPLOAD_ERR_OK){
+				if ($file['error'] == UPLOAD_ERR_INI_SIZE){ 
+					$postError = 'Filen är för stor, 2mb stora filer är tillåtna'; 
+				}else if($file['error'] > 1 && $file['error'] < 9){
+					$postError = 'Filen gick inte att ladda upp, prova igen!';
+				}
 			}
 
 			if (!isset($postError)){
@@ -103,7 +104,6 @@ if (!isset($threadError)){
 		<div class="row">
 			<div class="twelve columns">				
 				<?php
-				print_r($file);
 				
 				if (!isset($threadError)){
 					echo '<h1 class="post-threadtitle">'.$thread_title.'</h1>';

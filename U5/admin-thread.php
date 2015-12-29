@@ -90,7 +90,7 @@ if(isset($_POST['thread-delete'])){
 						<tbody>
 							<?php
 
-							$divOne = query("SELECT Title, CreatedAt, Username, Description FROM GuestbookThread");
+							$divOne = query("SELECT Title, CreatedAt, Username, Description FROM GuestbookThread ORDER BY CreatedAt DESC");
 
 							if($divOne["err"] != null){
 								$load_error = "Kunde inte ladda trådar, prova att ladda om sidan.";

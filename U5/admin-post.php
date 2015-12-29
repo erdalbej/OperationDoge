@@ -14,14 +14,14 @@ if(isset($_GET['title']) && isset($_GET['createdAt'])){
 //Post update
 if(isset($_POST['post-update'])){
 	
-	if(strlen($_POST['username']) > 0 && strlen($_POST['createdAt']) > 0){
+	if(strlen($_POST['username'])){
 
 		$username = $_POST['username'];
 		$createdAt = $_POST['createdAt'];
 		$post_text = $_POST['postText'];
 
 		$file = $_FILES['newImage'];
-		if(isset($file) && $file['size'] > 0) {
+		if(isset($file) && (strlen($file['name']) != 0)) {
 
 			if (strlen($file['name']) == 0){ $image_error = 'Saknar filnamn'; }
 
@@ -29,14 +29,17 @@ if(isset($_POST['post-update'])){
 			$file_tmp = $file['tmp_name'];
 			$file_size = $file['size'];
 			$file_error = $file['error'];
-
 			$file_ext = explode('.', $file_name);
 			$file_ext = strtolower(end($file_ext));
 
 			if (!in_array($file_ext, $allowed_ext)){ $image_error = 'Endast .jpg filer är tillåtna, prova ladda up en anna bild.'; }
-			if (strlen($file['tmp_name']) == 0){ $image_error = 'Filen saknar temporärt filnamn, prova igen!'; }
-			if ($file['size'] >= 2097152){ $image_error = 'Filen är för stor, 2mb stora filer är tillåtna'; }
-			if ($file['error'] !== 0){ $image_error = 'Filen gick inte att ladda upp, prova igen!'; }
+			if($file['error'] != UPLOAD_ERR_OK){
+				if ($file['error'] == UPLOAD_ERR_INI_SIZE){ 
+					$image_error = 'Filen är för stor, 2mb stora filer är tillåtna'; 
+				}else if($file['error'] > 1 && $file['error'] < 9){
+					$image_error = 'Filen gick inte att ladda upp, prova igen!';
+				}
+			}
 
 			if(!isset($image_error)){
 				$file_name_new = uniqid('', true) . '.' . $file_ext;
@@ -155,7 +158,7 @@ if(isset($_POST['post-delete'])){
 						<tbody>
 							<?php
 
-							$divOne = query("SELECT Username, CreatedAt, PostText, PostImagePath FROM Post WHERE Thread_Title = :thread_title AND Thread_CreatedAt = :thread_createdAt", array(":thread_title" => $thread_title, ":thread_createdAt" => $thread_createdAt));
+							$divOne = query("SELECT Username, CreatedAt, PostText, PostImagePath FROM Post WHERE Thread_Title = :thread_title AND Thread_CreatedAt = :thread_createdAt ORDER BY CreatedAt DESC", array(":thread_title" => $thread_title, ":thread_createdAt" => $thread_createdAt));
 
 							if($divOne["err"] != null){
 								$load_error = "Kunde inte ladda inlägg, prova att ladda om sidan.";
