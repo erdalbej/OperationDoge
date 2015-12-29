@@ -22,10 +22,10 @@ CREATE TABLE Admin (
 
 CREATE TABLE News (
     `Title` varchar(255) NOT NULL,
-    `DateTime` DATETIME NOT NULL,
+    `CreatedAt` DATETIME NOT NULL,
     `NewsText` varchar(255),
     `NewsImagePath` varchar(255),
-    PRIMARY KEY (`Title`,`DateTime`)
+    PRIMARY KEY (`Title`,`CreatedAt`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE ImageGallery (
@@ -74,7 +74,7 @@ CREATE TABLE Participant (
     `DogCourse_CourseName` varchar(255) NOT NULL,
     `DogCourse_CourseTeacher` varchar(255) NOT NULL,
     `DogCourse_CourseDate` DATE NOT NULL,
-    `RegisterDate` datetime NOT NULL,
+    `RegisterDate` DATETIME NOT NULL,
     PRIMARY KEY (`DogName`, `Email`, `DogCourse_CourseName`, `DogCourse_CourseTeacher`, `DogCourse_CourseDate`),
     FOREIGN KEY (`DogCourse_CourseName`,`DogCourse_CourseTeacher`,`DogCourse_CourseDate`) REFERENCES DogCourse (`CourseName`, `CourseTeacher`, `CourseDate`) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -100,11 +100,11 @@ CREATE TABLE Puppy (
 
 CREATE TABLE NewsFeed (
     `NewsTitle` varchar(255) NOT NULL,
-    `DateTime` DATETIME NOT NULL,
+    `CreatedAt` DATETIME NOT NULL,
     `Description` varchar(255),
     `NewsImagePath` varchar(255),
     `NewsLink` varchar(255),
-    PRIMARY KEY (`NewsTitle`,`DateTime`)
+    PRIMARY KEY (`NewsTitle`,`CreatedAt`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE VIEW `ParticipantsPerCourse`
