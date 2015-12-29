@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <head>
 	<meta charset="UTF-8">
-    <meta name="description" content="Kennel Batuulis">
+    <meta name="description" content="Kennel Batuulis homepage">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>Kennel Batuulis - Rhodesian Ridgeback</title>	
     <link rel="stylesheet" href="css/style.css">
