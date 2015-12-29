@@ -18,18 +18,7 @@ if ($resultThread['err'] == null){
 	if (count($resultThread['data']) == 0){
 		$threadError = "Tråden du söker finns inte";
 	} else {
-		$postsResult = query('SELECT Username, CreatedAt, PostText, PostImagePath, Thread_Title, Thread_CreatedAt FROM Post WHERE Thread_Title = :threadTitle AND Thread_CreatedAt = :threadCreatedAt ORDER BY CreatedAt ASC',
-			array(
-					':threadTitle' => $thread_title,
-					':threadCreatedAt' => $thread_createdAt
-				)
-			);
-
-			if ($postsResult['err'] == null){
-				$posts = $postsResult['data'];
-			} else {
-				$postsError = 'Gick inte att läsa poster för denna tråd';
-			}
+		
 	}
 }
 
@@ -89,6 +78,23 @@ if(isset($_POST['submit_post'])){
 	} else { $postError = 'Saknar värden för att posta inlägg.'; }
 }
 
+if (!isset($threadError)){
+	$postsResult = query('SELECT Username, CreatedAt, PostText, PostImagePath, Thread_Title, Thread_CreatedAt FROM Post WHERE Thread_Title = :threadTitle AND Thread_CreatedAt = :threadCreatedAt ORDER BY CreatedAt ASC',
+		array(
+			':threadTitle' => $thread_title,
+			':threadCreatedAt' => $thread_createdAt
+		)
+	);
+
+	if ($postsResult['err'] == null){
+		$posts = $postsResult['data'];
+	} else {
+		$postsError = 'Gick inte att läsa poster för denna tråd';
+	}
+}
+
+
+
 ?>
 <main class="height-uv">
 	<div class="container">
@@ -124,7 +130,7 @@ if(isset($_POST['submit_post'])){
 					echo '</ul>';
 					?>
 
-				<form enctype="multipart/form-data" method="POST" action="">
+				<form enctype="multipart/form-data" method="POST" id="post-form">
 					<div class="row">
 						<div class="twelve columns">
 							<h3>Kommentera</h3>
@@ -148,19 +154,18 @@ if(isset($_POST['submit_post'])){
 					</div>
 					<div class="row">
 						<div class="four columns">
-							<input type="submit" name="submit_post" class="button-primary u-full-width" value="Kommentera">
+							<input form="post-form" type="submit" name="submit_post" class="button-primary u-full-width" value="Kommentera">
 						</div>
 						<div class="eight columns">
 							<?php
-								if (isset($_POST['submit_post'])){
-									if (isset($postError)){
-										echo "<span style=\"color: red;\">$postError</span>";
-									}
+								if (isset($postError)){
+									echo "<span style=\"color: red;\">$postError</span>";
 								}
+								
 							?>
 						</div>
 					</div>
-					<hr>
+					
 				</form>
 
 				<?php
