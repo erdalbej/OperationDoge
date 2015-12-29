@@ -92,7 +92,7 @@ if (isset($_POST['submit-new-dog'])){
 		}
 
 		$genImgPath = isset($gen_name_new) ? $gen_name_new : null;
-		$dogImgPath = isset($dog_name_new) ? $gen_name_new : null;
+		$dogImgPath = isset($dog_name_new) ? $dog_name_new : null;
 
 		if (!isset($submitNewDogError)){	
 			$insertResult = nonquery('INSERT INTO MyDog(Name, OfficialName, Birthdate, Description, Color, Height, Weight, MentalStatus, Breader, GenImagePath, DogImagePath) VALUES(:dogName, :officialName, :birthdate, :description, :color, :height, :weight, :mental, :breader, :genImgPath, :dogImgPath)',
@@ -142,13 +142,86 @@ if (isset($_POST['submit-new-dog'])){
 		if ($findDogResult['err'] == null){
 			if (count($findDogResult['data']) == 0){
 				$submitUpdateDogError = 'Hunden du försöker ta bort finns ej.';
-			} 
+			} else {
+				$currentData = $findDogResult['data'];
+				$currentDog = $currentData[0];
+			}
 		}  else { $submitUpdateDogError = 'Gick inte att bekräfta hunden, prova igen.'; }
 
 		if (!isset($submitUpdateDogError)){
+			$dogImg = $_FILES['dogImg'];
+			$genImg = $_FILES['genImg'];
 
-		} 
-		else { $submitUpdateDogError = 'Gick inte att bekräfta att hund finns, prova igen!'; }
+			if (isset($dogImg) && ($dogImg['error'] > 0 || $dogImg['size'] > 0)){
+				if (strlen($dogImg['name']) == 0){
+					$submitUpdateDogError = 'Hundbilden saknar filnamn'; 
+				}
+
+				$dogImg_ext = explode('.', $dogImg['name']);
+				$dogImg_ext = strtolower(end($dogImg_ext));
+
+				if (!in_array($dogImg_ext, $allowed_ext)){
+					$submitUpdateDogError = 'Endast .jpg filer är tillåtna, prova ladda up en annan bild.';
+				}
+
+				if($dogImg['error'] != UPLOAD_ERR_OK){
+					if ($dogImg['error'] == UPLOAD_ERR_INI_SIZE){ 
+						$submitUpdateDogError = 'Filen är för stor, 2mb stora filer är tillåtna'; 
+					} else {
+						$submitUpdateDogError = 'Filen gick inte att ladda upp, prova igen!';
+					}
+				}
+
+				$dog_name_new = uniqid('', true) . '.' . $dogImg_ext;
+				$dog_destination = 'uploads/' . $dog_name_new;
+
+				if (!move_uploaded_file($dogImg['tmp_name'], $dog_destination)){
+					$submitUpdateDogError = 'Det gick inte att ladda upp hundbilden, prova igen!';
+				}
+			}
+
+			if(isset($genImg) && ($genImg['error'] > 0 || $genImg['size'] > 0)){
+				
+				if (strlen($genImg['name']) == 0){ 
+					$submitUpdateDogError = 'Stamtavla saknar filnamn'; 
+				}
+
+				$genImg_ext = explode('.', $genImg['name']);
+				$genImg_ext = strtolower(end($genImg_ext));
+
+				if (!in_array($genImg_ext, $allowed_ext)){
+					$submitUpdateDogError = 'Endast .jpg filer är tillåtna, prova ladda up en annan bild.';
+				}
+
+				if($genImg['error'] != UPLOAD_ERR_OK){
+					if ($genImg['error'] == UPLOAD_ERR_INI_SIZE){ 
+						$submitUpdateDogError = 'Filen är för stor, 2mb stora filer är tillåtna'; 
+					} else {
+						$submitUpdateDogError = 'Filen gick inte att ladda upp, prova igen!';
+					}
+				}
+
+				$gen_name_new = uniqid('', true) . '.' . $genImg_ext;
+				$gen_destination = 'uploads/' . $gen_name_new;
+
+				if (!move_uploaded_file($genImg['tmp_name'], $gen_destination)){
+					$submitUpdateDogError = 'Det gick inte att ladda upp stamtavla, prova igen!';
+				}
+			}
+
+			if (isset($currentDog)){
+				$genImgPath = isset($gen_name_new) ? $gen_name_new : $currentDog['GenImagePath'];
+				$dogImgPath = isset($dog_name_new) ? $dog_name_new : $currentDog['DogImagePath'];
+			}
+			
+
+
+			if (!isset($submitUpdateDogError)){
+
+			}
+		}
+		}
+		} else { $submitUpdateDogError = 'Gick inte att bekräfta att hund finns, prova igen!'; }
 	} else { $submitUpdateDogError = 'Saknar värden för att ta bort hund'; }
 
 } else if (isset($_POST['submit-delete-dog'])) {
