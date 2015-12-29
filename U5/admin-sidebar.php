@@ -249,7 +249,7 @@ if(isset($_POST['delete_newsfeed'])){
 			</div>
 			<div class="row">
 				<div class="six columns">
-					<input value="Lägg till" name="submit_newsfeed" class="button-primary" type="submit">
+					<input value="Lägg till" name="submit_newsfeed" type="submit">
 				</div>
 				<div class="six columns">
 
@@ -311,7 +311,7 @@ if(isset($_POST['delete_newsfeed'])){
 
 			</div>
 		</div>
-		<form enctype="multipart/form-data" action="" method="post">
+		<form hidden enctype="multipart/form-data" action="" method="post">
 			<div class="row">
 				<div class="four columns">
 					<label for="alter_news_title">Titel:</label>
@@ -339,15 +339,9 @@ if(isset($_POST['delete_newsfeed'])){
 					<textarea name="alter_news_text" id="newsFeedDescription" class="u-full-width"></textarea>
 				</div>
 			</div>
-			<div class="row">
-				<div class="six columns">
-					<input value="Uppdatera" name="update_newsfeed" class="button-primary" type="submit">
+					<input value="Uppdatera" name="update_newsfeed" type="submit">
 					<input value="Radera" name="delete_newsfeed" type="submit">
-				</div>
-				<div class="six columns">
-					
-				</div>
-			</div>
+				
 		</form>
 	</div>
 <script src="js/admin-sidebar.js"></script>
