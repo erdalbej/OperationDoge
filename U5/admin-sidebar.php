@@ -1,4 +1,12 @@
 <?php
+
+session_start();
+$authenticated = $_SESSION['isAuth'];
+if (!$authenticated){
+	header('location: /U5/');
+	die();
+}
+
 include_once 'admin-header.php';
 
 $allowed_ext = array('jpg');
