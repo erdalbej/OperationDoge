@@ -92,9 +92,6 @@ if (!isset($threadError)){
 		$postsError = 'Gick inte att läsa poster för denna tråd';
 	}
 }
-
-
-
 ?>
 <main class="height-uv">
 	<div class="container">
@@ -161,7 +158,6 @@ if (!isset($threadError)){
 								if (isset($postError)){
 									echo "<span style=\"color: red;\">$postError</span>";
 								}
-								
 							?>
 						</div>
 					</div>
