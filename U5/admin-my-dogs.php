@@ -9,9 +9,72 @@ include_once 'admin-header.php';
 ?>
 
 <?php
+
+$allowed_ext = array('jpg');
+
 if (isset($_POST['submit-new-dog'])){
 	if (strlen($_POST['dogName']) > 0 &&
 		strlen($_POST['officialName']) > 0) {
+
+		$dogImg = $_FILES['dogImg'];
+		$genImg = $_FILES['genImg'];
+
+		if (isset($dogImg) && ($dogImg['error'] > 0 || $dogImg['size'] > 0)){
+			if (strlen($dogImg['name']) == 0){
+				$submitNewDogError = 'Hundbilden saknar filnamn'; 
+			}
+
+			$dogImg_ext = explode('.', $dogImg['name']);
+			$dogImg_ext = strtolower(end($dogImg_ext));
+
+			if (!in_array($dogImg_ext, $allowed_ext)){
+				$submitNewDogError = 'Endast .jpg filer är tillåtna, prova ladda up en annan bild.';
+			}
+
+			if($dogImg['error'] != UPLOAD_ERR_OK){
+				if ($dogImg['error'] == UPLOAD_ERR_INI_SIZE){ 
+					$submitNewDogError = 'Filen är för stor, 2mb stora filer är tillåtna'; 
+				} else {
+					$submitNewDogError = 'Filen gick inte att ladda upp, prova igen!';
+				}
+			}
+
+			$dog_name_new = uniqid('', true) . '.' . $dogImg_ext;
+			$dog_destination = 'uploads/' . $dog_name_new;
+
+			if (!move_uploaded_file($dogImg['tmp_name'], $dog_destination)){
+				$submitNewDogError = 'Det gick inte att ladda upp hundbilden, prova igen!';
+			}
+		}
+
+		if(isset($genImg) && ($genImg['error'] > 0 || $genImg['size'] > 0)){
+			
+			if (strlen($genImg['name']) == 0){ 
+				$submitNewDogError = 'Stamtavla saknar filnamn'; 
+			}
+
+			$genImg_ext = explode('.', $genImg['name']);
+			$genImg_ext = strtolower(end($genImg_ext));
+
+			if (!in_array($genImg_ext, $allowed_ext)){
+				$submitNewDogError = 'Endast .jpg filer är tillåtna, prova ladda up en annan bild.';
+			}
+
+			if($genImg['error'] != UPLOAD_ERR_OK){
+				if ($genImg['error'] == UPLOAD_ERR_INI_SIZE){ 
+					$submitNewDogError = 'Filen är för stor, 2mb stora filer är tillåtna'; 
+				} else {
+					$submitNewDogError = 'Filen gick inte att ladda upp, prova igen!';
+				}
+			}
+
+			$gen_name_new = uniqid('', true) . '.' . $genImg_ext;
+			$gen_destination = 'uploads/' . $gen_name_new;
+
+			if (!move_uploaded_file($genImg['tmp_name'], $gen_destination)){
+				$submitNewDogError = 'Det gick inte att ladda upp stamtavla, prova igen!';
+			}
+		}
 
 		$result = query('SELECT * FROM MyDog WHERE Name = :dogName AND OfficialName = :officialName',
 			array(
@@ -20,11 +83,15 @@ if (isset($_POST['submit-new-dog'])){
 			)
 		);
 
-		$genImgPath = null;
-		$dogImgPath = null;
-
 		if ($result['err'] == null){
-			if (count($result['data']) == 0){
+			if (count($result['data']) > 0){
+				$submitNewDogError = 'Hunden du försöker lägga till finns redan!';
+			}
+		} else {
+			$submitNewDogError = 'Det gick inte att verifiera dubbleter, prova igen!';
+		}
+
+		if (!isset($submitNewDogError)){	
 				$insertResult = nonquery('INSERT INTO MyDog(Name, OfficialName, Birthdate, Description, Color, Height, Weight, Teeth, MentalStatus, Breader, GenImagePath, DogImagePath) VALUES(:dogName, :officialName, :birthdate, :description, :color, :height, :weight, :teeth, :mental, :breader, :genImgPath, :dogImgPath)',
 					array(
 						':dogName' => $_POST['dogName'],
@@ -34,24 +101,38 @@ if (isset($_POST['submit-new-dog'])){
 						':description' => $_POST['description'],
 						':height' => $_POST['height'],
 						':weight' => $_POST['weight'],
-						':teeth' => $_POST['teeth'],
 						':mental' => $_POST['mental'],
 						':breader' => $_POST['breader'],
 						':genImgPath' => $genImgPath,
 						':dogImgPath' => $dogImgPath
 					)
 				);
+				
+				if($result["err"] != null){
+					$submitNewDogError = 'Gick inte att spara ditt inlägg, prova igen!';
+					unlink($file_destination);
+				} 
+			} 
+		} 
+	} 
+}
+		
 
-				if ($insertResult['err'] == null){
 
-				} else { $submitNewDogError = 'Det gick inte att lägga in hunden i databasen, prova igen'; }
+		$genImgPath = null;
+		$dogImgPath = null;
+
+		if ($result['err'] == null){
+			if (count($result['data']) == 0){
+				
+
+				if ($insertResult['err'] != null){
+					$submitNewDogError = 'Det gick inte att lägga in hunden i databasen, prova igen'; 
+				} 
 			} else { $submitNewDogError = 'Hunden du försöker skapa finns redan'; }
 		} else { $submitNewDogError = 'Gick inte att lägga till ny hund, prova igen!'; }
 	} else { $submitNewDogError = 'Saknar värden'; }
 }
-
-
-
 
 
 $myDogsResult = query('SELECT * FROM MyDog ORDER BY Name ASC');
