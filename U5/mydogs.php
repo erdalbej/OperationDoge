@@ -1,7 +1,7 @@
 <?php
 include_once 'header.php';
 include_once 'aside.php';
-$doge = $_GET['dog'];
+$dogName = $_GET['dog'];
 ?>
 <main class="height-uv">
 	<div class="container">
@@ -30,56 +30,67 @@ $doge = $_GET['dog'];
 			</div>
 		</div>
 		<?php
-		$divOne = query("SELECT OfficialName, Name, BirthDate, Description, Color, Height, Weight, Teeth, MentalStatus, Breader, GenImagePath, DogImagePath FROM MyDog WHERE Name = '$doge'");
-		$divData = $divOne['data'];
-		foreach($divData as $key => $row){
-			if($row['DogImagePath'] === NULL){
-				$image = "noimage.jpg";
-			}else{
-				$image = $row['DogImagePath'];
-			}
-			echo '<div class="row">';
-			echo '<div class="twelve columns">';
-			echo '<span id="dogs' . $key . '"></span>';
-			echo '<h2>';
-			echo $row['Name'];
-			echo '</h2>';
-			echo '<img class="dog-image floatleft" src="uploads/'.$image.'" width="100" height="100" alt="">';
-			echo '<p class="details">';
-			echo $row['Description'];
-			echo '</p>';
-			echo '</div>';
-			echo '</div>';
-			echo '<div class="row">';
-			echo '<div class="four columns">';
-			echo '<span><b>Färg:</b>&nbsp;'.$row['Color'].'</span>';
-			echo '</div>';
-			echo '<div class="four columns">';
-			echo '<span><b>Vikt:&nbsp;</b>'.$row['Weight'].' kg</span>';
-			echo '</div>';
-			echo '<div class="four columns">';
-			echo '<span><b>Mankhöjd:&nbsp;</b>'.$row['Height'].' cm</span>';
-			echo '</div>';
-			echo '</div>';
+		if(strlen($dogName) > 0){
+			$result = query("SELECT OfficialName, Name, BirthDate, Description, Color, Height, Weight, Teeth, MentalStatus, Breader, GenImagePath, DogImagePath FROM MyDog WHERE Name = :dogName", 
+				array(
+					':dogName' => $dogName
+					)
+				);
+			$dog = $result['data'][0];
+			if(count($result) > 0){
+				if($dog['DogImagePath'] === NULL){
+					$image = "noimage.jpg";
+				}else{
+					$image = $dog['DogImagePath'];
+				}
+				echo '<div class="row">';
+				echo '<div class="twelve columns">';
+				echo '<h2>';
+				echo $dog['Name'];
+				echo '</h2>';
+				echo '<img class="dog-image floatleft" src="uploads/'.$image.'" width="100" height="100" alt="">';
+				echo '<p class="details">';
+				echo $dog['Description'];
+				echo '</p>';
+				echo '</div>';
+				echo '</div>';
+				echo '<div class="row">';
+				echo '<div class="four columns">';
+				echo '<span><b>Färg:</b>&nbsp;'.$dog['Color'].'</span>';
+				echo '</div>';
+				echo '<div class="four columns">';
+				echo '<span><b>Vikt:&nbsp;</b>'.$dog['Weight'].' kg</span>';
+				echo '</div>';
+				echo '<div class="four columns">';
+				echo '<span><b>Mankhöjd:&nbsp;</b>'.$dog['Height'].' cm</span>';
+				echo '</div>';
+				echo '</div>';
 
-			echo '<div class="row">';
-			echo '<div class="four columns">';
-			echo '<span><b>Tänder:&nbsp;</b>'.$row['Teeth'].'</span>';
-			echo '</div>';
-			echo '<div class="four columns">';
-			echo '<span><b>Mental status:&nbsp;</b>'.$row['MentalStatus'].'</span>';
-			echo '</div>';
-			echo '<div class="four columns">';
-			echo '<span><b>Uppfödare:&nbsp;</b>'.$row['Breader'].'</span>';
-			echo '</div>';
-			echo '</div>';
+				echo '<div class="row">';
+				echo '<div class="four columns">';
+				echo '<span><b>Tänder:&nbsp;</b>'.$dog['Teeth'].'</span>';
+				echo '</div>';
+				echo '<div class="four columns">';
+				echo '<span><b>Mental status:&nbsp;</b>'.$dog['MentalStatus'].'</span>';
+				echo '</div>';
+				echo '<div class="four columns">';
+				echo '<span><b>Uppfödare:&nbsp;</b>'.$dog['Breader'].'</span>';
+				echo '</div>';
+				echo '</div>';
 
-			echo '<div class="row">';
-			echo '<div class="twelve columns">';
-			echo '<img class="gen-pic" src="'.$row['GenImagePath'].'" alt="">';
-			echo '</div>';
-			echo '</div>';
-		}			
+				echo '<div class="row">';
+				echo '<div class="twelve columns">';
+				echo '<img class="gen-pic" src="'.$dog['GenImagePath'].'" alt="">';
+				echo '</div>';
+				echo '</div>';
+			}	
+			else {
+				echo '<span>Hund finns ej</span>';
+			}		
+		}
+		else {
+			echo '<span>Välj en hund i menyn och tryck på visa hund</span>'; 
+		}
 		?>
 
 
