@@ -1,10 +1,18 @@
 <?php
+session_start();
+if (isset($_SESSION['username'])){
+    $username = $_SESSION['username'];
+}
+$authenticated = $_SESSION['isAuth'];
+if (!$authenticated){
+	header('location: /U5/');
+	die();
+}
 include_once 'admin-header.php';
 
 if(isset($_POST['submit_update'])){
 	if(strlen($_POST['username']) > 0 && strlen($_POST['password']) > 0){
 		$new_username = $_POST['username'];
-		$username = "Robot";
 		$password = $_POST['password'];
 
 		$check = query("SELECT Username, Password FROM Admin WHERE Username= :username", array(
@@ -20,6 +28,8 @@ if(isset($_POST['submit_update'])){
 						));
 					if($result["err"] === NULL){
 						$userAddSuccess = "Ditt konto är uppdaterat!"; 
+						session_unset();
+						session_destroy();
 					}else{
 						$userAddError = "Kunde inte uppdatera kontot.";
 					}
@@ -33,6 +43,8 @@ if(isset($_POST['submit_update'])){
 						));
 					if($result["err"] === NULL){
 						$userAddSuccess = "Ditt konto är uppdaterat!"; 
+						session_unset();
+						session_destroy();
 					}else{
 						$userAddError = "Kunde inte uppdatera kontot.";
 					}
@@ -52,6 +64,9 @@ if(isset($_POST['submit_update'])){
 }
 ?>
 <main>
+	<?php
+		echo 'Hello, &nbsp;' . $username;
+	?>
 	<div class="container">
 		<form action="" method="POST">
 			<div class="row">
