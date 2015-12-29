@@ -43,7 +43,7 @@ if(isset($_POST['submit_post'])){
 			if($file['error'] != UPLOAD_ERR_OK){
 				if ($file['error'] == UPLOAD_ERR_INI_SIZE){ 
 					$postError = 'Filen är för stor, 2mb stora filer är tillåtna'; 
-				}else if($file['error'] > 1 && $file['error'] < 9){
+				}else if($file['error'] > 1){
 					$postError = 'Filen gick inte att ladda upp, prova igen!';
 				}
 			}
