@@ -2,9 +2,11 @@
 include_once 'header.php';
 include_once 'aside.php';
 $dogName = NULL;
+$officialName = NULL;
 
-if(isset($_GET['dog'])){
+if(isset($_GET['dog']) && isset($_GET['officialName'])){
 	$dogName = $_GET['dog'];
+	$officialName = $_GET['officialName'];
 }
 
 ?>
@@ -15,7 +17,7 @@ if(isset($_GET['dog'])){
 				<label for="dogs">Välj hund</label>
 				<select id="dogs" class="u-full-width" name="dogs">
 					<?php
-					$dogData = query("SELECT Name FROM MyDog");
+					$dogData = query("SELECT OfficialName, Name FROM MyDog");
 					$dogRes = $dogData['data'];
 					foreach($dogRes as $key => $dog){
 						echo "<option>";
@@ -35,10 +37,11 @@ if(isset($_GET['dog'])){
 			</div>
 		</div>
 		<?php
-		if(strlen($dogName) > 0){
-			$result = query("SELECT OfficialName, Name, BirthDate, Description, Color, Height, Weight, Teeth, MentalStatus, Breader, GenImagePath, DogImagePath FROM MyDog WHERE Name = :dogName", 
+		if(strlen($dogName) > 0 && strlen($officialName) > 0){
+			$result = query("SELECT OfficialName, Name, BirthDate, Description, Color, Height, Weight, MentalStatus, Breader, GenImagePath, DogImagePath FROM MyDog WHERE Name = :dogName AND OfficialName = :officialName", 
 				array(
-					':dogName' => $dogName
+					':dogName' => $dogName,
+					':officialName' => $officialName
 					)
 				);
 			$dog = $result['data'][0];
@@ -72,9 +75,7 @@ if(isset($_GET['dog'])){
 				echo '</div>';
 
 				echo '<div class="row">';
-				echo '<div class="four columns">';
-				echo '<span><b>Tänder:&nbsp;</b>'.$dog['Teeth'].'</span>';
-				echo '</div>';
+				echo '<div class="four columns"></div>';
 				echo '<div class="four columns">';
 				echo '<span><b>Mental status:&nbsp;</b>'.$dog['MentalStatus'].'</span>';
 				echo '</div>';
