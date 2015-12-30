@@ -7,6 +7,8 @@ if (!$authenticated){
 }
 include_once 'admin-header.php';
 
+$genders = ['M','B','F'];
+
 if(isset($_POST['course-delete'])){
 	if(strlen($_POST['courseName']) > 0 && 
 		strlen($_POST['courseDate']) > 0 &&
@@ -42,24 +44,29 @@ if(isset($_POST['course-delete'])){
 			$courseUpdateSuccess = "Kurs uppdaterad!"; 
 		}else{ $courseUpdateError = "Kunde inte uppdatera kursen, prova igen."; }
 	}else{ $courseUpdateError = "Saknar värden för att uppdatera kursen."; }
-} else if(isset($_POST['course-create'])){
+} else if(isset($_POST['create-course'])){
 	if(strlen($_POST['courseName']) > 0 && 
 		strlen($_POST['courseDate']) > 0 &&
-		strlen($_POST['courseTeacher']) > 0){
+		strlen($_POST['courseTeacher']) > 0 &&
+		in_array($_POST['gender'], $genders) && 
+		$_POST['ageOfDog'] >= 0){
 
-		$result = nonQuery("UPDATE DogCourse SET CourseText = :courseText WHERE CourseName = :courseName AND CourseTeacher = :courseTeacher AND CourseDate = :courseDate", 
+		$result = nonQuery("INSERT INTO DogCourse(CourseName, CourseTeacher, CourseDate, CourseText, Gender, AgeOfDog, PriorKnowledge) values(:courseName, :courseTeacher, :courseDate, :courseText, :gender, :ageOfDog, :priorKnowledge)", 
 			array(
 				':courseName' => $_POST['courseName'],
 				':courseTeacher' => $_POST['courseTeacher'],
 				':courseDate' => $_POST['courseDate'],
-				':courseText' => $_POST['courseText']
+				':courseText' => $_POST['courseText'],
+				':gender' => $_POST['gender'],
+				':ageOfDog' => $_POST['ageOfDog'],
+				':priorKnowledge' => $_POST['priorKnowledge']
 			)
 		);
 
 		if($result["err"] === NULL){
-			$courseUpdateSuccess = "Kurs uppdaterad!"; 
-		}else{ $courseUpdateError = "Kunde inte uppdatera kursen, prova igen."; }
-	}else{ $courseUpdateError = "Saknar värden för att uppdatera kursen."; }
+			$courseCreateSuccess = "Kurs skapad!"; 
+		}else{ $courseCreateError = "Kunde inte skapa kursen, prova igen."; }
+	}else{ $courseCreateError = "Saknar värden för att skapa kursen."; }
 }
 ?>
 
@@ -81,9 +88,65 @@ if(isset($_POST['course-delete'])){
 				if(isset($courseUpdateError)){
 					echo '<span id="returnMsg" class="error-message">' . $courseUpdateError . '</span>';
 				}
+
+				if(isset($courseCreateSuccess)){
+					echo '<span id="returnMsg" class="success-message">' . $courseCreateSuccess . '</span>';
+				}
+				if(isset($courseCreateError)){
+					echo '<span id="returnMsg" class="error-message">' . $courseCreateError . '</span>';
+				}
 				?>
 			</div>
 		</div>
+		<form method="POST">
+			<div class="row">
+				<div class="twelve columns">
+					<h5>Hundkurser - skapa kurser</h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="six columns">
+					<label for="title">Kursnamn</label>
+					<input required maxlength="255" type="text" name="courseName" class="u-full-width">
+				</div>
+				<div class="six columns">
+					<label for="title">Lärare</label>
+					<input required maxlength="255" type="text" name="courseTeacher" class="u-full-width">
+				</div>
+			</div>
+			<div class="row">
+				<div class="six columns">
+					<label for="title">Datum</label>
+					<input required maxlength="255" type="date" name="courseDate" class="u-full-width">
+				</div>
+				<div class="six columns">
+					<label for="title">Ålderskrav</label>
+					<input required value="0" type="number" min="0" step="1" name="ageOfDog" class="u-full-width">
+				</div>
+			</div>
+			<div class="row">
+				<div class="two columns">
+					 <label for="gender">Könkrav</label>
+				      <select required class="u-full-width" id="gender" name="gender">
+				        <option value="B" selected>Båda</option>
+				        <option value="M">Hane</option>
+				        <option value="F">Tik</option>
+				      </select>
+				</div>
+				<div class="ten columns">
+					<label for="title">Krav</label>
+					<input type="text" name="priorKnowledge" maxlength="255" class="u-full-width">
+				</div>
+			<label for="courseText">Beskrivning:</label>
+			<textarea name="courseText" class="u-full-width"></textarea>
+			<div class="row">
+				<div class="four columns">
+					<input type="submit" name="create-course" value="Lägg till">		
+				</div>
+				<div class="eight columns">
+				</div>
+			</div>
+		</form>
 		<div class="row">
 			<div class="twelve columns">
 				<h5>Hundkurser - Redigera kurser</h5>
