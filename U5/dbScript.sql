@@ -57,8 +57,8 @@ CREATE TABLE DogCourse (
     `CourseName` varchar(255) NOT NULL,
     `CourseTeacher` varchar(255) NOT NULL,
     `CourseDate` date NOT NULL,
-    `AgeOfDog` int,
-    `Gender` varchar(255),
+    `AgeOfDog` int NOT NULL,
+    `Gender` varchar(10) NOT NULL,
     `PriorKnowledge` varchar(255),
     `CourseText` varchar(255),
     PRIMARY KEY (`CourseName`, `CourseTeacher`, `CourseDate`)
