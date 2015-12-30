@@ -165,17 +165,17 @@ include_once 'aside.php';
 		    <div class="row">
 		      <div class="six columns">
 		        <label for="dogName">Hundnamn</label>
-		        <input required class="u-full-width" type="text" placeholder="Buster" id="dogName" name="dogName">
+		        <input required maxlength="255" class="u-full-width" type="text" placeholder="Buster" id="dogName" name="dogName">
 		      </div>
 		      <div class="six columns">
 		        <label for="ownerName">Ägarenamn</label>
-		        <input required class="u-full-width" type="text" placeholder="Anna Svensson" id="ownerName" name="ownerName">
+		        <input required maxlength="255" class="u-full-width" type="text" placeholder="Anna Svensson" id="ownerName" name="ownerName">
 		      </div>
 		    </div>
 		    <div class="row">
 		      <div class="six columns">
 		        <label for="dogAge">Hundålder</label>
-		        <input required class="u-full-width" type="number" min="0" step="1" value="0" id="dogAge" name="dogAge">
+		        <input required maxlength="255" class="u-full-width" type="number" min="0" step="1" value="0" id="dogAge" name="dogAge">
 		      </div>
 		      <div class="six columns">
 		        <label for="dogGender">Hundkön</label>
@@ -186,11 +186,11 @@ include_once 'aside.php';
 		      </div>
 		       <div class="twelve columns">
 		        <label for="email">E-post adress</label>
-		        <input required type="email" class="u-full-width" placeholder="din-epost@mail.com" id="email" name="email">
+		        <input required maxlength="255" type="email" class="u-full-width" placeholder="din-epost@mail.com" id="email" name="email">
 		      </div>
 		    </div>
 		    <label for="exampleMessage">Extra information</label>
-		    <textarea class="u-full-width" placeholder="Hej! Min hund har problem med..." id="extraInfo" name="extraInfo"></textarea>
+		    <textarea class="u-full-width" maxlength="255" placeholder="Hej! Min hund har problem med..." id="extraInfo" name="extraInfo"></textarea>
 		    <label>
 		      <input style="display:none;" type="checkbox" id="reserveSpot" name="reserveSpot" checked="reserve">
 		      <span hidden class="label-body" id="reserve-spot-label" style="color: red;"><b>Reservplats</b></span>

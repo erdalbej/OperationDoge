@@ -87,7 +87,12 @@ if(isset($_GET['dog']) && isset($_GET['officialName'])){
 				echo '<div class="row">';
 				echo '<div class="twelve columns">';
 				echo '<h1 class="gen-heading">Stamtavla</h1>';
-				echo '<img class="gen-pic" src="uploads/'.$dog['GenImagePath'].'" alt="">';
+				if($dog['GenImagePath'] !== null){
+					echo '<img class="gen-pic" src="uploads/'.$dog['GenImagePath'].'" alt="">';
+				}
+				else {
+					echo '<span>Finns ingen stamtavla tillgänglig</span>';
+				}
 				echo '</div>';
 				echo '</div>';
 			}	

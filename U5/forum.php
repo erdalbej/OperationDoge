@@ -97,17 +97,17 @@ if(isset($_POST['submit-thread'])){
 							<div class="row">
 								<div class="six columns">
 									<label required for="title">Trådtitel:</label>
-									<input required type="text" name="title">
+									<input required maxlength="255" type="text" name="title">
 								</div>
 								<div class="six columns">
 									<label for="username">Användarnamn:</label>
-									<input type="text" name="username">
+									<input type="text" maxlength="255" name="username">
 								</div>
 							</div>
 							<div class="row">
 								<div class="twelve columns">
 									<label for="description">Beskrivning:</label>
-									<textarea name="description" class="u-full-width" id="description"></textarea>
+									<textarea name="description" maxlength="255" class="u-full-width" id="description"></textarea>
 								</div>
 							</div>
 							<div class="row">

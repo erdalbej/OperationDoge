@@ -162,11 +162,11 @@ if(isset($_POST['thread-delete'])){
 				</div>
 				<div class="four columns">
 					<label for="username">Användare:</label>
-					<input class="u-full-width" type="text" name="username" id="threadUsername">
+					<input class="u-full-width" type="text" name="username" maxlength="255" id="threadUsername">
 				</div>
 			</div>
 			<label for="threadDescription">Förklaring:</label>
-			<textarea name="description" class="u-full-width" id="threadDescription"></textarea>	
+			<textarea name="description" class="u-full-width" maxlength="255" id="threadDescription"></textarea>	
 			<input value="Uppdatera" name="thread-update" type="submit">
 			<input value="Radera" name="thread-delete" type="submit">
 		</form>

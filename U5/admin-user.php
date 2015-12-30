@@ -61,7 +61,7 @@ if(isset($_POST['submit_update'])){
 ?>
 <main>
 	<?php
-		echo 'Hello, &nbsp;' . $username;
+		echo 'Hello, ' . $username;
 	?>
 	<div class="container">
 		<form action="" method="POST">
@@ -73,11 +73,11 @@ if(isset($_POST['submit_update'])){
 					<div class="row">
 						<div class="six columns">
 							<label for="username">Nytt användarnamn:</label>
-							<input type="text" name="username" class="u-full-width">
+							<input type="text" name="username" maxlength="255" class="u-full-width" required>
 						</div>
 						<div class="six columns">
 							<label for="password">Nytt lösenord:</label>
-							<input type="password" name="password" class="u-full-width">
+							<input type="password" name="password" maxlength="255" class="u-full-width">
 						</div>
 					</div>
 					<div class="row">

@@ -34,10 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['login-submit']) && iss
 	<section id="login">
 		<form action="" method="POST">		
 			<label for="username">Användarnamn:</label>
-			<input type="text" name="username">
+			<input type="text" name="username" maxlength="255" required>
 			<br>
 			<label for="password">Lösenord:</label>
-			<input type="password" name="password">
+			<input type="password" name="password" maxlength="255" required>
 			<br>
 			<input type="submit" class="login-button button-primary" name="login-submit" value="Logga in">
 		</form>

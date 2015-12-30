@@ -233,17 +233,17 @@ if(isset($_POST['delete_newsfeed'])){
 			<div class="row">
 				<div class="six columns">
 					<label for="news_title">Titel:</label>
-					<input type="text" class="u-full-width" placeholder="Ny hundkurs"  name="news_title" required>
+					<input type="text" class="u-full-width" placeholder="Ny hundkurs"  name="news_title" maxlength="255" required>
 				</div>
 				<div class="six columns">
 					<label for="news_link">Länk:</label>
-					<input type="text" class="u-full-width" placeholder="http://icsweb.se/u5/school.php"  name="news_link" required>
+					<input type="text" class="u-full-width" placeholder="http://icsweb.se/u5/school.php"  name="news_link" maxlength="255">
 				</div>
 			</div>
 			<div class="row">
 				<div class="six columns">
 					<label for="news_image">Infoga bild:</label>
-					<input type="file" name="news_image" accept=".jpg">
+					<input type="file" name="news_image" maxlength="255" accept=".jpg">
 				</div>
 				<div class="six columns">
 					
@@ -252,7 +252,7 @@ if(isset($_POST['delete_newsfeed'])){
 			<div class="row">
 				<div class="twelve columns">
 					<label for="news_text">Beskrivning:</label>
-					<textarea name="news_text" placeholder="Nya hundkurser för äldre hundar..." class="u-full-width"></textarea>
+					<textarea name="news_text" placeholder="Nya hundkurser för äldre hundar..." maxlength="255" class="u-full-width"></textarea>
 				</div>
 			</div>
 			<div class="row">
@@ -342,28 +342,28 @@ if(isset($_POST['delete_newsfeed'])){
 			<div class="row">
 				<div class="four columns">
 					<label for="alter_news_title">Titel:</label>
-					<input type="text" class="u-full-width" id="newsFeedTitle"  name="alter_news_title" readonly>
+					<input type="text" class="u-full-width" id="newsFeedTitle" maxlength="255" name="alter_news_title" readonly>
 				</div>
 				<div class="four columns">
 					<label for="alter_news_createdAt">Datum:</label>
-					<input type="text" class="u-full-width" id="newsFeedCreatedAt" name="alter_news_createdAt" readonly>
+					<input type="text" class="u-full-width" id="newsFeedCreatedAt" maxlength="255" name="alter_news_createdAt" readonly>
 				</div>
 				<div class="four columns">
 					<label for="alter_news_link">Länk:</label>
-					<input type="text" class="u-full-width" id="newsFeedLink" name="alter_news_link">
+					<input type="text" class="u-full-width" id="newsFeedLink" maxlength="255" name="alter_news_link">
 				</div>
 			</div>
 			<div class="row">
 				<div class="six columns">
 					<label for="alter_news_image">Infoga bild:</label>
-					<input type="file" name="alter_news_image" id="newsFeedImagePath" accept=".jpg">
+					<input type="file" name="alter_news_image" id="newsFeedImagePath" maxlength="255" accept=".jpg">
 				</div>
 				<div class="six columns"></div>
 			</div>
 			<div class="row">
 				<div class="twelve columns">
 					<label for="alter_news_text">Beskrivning:</label>
-					<textarea name="alter_news_text" id="newsFeedDescription" class="u-full-width"></textarea>
+					<textarea name="alter_news_text" id="newsFeedDescription" maxlength="255" class="u-full-width"></textarea>
 				</div>
 			</div>
 					<input value="Uppdatera" name="update_newsfeed" type="submit">

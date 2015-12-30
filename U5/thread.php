@@ -143,17 +143,17 @@ if (!isset($threadError)){
 					<div class="row">
 						<div class="six columns">
 							<label for="username">Användarnamn:</label>
-							<input required class="u-full-width" type="text" name="username">
+							<input required maxlength="255" class="u-full-width" type="text" name="username">
 						</div>
 						<div class="six columns">
 							<label for="post_image">Infoga bild:</label>
-							<input class="u-full-width" type="file" name="post_image" accept=".jpg">
+							<input maxlength="255" class="u-full-width" type="file" name="post_image" accept=".jpg">
 						</div>
 					</div>
 					<div class="row">
 						<div class="twleve columns">
 							<label for="post_text">Kommentar:</label>
-							<textarea required class="u-full-width" name="post_text"></textarea>
+							<textarea required maxlength="255" class="u-full-width" name="post_text"></textarea>
 						</div>
 					</div>
 					<div class="row">

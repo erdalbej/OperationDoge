@@ -232,17 +232,17 @@ if(isset($_POST['post-delete'])){
 			<div class="row">
 				<div class="six columns">
 					<label for="postImage">Bild:</label>
-					<img id="postImage" src="" alt="" width="100" height="100">
+					<img id="postImage" src="" alt="" width="100" height="100" maxlength="255">
 				</div>
 				<div class="six columns">
 					<label for="newImage">Välj ny bild:</label>
-					<input class="u-full-width" name="newImage" id="pictureFile" accept=".jpg" id="newImage" type="file">
+					<input class="u-full-width" name="newImage" id="pictureFile" accept=".jpg" id="newImage" type="file" maxlength="255">
 				</div>
 			</div>
 			<div class="row">
 				<div class="twelve columns">
 					<label for="postText">Post text:</label>
-						<textarea name="postText" class="u-full-width" id="postText"></textarea>
+						<textarea name="postText" class="u-full-width" id="postText" maxlength="255"></textarea>
 				</div>
 			</div>
 			<input value="Uppdatera" name="post-update" type="submit">

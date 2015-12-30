@@ -215,15 +215,15 @@ if(isset($_POST['news-delete'])){
 			<div class="row">
 				<div class="six columns">
 					<label for="title">Nyhetstitel:</label>
-					<input type="text" name="title" placeholder="Ny hundkurs" required>
+					<input type="text" maxlength="255" name="title" placeholder="Ny hundkurs" required>
 				</div>
 				<div class="six columns">
 					<label for="image-path">Bild:</label>
-					<input type="file" name="news-image" accept=".jpg">	
+					<input type="file" maxlength="255" name="news-image" accept=".jpg">	
 				</div>
 			</div>
 			<label for="news-text">Text:</label>
-			<textarea name="news-text" id="" placeholder="Ny hundkurs med nya möjligheter..." class="u-full-width"></textarea>
+			<textarea name="news-text" id="" maxlength="255" placeholder="Ny hundkurs med nya möjligheter..." class="u-full-width"></textarea>
 			<div class="row">
 				<div class="four columns">
 					<input type="submit" name="submit-news" value="Lägg till">		
@@ -321,11 +321,11 @@ if(isset($_POST['news-delete'])){
 			</div>
 			<div class="six columns">
 				<label for="edit-new-image">Välj ny bild:</label>
-				<input class="u-full-width" name="edit-new-image" id="pictureFile" accept=".jpg" id="edit-new-image-id" type="file">
+				<input class="u-full-width" max="255" name="edit-new-image" id="pictureFile" accept=".jpg" id="edit-new-image-id" type="file">
 			</div>
 		</div>
 		<label for="edit-text">Text:</label>
-		<textarea name="edit-text" class="u-full-width" id="edit-text-id"></textarea>	
+		<textarea name="edit-text" max="255" class="u-full-width" id="edit-text-id"></textarea>	
 		<input value="Uppdatera" name="news-update" type="submit">
 		<input value="Radera" name="news-delete" type="submit">
 		</form>

@@ -74,11 +74,11 @@ if(isset($_POST['submit_image'])){
 			<div class="row">
 				<div class="four columns">
 					<label for="image_title">Bildtitel:</label>
-					<input type="text" name="image_title" placeholder="Batuulius" required>
+					<input type="text" name="image_title" placeholder="Batuulius" maxlength="255" required>
 				</div>
 				<div class="four columns">
 					<label for="gallery_image">Infoga bild:</label>
-					<input type="file" name="gallery_image" accept=".jpg" required>
+					<input type="file" name="gallery_image" accept=".jpg" maxlength="255" required>
 				</div>
 				<div class="four columns">
 					<label for="submit_image">&nbsp;</label>
