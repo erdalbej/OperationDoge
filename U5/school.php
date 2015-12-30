@@ -195,7 +195,7 @@ include_once 'aside.php';
 		      <input style="display:none;" type="checkbox" id="reserveSpot" name="reserveSpot" checked="reserve">
 		      <span hidden class="label-body" id="reserve-spot-label" style="color: red;"><b>Reservplats</b></span>
 		    </label>
-		    <input class="button-primary" type="submit" value="Skicka anmälan" name="submit-regToCourse">
+		    <input type="submit" value="Skicka anmälan" name="submit-regToCourse">
 		    <input required style="display:none" type="text" name="courseName" id="formCourseName">
 		    <input required style="display:none" type="text" name="courseTeacher" id="formCourseTeacher">
 		    <input required style="display:none" type="text" name="courseDate" id="formCourseDate">

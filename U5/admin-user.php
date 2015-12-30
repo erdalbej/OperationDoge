@@ -82,7 +82,7 @@ if(isset($_POST['submit_update'])){
 					</div>
 					<div class="row">
 						<div class="twelve columns">
-							<input type="submit" name="submit_update" value="Uppdatera" class="button-primary u-full-width">
+							<input type="submit" name="submit_update" value="Uppdatera" class="u-full-width">
 						</div>
 					</div>
 				</div>

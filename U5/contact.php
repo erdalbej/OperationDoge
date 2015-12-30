@@ -80,7 +80,7 @@ if (isset($_POST['message-submit'])){
 				    <input type="checkbox" name="sendToSender" value="Yes" checked>
 				    <span class="label-body">Skicka kopia till mig</span>
 			 	</label>
-			  <input class="button-primary" type="submit" value="Skicka" name="message-submit">
+			  <input type="submit" value="Skicka" name="message-submit">
 				<?php
 				  	if (isset($sendMessageError)){
 				  		print_r($sendMessageError);

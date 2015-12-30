@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['login-submit']) && iss
 			<label for="password">Lösenord:</label>
 			<input type="password" name="password" maxlength="255" required>
 			<br>
-			<input type="submit" class="login-button button-primary" name="login-submit" value="Logga in">
+			<input type="submit" class="login-button" name="login-submit" value="Logga in">
 		</form>
 		<?php
 		if(isset($error)){
