@@ -33,6 +33,7 @@
                     <li><a href="admin-news.php">Nyheter</a></li>
                     <li><a href="admin-sidebar.php">Annonser</a></li>
                     <li><a href="admin-my-dogs.php">Mina hundar</a></li>
+                    <li><a href="admin-kennel.php">Kennel</a></li>
                     <li><a href="admin-gallery.php">Bildgalleri</a></li>
                     <li><a href="admin-thread.php">Gästbok</a></li>
                     <li><a href="admin-user.php">Ändra användaruppgifter</a></li>
