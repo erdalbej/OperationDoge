@@ -19,7 +19,7 @@ if (isset($_POST['submit-new-dog'])){
 		$dogImg = $_FILES['dogImg'];
 		$genImg = $_FILES['genImg'];
 
-		if (isset($dogImg) && ($dogImg['error'] > 0 || $dogImg['size'] > 0)){
+		if (isset($dogImg) && $dogImg['error'] != UPLOAD_ERR_NO_FILE){
 			if (strlen($dogImg['name']) == 0){
 				$submitNewDogError = 'Hundbilden saknar filnamn'; 
 			}
@@ -27,11 +27,11 @@ if (isset($_POST['submit-new-dog'])){
 			$dogImg_ext = explode('.', $dogImg['name']);
 			$dogImg_ext = strtolower(end($dogImg_ext));
 
-			if (!in_array($dogImg_ext, $allowed_ext)){
+			if (!isset($submitNewDogError) && !in_array($dogImg_ext, $allowed_ext)){
 				$submitNewDogError = 'Endast .jpg filer är tillåtna, prova ladda up en annan bild.';
 			}
 
-			if($dogImg['error'] != UPLOAD_ERR_OK){
+			if(!isset($submitNewDogError) && $dogImg['error'] != UPLOAD_ERR_OK){
 				if ($dogImg['error'] == UPLOAD_ERR_INI_SIZE){ 
 					$submitNewDogError = 'Filen är för stor, 2mb stora filer är tillåtna'; 
 				} else {
@@ -42,12 +42,12 @@ if (isset($_POST['submit-new-dog'])){
 			$dog_name_new = uniqid('', true) . '.' . $dogImg_ext;
 			$dog_destination = 'uploads/' . $dog_name_new;
 
-			if (!move_uploaded_file($dogImg['tmp_name'], $dog_destination)){
+			if (!isset($submitNewDogError) && !move_uploaded_file($dogImg['tmp_name'], $dog_destination)){
 				$submitNewDogError = 'Det gick inte att ladda upp hundbilden, prova igen!';
 			}
 		}
 
-		if(isset($genImg) && ($genImg['error'] > 0 || $genImg['size'] > 0)){
+		if(isset($genImg) && $genImg['error'] != UPLOAD_ERR_NO_FILE){
 			
 			if (strlen($genImg['name']) == 0){ 
 				$submitNewDogError = 'Stamtavla saknar filnamn'; 
@@ -56,11 +56,11 @@ if (isset($_POST['submit-new-dog'])){
 			$genImg_ext = explode('.', $genImg['name']);
 			$genImg_ext = strtolower(end($genImg_ext));
 
-			if (!in_array($genImg_ext, $allowed_ext)){
+			if (!isset($submitNewDogError) && !in_array($genImg_ext, $allowed_ext)){
 				$submitNewDogError = 'Endast .jpg filer är tillåtna, prova ladda up en annan bild.';
 			}
 
-			if($genImg['error'] != UPLOAD_ERR_OK){
+			if(!isset($submitNewDogError) && $genImg['error'] != UPLOAD_ERR_OK){
 				if ($genImg['error'] == UPLOAD_ERR_INI_SIZE){ 
 					$submitNewDogError = 'Filen är för stor, 2mb stora filer är tillåtna'; 
 				} else {
@@ -71,7 +71,7 @@ if (isset($_POST['submit-new-dog'])){
 			$gen_name_new = uniqid('', true) . '.' . $genImg_ext;
 			$gen_destination = 'uploads/' . $gen_name_new;
 
-			if (!move_uploaded_file($genImg['tmp_name'], $gen_destination)){
+			if (!isset($submitNewDogError) && !move_uploaded_file($genImg['tmp_name'], $gen_destination)){
 				$submitNewDogError = 'Det gick inte att ladda upp stamtavla, prova igen!';
 			}
 		}
@@ -86,6 +86,8 @@ if (isset($_POST['submit-new-dog'])){
 		if ($result['err'] == null){
 			if (count($result['data']) > 0){
 				$submitNewDogError = 'Hunden du försöker lägga till finns redan!';
+			} else {
+				$submitNewDogSuccess = 'Hund tillagd';
 			}
 		} else {
 			$submitNewDogError = 'Det gick inte att posta den nya hundern, prova igen!';
@@ -160,7 +162,7 @@ if (isset($_POST['submit-new-dog'])){
 			$dogImg = $_FILES['dogImg'];
 			$genImg = $_FILES['genImg'];
 
-			if (isset($dogImg) && ($dogImg['error'] > 0 || $dogImg['size'] > 0)){
+			if (isset($dogImg) && $dogImg['error'] != UPLOAD_ERR_NO_FILE){
 				if (strlen($dogImg['name']) == 0){
 					$submitUpdateDogError = 'Hundbilden saknar filnamn'; 
 				}
@@ -170,11 +172,11 @@ if (isset($_POST['submit-new-dog'])){
 					$dogImg_ext = strtolower(end($dogImg_ext));
 				}
 
-				if (!in_array($dogImg_ext, $allowed_ext)){
+				if (!isset($submitUpdateDogError) && !in_array($dogImg_ext, $allowed_ext)){
 					$submitUpdateDogError = 'Endast .jpg filer är tillåtna, prova ladda up en annan bild.';
 				}
 
-				if($dogImg['error'] != UPLOAD_ERR_OK){
+				if(!isset($submitUpdateDogError) && $dogImg['error'] != UPLOAD_ERR_OK){
 					if ($dogImg['error'] == UPLOAD_ERR_INI_SIZE){ 
 						$submitUpdateDogError = 'Filen är för stor, 2mb stora filer är tillåtna'; 
 					} else {
@@ -187,14 +189,14 @@ if (isset($_POST['submit-new-dog'])){
 					$dog_destination = 'uploads/' . $dog_name_new;
 				}
 
-				if (!move_uploaded_file($dogImg['tmp_name'], $dog_destination)){
+				if (!isset($submitUpdateDogError) && !move_uploaded_file($dogImg['tmp_name'], $dog_destination)){
 					$submitUpdateDogError = 'Det gick inte att ladda upp hundbilden, prova igen!';
 				}
 
 				
 			}
 
-			if(isset($genImg) && ($genImg['error'] > 0 || $genImg['size'] > 0)){
+			if(isset($genImg) && $genImg['error'] != UPLOAD_ERR_NO_FILE){
 				
 				if (strlen($genImg['name']) == 0){ 
 					$submitUpdateDogError = 'Stamtavla saknar filnamn'; 
@@ -205,11 +207,11 @@ if (isset($_POST['submit-new-dog'])){
 					$genImg_ext = strtolower(end($genImg_ext));
 				}
 
-				if (!in_array($genImg_ext, $allowed_ext)){
+				if (!isset($submitUpdateDogError) && !in_array($genImg_ext, $allowed_ext)){
 					$submitUpdateDogError = 'Endast .jpg filer är tillåtna, prova ladda up en annan bild.';
 				}
 
-				if($genImg['error'] != UPLOAD_ERR_OK){
+				if(!isset($submitUpdateDogError) && $genImg['error'] != UPLOAD_ERR_OK){
 					if ($genImg['error'] == UPLOAD_ERR_INI_SIZE){ 
 						$submitUpdateDogError = 'Filen är för stor, 2mb stora filer är tillåtna'; 
 					} else {
@@ -222,18 +224,24 @@ if (isset($_POST['submit-new-dog'])){
 					$gen_destination = 'uploads/' . $gen_name_new;
 				}
 
-				if (!move_uploaded_file($genImg['tmp_name'], $gen_destination)){
+				if (!isset($submitUpdateDogError) && !move_uploaded_file($genImg['tmp_name'], $gen_destination)){
 					$submitUpdateDogError = 'Det gick inte att ladda upp stamtavla, prova igen!';
 				}	
 			}
 
-			if (!isset($submitUpdateDogError)){
-				$genImgPath = (isset($gen_name_new) ? $gen_name_new : $currentDog['GenImagePath']);
-				$dogImgPath = (isset($dog_name_new) ? $dog_name_new : $currentDog['DogImagePath']);
+			$genImgPath = $currentDog['GenImagePath'];
+			$dogImgPath = $currentDog['DogImagePath'];
+
+			if (isset($gen_name_new)){
+				$genImgPath = $gen_name_new;
+			} 
+
+			if (isset($dog_name_new)){
+				$dogImgPath = $dog_name_new;
 			}
 
 			if (!isset($submitUpdateDogError)){
-				$updateResult = nonQuery('UPDATE MyDog SET Color = :color, Birthdate = :birthdate, Description = :description, Height = :height, Weight = :weight, Mental = :mental, Breader = :breader, GenImagePath = :genImgPath, DogImagePath = :dogImgPath WHERE Name = :dogName AND OfficialName = :officialName',
+				$updateResult = nonQuery('UPDATE MyDog SET Color = :color, Birthdate = :birthdate, Description = :description, Height = :height, Weight = :weight, MentalStatus = :mental, Breader = :breader, GenImagePath = :genImgPath, DogImagePath = :dogImgPath WHERE Name = :dogName AND OfficialName = :officialName',
 					array(
 						':dogName' => $_POST['dogName'],
 						':officialName' => $_POST['officialName'],
@@ -262,7 +270,9 @@ if (isset($_POST['submit-new-dog'])){
 						if (file_exists($oldPath)){
 							unlink($oldPath);
 						}
-					} 
+					}
+
+					$submitUpdateDogSuccess = 'Hund updaterad';
 				} else {
 					$submitUpdateDogError = 'Gick inte att uppdatera hund, prova igen!';
 
@@ -301,7 +311,11 @@ if (isset($_POST['submit-new-dog'])){
 					)
 				);
 
-				if ($deleteResult['err'] != null){ $submitDeleteDogError = 'Gick inte att ta bort hund, prova igen.'; }
+				if ($deleteResult['err'] != null){ 
+					$submitDeleteDogError = 'Gick inte att ta bort hund, prova igen.'; 
+				} else {
+					$submitDeleteDogSuccess = 'Hund bortagen';
+				}
 			} else { $submitDeleteDogError = 'Hunden du försöker ta bort finns ej.'; }
 		} else { $submitDeleteDogError = 'Gick inte att bekräfta att hund finns, prova igen!'; }
 	} else { $submitDeleteDogError = 'Saknar värden för att ta bort hund'; }
@@ -321,8 +335,32 @@ if ($myDogsResult['err'] == null){
 		<div class="row">
 		<div class="twelve columns">
 			<?php
-			if(isset($submitNewDogError)){
+			if (isset($submitNewDogError)){
 				echo '<span id="returnMsg" class="error-message">' . $submitNewDogError . '</span>';
+			}
+
+			if (isset($submitUpdateDogError)){
+				echo '<span id="returnMsg" class="error-message">' . $submitUpdateDogError . '</span>';
+			}
+
+			if (isset($submitDeleteDogError)){
+				echo '<span id="returnMsg" class="error-message">' . $submitDeleteDogError . '</span>';
+			}
+
+			if (isset($myDogsError)){
+				echo '<span id="returnMsg" class="error-message">' . $myDogsError . '</span>';
+			}
+
+			if(isset($submitNewDogSuccess)){
+				echo '<span id="returnMsg" class="success-message">' . $submitNewDogSuccess . '</span>';
+			}
+
+			if(isset($submitUpdateDogSuccess)){
+				echo '<span id="returnMsg" class="success-message">' . $submitUpdateDogSuccess . '</span>';
+			}
+
+			if(isset($submitDeleteDogSuccess)){
+				echo '<span id="returnMsg" class="success-message">' . $submitDeleteDogSuccess . '</span>';
 			}
 			?>
 		</div>
@@ -334,39 +372,7 @@ if ($myDogsResult['err'] == null){
 		</div>
 		<hr>
 		<div id="returnMsg" style="margin:20px 0 50px 0;">
-			<?php
-				#print_r($_POST);
-				#print_r($_FILES);
-				#print_r($genImgPath);
-				#print_r($dogImgPath);
-				print_r($gen_name_new);
-				print_r($dog_name_new);
-				if (isset($submitNewDogError)){
-					echo $submitNewDogError;
-				}
 
-				if (isset($submitUpdateDogError)){
-					echo $submitUpdateDogError;
-				}
-
-				if (isset($submitDeleteDogError)){
-					echo $submitDeleteDogError;
-				}
-
-				if (isset($myDogsError)){
-					echo $myDogsError;
-				}
-
-				if(isset($submit_news_msg)){
-					echo $submit_news_msg;
-				}
-				if(isset($delete_news_msg )){
-					echo $delete_news_msg ;
-				}
-				if(isset($update_news_msg)){
-					echo $update_news_msg;
-				}
-			?>
 		</div>
 		<div class="row">
 				<div class="twelve columns">
@@ -411,7 +417,7 @@ if ($myDogsResult['err'] == null){
 				</div>
 				<div class="six columns">
 					<label for="title">Födelsedag</label>
-					<input required type="date" name="birthdate" class="u-full-width">
+					<input type="date" name="birthdate" class="u-full-width">
 				</div>
 			</div>
 			<div class="row">
@@ -425,7 +431,7 @@ if ($myDogsResult['err'] == null){
 				</div>
 			</div>
 			<label for="news-text">Beskrivning:</label>
-			<textarea name="description" id="" class="u-full-width"></textarea>
+			<textarea name="description" class="u-full-width"></textarea>
 			<div class="row">
 				<div class="four columns">
 					<input type="submit" name="submit-new-dog" value="Lägg till">		
@@ -550,7 +556,7 @@ if ($myDogsResult['err'] == null){
 				</div>
 				<div class="six columns">
 					<label for="title">Födelsedag</label>
-					<input required type="date" name="birthday" class="u-full-width" id="edit-birthdate"> 
+					<input type="date" name="birthdate" class="u-full-width" id="edit-birthdate"> 
 				</div>
 			</div>
 			<div class="row">
@@ -564,10 +570,10 @@ if ($myDogsResult['err'] == null){
 				</div>
 			</div>
 			<label for="news-text">Beskrivning:</label>
-			<textarea name="news-text" id="" class="u-full-width" id="edit-description" name="description"></textarea>
+			<textarea class="u-full-width" id="edit-description" name="description"></textarea>
 			<div class="row">
 				<div class="six columns">
-					<input value="Uppdatera" name="news-update" type="submit">		
+					<input value="Uppdatera" name="submit-update-dog" type="submit">		
 				</div>
 				<div class="six columns">
 					<input value="Radera" name="submit-delete-dog" type="submit">	
