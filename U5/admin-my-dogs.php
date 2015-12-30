@@ -76,7 +76,7 @@ if (isset($_POST['submit-new-dog'])){
 			}
 		}
 
-		$result = query('SELECT * FROM MyDog WHERE Name = :dogName AND OfficialName = :officialName',
+		$result = query('SELECT Name, OfficialName FROM MyDog WHERE Name = :dogName AND OfficialName = :officialName',
 			array(
 				':dogName' => $_POST['dogName'],
 				':officialName' => $_POST['officialName']
@@ -142,7 +142,7 @@ if (isset($_POST['submit-new-dog'])){
 	if (strlen($_POST['dogName']) > 0 &&
 		strlen($_POST['officialName']) > 0) {
 
-		$findDogResult = query('SELECT * FROM MyDog WHERE Name = :dogName AND OfficialName = :officialName',
+		$findDogResult = query('SELECT Name, OfficialName, GenImagePath, DogImagePath FROM MyDog WHERE Name = :dogName AND OfficialName = :officialName',
 			array(
 				':dogName' => $_POST['dogName'],
 				':officialName' => $_POST['officialName']
@@ -295,7 +295,7 @@ if (isset($_POST['submit-new-dog'])){
 	if (strlen($_POST['dogName']) > 0 &&
 		strlen($_POST['officialName']) > 0) {
 
-		$findDogResult = query('SELECT * FROM MyDog WHERE Name = :dogName AND OfficialName = :officialName',
+		$findDogResult = query('SELECT Name, OfficialName FROM MyDog WHERE Name = :dogName AND OfficialName = :officialName',
 			array(
 				':dogName' => $_POST['dogName'],
 				':officialName' => $_POST['officialName']
@@ -322,7 +322,7 @@ if (isset($_POST['submit-new-dog'])){
 }
 
 
-$myDogsResult = query('SELECT * FROM MyDog ORDER BY Name ASC');
+$myDogsResult = query('SELECT Name, OfficialName, Color, Breader, Weight, Height, MentalStatus, Birthdate, Description, GenImagePath, DogImagePath FROM MyDog ORDER BY Name ASC');
 if ($myDogsResult['err'] == null){
 	$myDogs = $myDogsResult['data'];
 } else {

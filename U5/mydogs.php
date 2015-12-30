@@ -7,6 +7,7 @@ $officialName = NULL;
 if(isset($_GET['dog']) && isset($_GET['officialName'])){
 	$dogName = $_GET['dog'];
 	$officialName = $_GET['officialName'];
+
 }
 
 ?>
@@ -20,14 +21,14 @@ if(isset($_GET['dog']) && isset($_GET['officialName'])){
 					$dogData = query("SELECT OfficialName, Name FROM MyDog");
 					$dogRes = $dogData['data'];
 					foreach($dogRes as $key => $dog){
-						echo "<option>";
-						echo $dog["Name"];
+						echo '<option value="' .  $dog['Name'] .'|' . $dog['OfficialName'] . '">';
+						echo $dog['Name'];
+						echo '</span>';
 						echo '</option>';
 					}
 					?>
 				</select>
 			</div>
-
 			<div class="four columns">
 				<label for="">&nbsp;</label>
 				<a id="mydogslink" href="">Visa hund</a>
@@ -36,6 +37,7 @@ if(isset($_GET['dog']) && isset($_GET['officialName'])){
 
 			</div>
 		</div>
+		
 		<?php
 		if(strlen($dogName) > 0 && strlen($officialName) > 0){
 			$result = query("SELECT OfficialName, Name, BirthDate, Description, Color, Height, Weight, MentalStatus, Breader, GenImagePath, DogImagePath FROM MyDog WHERE Name = :dogName AND OfficialName = :officialName", 
@@ -56,6 +58,7 @@ if(isset($_GET['dog']) && isset($_GET['officialName'])){
 				echo '<h2>';
 				echo $dog['Name'];
 				echo '</h2>';
+				echo '<p>' . $dog['OfficialName'] . '</p>';
 				echo '<img class="dog-image floatleft" src="uploads/'.$image.'" width="100" height="100" alt="">';
 				echo '<p class="details dog-details">';
 				echo $dog['Description'];
@@ -75,11 +78,10 @@ if(isset($_GET['dog']) && isset($_GET['officialName'])){
 				echo '</div>';
 
 				echo '<div class="row">';
-				echo '<div class="four columns"></div>';
-				echo '<div class="four columns">';
+				echo '<div class="six columns">';
 				echo '<span><b>Mental status:&nbsp;</b>'.$dog['MentalStatus'].'</span>';
 				echo '</div>';
-				echo '<div class="four columns">';
+				echo '<div class="six columns">';
 				echo '<span><b>Uppfödare:&nbsp;</b>'.$dog['Breader'].'</span>';
 				echo '</div>';
 				echo '</div>';
