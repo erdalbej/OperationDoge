@@ -77,7 +77,7 @@ if(isset($_POST['submit_update'])){
 						</div>
 						<div class="six columns">
 							<label for="password">Nytt lösenord:</label>
-							<input type="password" name="password" maxlength="255" class="u-full-width">
+							<input type="password" name="password" maxlength="255" class="u-full-width" required>
 						</div>
 					</div>
 					<div class="row">
