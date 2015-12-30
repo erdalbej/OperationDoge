@@ -244,7 +244,7 @@ if(isset($_POST['delete_puppy'])){
 					<div class="row">
 						<div class="four columns">
 							<label for="name">Namn:</label>
-							<input maxlength="255" class="u-full-width" type="text" id="PuppyName" name="alter_name">
+							<input maxlength="255" class="u-full-width" type="text" id="PuppyName" name="alter_name" readonly>
 						</div>
 						<div class="four columns">
 							<label for="gender">Kön:</label>
