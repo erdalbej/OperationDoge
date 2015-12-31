@@ -158,7 +158,7 @@ if (!isset($threadError)){
 					</div>
 					<div class="row">
 						<div class="four columns">
-							<input form="post-form" type="submit" name="submit_post" u-full-width" value="Kommentera">
+							<input form="post-form" type="submit" name="submit_post" u-full-width value="Kommentera">
 						</div>
 						<div class="eight columns">
 							<?php
