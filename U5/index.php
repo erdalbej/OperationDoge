@@ -2,7 +2,15 @@
 include_once 'header.php';
 include_once 'aside.php';
 ?>
+
 <main class="height-uv">
+	<div class="container">
+		<div class="row">
+			<div class="twelve columns">
+				<h1 class="page-header">Välkommen till Batuulis hemsida!</h1>
+			</div>
+		</div>
+	</div>
 
 <?php
 $result = query("SELECT Title, CreatedAt, NewsText, NewsImagePath FROM News ORDER BY CreatedAt DESC LIMIT 10");

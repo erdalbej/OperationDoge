@@ -14,7 +14,7 @@ $(document).ready(function(){
 		$("#courseName").val(data.courseName);
 		$("#courseTeacher").val(data.courseTeacher);
 		$("#courseDate").val(data.courseDate);
-		$("#courseText").val(data.courseText);
+		$("#courseText ").val(data.courseText);
 
 		$('html, body').animate({ scrollTop: $(document).height() }, 500);
 		$('form').show(300);
