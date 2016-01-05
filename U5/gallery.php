@@ -8,7 +8,7 @@ include_once 'header.php';
 			$result = query("SELECT ImagePath, ImageTitle FROM ImageGallery");
 			$galleryData = $result['data'];
 			foreach($galleryData as $key => $g){
-				echo '<tr id="gallery' . $key . '">';
+				echo '<span id="gallery' . $key . '"></span>';
 				echo '<a class="fancybox" href="uploads/'.$g['ImagePath'].'" data-fancybox-group="gallery" title="'.$g['ImageTitle'].'"><img class="gallery-img" src="uploads/'.$g['ImagePath'].'" width="200" height="200" alt="" /></a>';
 			}			
 			?>
