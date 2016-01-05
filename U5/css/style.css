@@ -65,7 +65,9 @@ span.logo {
 nav, main, aside {
 	min-height: 500px;
 }
-header, nav, main, aside, time { display: block; }
+header, nav, main, aside, time { 
+	display: block; 
+}
 img {
 	border: none;
 }
@@ -279,21 +281,17 @@ label {
 	width: 8em;
 	padding-right: 10px;
 }
-
 form input {
 	margin-bottom: 10px;
 }
-
 #mySubmit {
 	margin-left: 12.5em;
 	margin-top: 10px;
 }
-
 audio {
 	display: block;
 	margin-top: 2em;
 }
-
 .clearleft {
 	clear: left;
 	margin: 1em;
@@ -302,12 +300,10 @@ td {
 	word-wrap: break-word;
 	max-width: 200px;
 }
-
 .hooverEffect tr:hover{
  background-color:#E1E1E1;
  cursor: pointer;
 }
-
 section#login {
 	background: #fff;
 	max-width: 500px;
@@ -320,14 +316,12 @@ section#login form {
 section#login input {
 	width: 100% !important;
 }
-
 section#gallery {
 	margin: 0 auto;
 	max-width: 750px;
 }
 section#gallery a {
 }
-
 .news-form {
 	margin: 0 auto;
 }
@@ -335,7 +329,6 @@ section#gallery a {
 	text-align: left;
 	width: 100%;
 }
-
 .thread-form input {
 	width: 100%;
 }
@@ -376,26 +369,23 @@ section#gallery a {
 	float: right;
 	font-style: italic;
 }
-.post-posttext {
-	
-}
-.posts img {
-	
-}
 .gallery-img {
 	margin: 25px;
 }
-
 .label-value {
 	font-weight: initial;
 }
-
 .reg-course {
 	cursor:pointer;
 }
-
 .page-header {
 	text-align: center;
+}
+.dsp-none {
+	display: none;
+}
+.contactRow {
+	margin-bottom: 10px;
 }
 
 @media only screen and (max-width: 1024px){
@@ -403,7 +393,6 @@ section#gallery a {
 		background-image: none;
 		margin: 0;
 	}
-
 	#wrapper {
 		width: auto;
 		min-width: 0;
@@ -441,11 +430,13 @@ section#gallery a {
 		margin: 0;
 		font-size: 90%;
 		min-height: 250px;
-	}
-	
+	}	
 }
-/* #mobileFirst */
+
 @media only screen and (max-width: 768px){
+	.dsp-none-sm {
+		display: none;
+	}
 	nav ul li {
 		display: block;
 	}
@@ -494,21 +485,13 @@ section#gallery a {
 	audio {
 		margin-top: 1.2em;
 	}
-
 	.mapRow iframe {
 		display: none;
 	}
-
 	.hide-img {
 		display: none;
 	}
-
 	img {
 		display: none;
 	}
-
-}
-
-.contactRow {
-	margin-bottom: 10px;
 }
