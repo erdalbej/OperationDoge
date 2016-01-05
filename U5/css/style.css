@@ -503,6 +503,10 @@ section#gallery a {
 		display: none;
 	}
 
+	img {
+		display: none;
+	}
+
 }
 
 .contactRow {
