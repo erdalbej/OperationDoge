@@ -43,7 +43,7 @@ if (isset($_POST['submit-news'])){
 				$file_destination = 'uploads/' . $file_name_new;
 
 				if (move_uploaded_file($file['tmp_name'], $file_destination)){
-					$result = nonQuery("INSERT INTO News (`Title`,`CreatedAt`,`NewsText`,`NewsImagePath`) VALUES (:title,now(),:news_text,:image)", 
+					$result = nonQuery("INSERT INTO News (Title, CreatedAt, NewsText, NewsImagePath) VALUES (:title, NOW(), :news_text, :image)", 
 						array(
 							":title" => $title, 
 							":news_text" => $news_text, 
@@ -57,15 +57,16 @@ if (isset($_POST['submit-news'])){
 					} else { $news_success = "Nyhet upplagd och publicerad!"; }
 				} else { $news_error = 'Gick inte att flytta filen till servern, prova igen'; }
 			} else { $news_error = $image_error; }
-		} else{
-			$result = nonQuery("INSERT INTO News (`Title`,`CreatedAt`,`NewsText`) VALUES (:title,now(),:news_text)", array(":title" => $title, ":news_text" => $news_text));
+		} else {
+			$result = nonQuery("INSERT INTO News (Title, CreatedAt, NewsText) VALUES (:title, NOW(), :news_text)", 
+				array(
+					":title" => $title, 
+					":news_text" => $news_text
+				)
+			);
 
-			if ($result["err"] === null){ 
-				$news_success = "Nyhet upplagd och publicerad!"; 
-			}
-			else { 
-				$news_error = "Gick inte att flytta filen till servern, prova igen"; 
-			}
+			if ($result["err"] === null) { $news_success = "Nyhet upplagd och publicerad!";  }
+			else {  $news_error = "Gick inte att flytta filen till servern, prova igen";  }
 		}
 	} else { $news_error = "Saknar värden, prova igen!"; }
 } else if (isset($_POST['news-update'])){
@@ -102,7 +103,13 @@ if (isset($_POST['submit-news'])){
 				$file_name_new = uniqid('', true) . '.' . $file_ext;
 				$file_destination = 'uploads/' . $file_name_new;
 				
-				$result = query("SELECT `NewsImagePath` FROM News WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt));
+				$result = query("SELECT NewsImagePath FROM News WHERE Title = :news_title AND CreatedAt = :news_createdAt", 
+					array(
+						":news_title" => $news_title, 
+						":news_createdAt" => $news_createdAt
+					)
+				);
+
 				if ($result["err"] == null){
 					$resData = $result["data"];
 					if ($resData[0]["NewsImagePath"] !== NULL){
@@ -111,7 +118,7 @@ if (isset($_POST['submit-news'])){
 				}
 
 				if (move_uploaded_file($file['tmp_name'], $file_destination)){
-					$result = nonQuery("UPDATE News SET `NewsText` = :news_text, `NewsImagePath` = :image_path WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", 
+					$result = nonQuery("UPDATE News SET NewsText = :news_text, NewsImagePath = :image_path WHERE Title = :news_title AND CreatedAt = :news_createdAt", 
 						array(
 							":news_title" => $news_title,
 							":news_createdAt" => $news_createdAt, 
@@ -135,7 +142,13 @@ if (isset($_POST['submit-news'])){
 			} else { $news_error = $image_error; }
 		} else {
 	
-			$result = nonQuery("UPDATE News SET `NewsText` = :news_text WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt, ":news_text" => $news_text));
+			$result = nonQuery("UPDATE News SET NewsText = :news_text WHERE Title = :news_title AND CreatedAt = :news_createdAt", 
+				array(
+					":news_title" => $news_title, 
+					":news_createdAt" => $news_createdAt, 
+					":news_text" => $news_text
+				)
+			);
 			
 			if( $result["err"] === null){
 				$news_success = "Nyhet uppdaterad"; 
@@ -151,7 +164,13 @@ if (isset($_POST['submit-news'])){
 		$news_title = $_POST['edit-title'];
 		$news_createdAt = $_POST['edit-createdAt'];
 
-		$result = query("SELECT `NewsImagePath` FROM News WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt));
+		$result = query("SELECT NewsImagePath FROM News WHERE Title = :news_title AND CreatedAt = :news_createdAt", 
+			array(
+				":news_title" => $news_title, 
+				":news_createdAt" => $news_createdAt
+			)
+		);
+
 		if ($result["err"] == null){
 			$resData = $result["data"];
 			if ($resData[0]["NewsImagePath"] !== NULL){
@@ -159,7 +178,12 @@ if (isset($_POST['submit-news'])){
 			}
 		}
 
-		$result = nonQuery("DELETE FROM News WHERE `Title` = :news_title AND `CreatedAt` = :news_createdAt", array(":news_title" => $news_title, ":news_createdAt" => $news_createdAt));
+		$result = nonQuery("DELETE FROM News WHERE Title = :news_title AND CreatedAt = :news_createdAt", 
+			array(
+				":news_title" => $news_title, 
+				":news_createdAt" => $news_createdAt
+			)
+		);
 		
 		if ($result["err"] === NULL){
 			$news_success = "Nyhet raderad!"; 
