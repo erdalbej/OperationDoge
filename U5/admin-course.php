@@ -184,14 +184,10 @@ if(isset($_POST['submit-delete'])){
 						</tbody>
 					</table>
 					<?php
-
-
 					if(isset($load_error)){
 						echo $load_error;
 					}
-
 					?>
-
 					<br/>
 				</div>
 			</div>
