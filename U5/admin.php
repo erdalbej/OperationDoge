@@ -15,10 +15,8 @@ if (isset($_POST['login-submit']) && isset($_POST['password']) && isset($_POST['
 				header('location: /U5/admin-index.php');
 			} 
 			else { $error = 'Fel användarnamn och/eller lösenord'; }
-		} 
-		else { $error = 'Något gick fel, prova igen'; }
-	}
-	else { $error = 'Var vänlig och fyll i inmatingsfälten'; }
+		} else { $error = 'Något gick fel, prova igen'; }
+	} else { $error = 'Saknar värden, prova igen!'; }
 }
 ?>
 <!DOCTYPE html>
