@@ -10,7 +10,6 @@ include_once 'admin-header.php';
 
 $allowed_ext = array('jpg');
 
-// Create
 if(isset($_POST['submit_newsfeed'])){
 	if(strlen($_POST['news_title']) > 0){
 

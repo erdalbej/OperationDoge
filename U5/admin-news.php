@@ -14,149 +14,152 @@ if (isset($_POST['submit-news'])){
 
 	if (strlen($_POST['title']) > 0){
 
-		$title = $_POST['title'];
-		$news_text = $_POST['news-text'];
+		if (strlen($_POST['title']) <= 255 && strlen($_POST['news-text']) <= 255){
+			$title = $_POST['title'];
+			$news_text = $_POST['news-text'];
 
-		$file = $_FILES['news-image'];
-		if (isset($file) && (strlen($file['name']) != 0)) {
-			
-			if (strlen($file['name']) == 0){ $image_error = 'Saknar filnamn'; }
+			$file = $_FILES['news-image'];
+			if (isset($file) && (strlen($file['name']) != 0)) {
+				
+				if (strlen($file['name']) == 0){ $image_error = 'Saknar filnamn'; }
 
-			$file_name = $file['name'];
-			$file_tmp = $file['tmp_name'];
-			$file_size = $file['size'];
-			$file_error = $file['error'];
-			$file_ext = explode('.', $file_name);
-			$file_ext = strtolower(end($file_ext));
+				$file_name = $file['name'];
+				$file_tmp = $file['tmp_name'];
+				$file_size = $file['size'];
+				$file_error = $file['error'];
+				$file_ext = explode('.', $file_name);
+				$file_ext = strtolower(end($file_ext));
 
-			if (!in_array($file_ext, $allowed_ext)){ $image_error = 'Endast .jpg filer är tillåtna, prova ladda up en anna bild.'; }
-			if ($file['error'] != UPLOAD_ERR_OK){
-				if ($file['error'] == UPLOAD_ERR_INI_SIZE){ 
-					$image_error = 'Filen är för stor, 2mb stora filer är tillåtna'; 
-				} else if ($file['error'] > 1 && $file['error'] < 9){
-					$image_error = 'Filen gick inte att ladda upp, prova igen!';
+				if (!in_array($file_ext, $allowed_ext)){ $image_error = 'Endast .jpg filer är tillåtna, prova ladda up en anna bild.'; }
+				if ($file['error'] != UPLOAD_ERR_OK){
+					if ($file['error'] == UPLOAD_ERR_INI_SIZE){ 
+						$image_error = 'Filen är för stor, 2mb stora filer är tillåtna'; 
+					} else if ($file['error'] > 1 && $file['error'] < 9){
+						$image_error = 'Filen gick inte att ladda upp, prova igen!';
+					}
 				}
+
+				if (!isset($image_error)){
+					$file_name_new = uniqid('', true) . '.' . $file_ext;
+					$file_destination = 'uploads/' . $file_name_new;
+
+					if (move_uploaded_file($file['tmp_name'], $file_destination)){
+						$result = nonQuery("INSERT INTO News (Title, CreatedAt, NewsText, NewsImagePath) VALUES (:title, NOW(), :news_text, :image)", 
+							array(
+								":title" => $title, 
+								":news_text" => $news_text, 
+								":image" => $file_name_new
+							)
+						);
+						
+						if ($result["err"] != null){
+							$news_error = 'Gick inte att ladda upp din nyhet, prova igen.';
+							unlink($file_destination);
+						} else { $news_success = "Nyhet upplagd och publicerad!"; }
+					} else { $news_error = 'Gick inte att flytta filen till servern, prova igen'; }
+				} else { $news_error = $image_error; }
+			} else {
+				$result = nonQuery("INSERT INTO News (Title, CreatedAt, NewsText) VALUES (:title, NOW(), :news_text)", 
+					array(
+						":title" => $title, 
+						":news_text" => $news_text
+					)
+				);
+
+				if ($result["err"] === null) { $news_success = "Nyhet upplagd och publicerad!";  }
+				else {  $news_error = "Gick inte att flytta filen till servern, prova igen";  }
 			}
-
-			if (!isset($image_error)){
-				$file_name_new = uniqid('', true) . '.' . $file_ext;
-				$file_destination = 'uploads/' . $file_name_new;
-
-				if (move_uploaded_file($file['tmp_name'], $file_destination)){
-					$result = nonQuery("INSERT INTO News (Title, CreatedAt, NewsText, NewsImagePath) VALUES (:title, NOW(), :news_text, :image)", 
-						array(
-							":title" => $title, 
-							":news_text" => $news_text, 
-							":image" => $file_name_new
-						)
-					);
-					
-					if ($result["err"] != null){
-						$news_error = 'Gick inte att ladda upp din nyhet, prova igen.';
-						unlink($file_destination);
-					} else { $news_success = "Nyhet upplagd och publicerad!"; }
-				} else { $news_error = 'Gick inte att flytta filen till servern, prova igen'; }
-			} else { $news_error = $image_error; }
-		} else {
-			$result = nonQuery("INSERT INTO News (Title, CreatedAt, NewsText) VALUES (:title, NOW(), :news_text)", 
-				array(
-					":title" => $title, 
-					":news_text" => $news_text
-				)
-			);
-
-			if ($result["err"] === null) { $news_success = "Nyhet upplagd och publicerad!";  }
-			else {  $news_error = "Gick inte att flytta filen till servern, prova igen";  }
-		}
+		} else { $news_error = 'Fält innehåller för många tecken, minska antalet tecken.'; }
 	} else { $news_error = "Saknar värden, prova igen!"; }
 } else if (isset($_POST['news-update'])){
 	
 	if (strlen($_POST['edit-title']) > 0 && strlen($_POST['edit-createdAt']) > 0){
 
-		$news_title = $_POST['edit-title'];
-		$news_createdAt = $_POST['edit-createdAt'];
-		$news_text = $_POST['edit-text'];
-		
-		$file = $_FILES['edit-new-image'];
-		if (isset($file) && (strlen($file['name']) != 0)) {
+		if (strlen($_POST['edit-title']) <= 255 && strlen($_POST['edit-text']) <= 255){
+			$news_title = $_POST['edit-title'];
+			$news_createdAt = $_POST['edit-createdAt'];
+			$news_text = $_POST['edit-text'];
 			
-			if (strlen($file['name']) == 0){ $image_error = 'Saknar filnamn'; }
-
-			$file_name = $file['name'];
-			$file_tmp = $file['tmp_name'];
-			$file_size = $file['size'];
-			$file_error = $file['error'];
-			$file_ext = explode('.', $file_name);
-			$file_ext = strtolower(end($file_ext));
-
-			if (!in_array($file_ext, $allowed_ext)){ $image_error = 'Endast .jpg filer är tillåtna, prova ladda up en anna bild.'; }
-			if ($file['error'] != UPLOAD_ERR_OK){
-
-				if ($file['error'] == UPLOAD_ERR_INI_SIZE){ 
-					$image_error = 'Filen är för stor, 2mb stora filer är tillåtna'; 
-				} else if ($file['error'] > 1 && $file['error'] < 9){
-					$image_error = 'Filen gick inte att ladda upp, prova igen!';
-				}
-			}
-
-			if (!isset($image_error)){
-				$file_name_new = uniqid('', true) . '.' . $file_ext;
-				$file_destination = 'uploads/' . $file_name_new;
+			$file = $_FILES['edit-new-image'];
+			if (isset($file) && strlen($file['name']) != 0) {
 				
-				$result = query("SELECT NewsImagePath FROM News WHERE Title = :news_title AND CreatedAt = :news_createdAt", 
-					array(
-						":news_title" => $news_title, 
-						":news_createdAt" => $news_createdAt
-					)
-				);
+				if (strlen($file['name']) == 0){ $image_error = 'Saknar filnamn'; }
 
-				if ($result["err"] == null){
-					$resData = $result["data"];
-					if ($resData[0]["NewsImagePath"] !== NULL){
-						$old_image = "uploads/" . $resData[0]["NewsImagePath"];
+				$file_name = $file['name'];
+				$file_tmp = $file['tmp_name'];
+				$file_size = $file['size'];
+				$file_error = $file['error'];
+				$file_ext = explode('.', $file_name);
+				$file_ext = strtolower(end($file_ext));
+
+				if (!in_array($file_ext, $allowed_ext)){ $image_error = 'Endast .jpg filer är tillåtna, prova ladda up en anna bild.'; }
+				if ($file['error'] != UPLOAD_ERR_OK){
+
+					if ($file['error'] == UPLOAD_ERR_INI_SIZE){ 
+						$image_error = 'Filen är för stor, 2mb stora filer är tillåtna'; 
+					} else if ($file['error'] > 1 && $file['error'] < 9){
+						$image_error = 'Filen gick inte att ladda upp, prova igen!';
 					}
 				}
 
-				if (move_uploaded_file($file['tmp_name'], $file_destination)){
-					$result = nonQuery("UPDATE News SET NewsText = :news_text, NewsImagePath = :image_path WHERE Title = :news_title AND CreatedAt = :news_createdAt", 
+				if (!isset($image_error)){
+					$file_name_new = uniqid('', true) . '.' . $file_ext;
+					$file_destination = 'uploads/' . $file_name_new;
+					
+					$result = query("SELECT NewsImagePath FROM News WHERE Title = :news_title AND CreatedAt = :news_createdAt", 
 						array(
-							":news_title" => $news_title,
-							":news_createdAt" => $news_createdAt, 
-							":news_text" => $news_text, 
-							":image_path" => $file_name_new
+							":news_title" => $news_title, 
+							":news_createdAt" => $news_createdAt
 						)
 					);
-					
-					if ($result["err"] != null){
-						$news_error = 'Gick inte att uppdatera nyhet, prova igen.';
-						unlink($file_destination);
-					} else{
-						$news_success = "Nyhet uppdaterad och publicerad!";
-						if (isset($old_image)){
-							if (file_exists($old_image)){
-						    	unlink($old_image);
+
+					if ($result["err"] == null){
+						$resData = $result["data"];
+						if ($resData[0]["NewsImagePath"] !== NULL){
+							$old_image = "uploads/" . $resData[0]["NewsImagePath"];
+						}
+					} 
+
+					if (move_uploaded_file($file['tmp_name'], $file_destination)){
+						$result = nonQuery("UPDATE News SET NewsText = :news_text, NewsImagePath = :image_path WHERE Title = :news_title AND CreatedAt = :news_createdAt", 
+							array(
+								":news_title" => $news_title,
+								":news_createdAt" => $news_createdAt, 
+								":news_text" => $news_text, 
+								":image_path" => $file_name_new
+							)
+						);
+						
+						if ($result["err"] != null){
+							$news_error = 'Gick inte att uppdatera nyhet, prova igen.';
+							unlink($file_destination);
+						} else{
+							$news_success = "Nyhet uppdaterad och publicerad!";
+							if (isset($old_image)){
+								if (file_exists($old_image)){
+							    	unlink($old_image);
+								}
 							}
 						}
-					}
-				} else { $news_error = 'Gick inte att flytta filen till servern, prova igen'; }
-			} else { $news_error = $image_error; }
-		} else {
-	
-			$result = nonQuery("UPDATE News SET NewsText = :news_text WHERE Title = :news_title AND CreatedAt = :news_createdAt", 
-				array(
-					":news_title" => $news_title, 
-					":news_createdAt" => $news_createdAt, 
-					":news_text" => $news_text
-				)
-			);
-			
-			if( $result["err"] === null){
-				$news_success = "Nyhet uppdaterad"; 
+					} else { $news_error = 'Gick inte att flytta filen till servern, prova igen'; }
+				} else { $news_error = $image_error; }
 			} else {
-				$news_error = "Kunde inte uppdatera nyhet, prova igen.";
+				$result = nonQuery("UPDATE News SET NewsText = :news_text WHERE Title = :news_title AND CreatedAt = :news_createdAt", 
+					array(
+						":news_title" => $news_title, 
+						":news_createdAt" => $news_createdAt, 
+						":news_text" => $news_text
+					)
+				);
+				
+				if( $result["err"] === null){
+					$news_success = "Nyhet uppdaterad"; 
+				} else {
+					$news_error = "Kunde inte uppdatera nyhet, prova igen.";
+				}
 			}
-		}
-	}
+		} else { $news_error = "Fält innehåller för många tecken, minska antalet tecken."; }
+	} else { $news_error = "Saknar värden, prova igen"; }
 } else if (isset($_POST['news-delete'])){
 
 	if (strlen($_POST['edit-title']) > 0 && strlen($_POST['edit-createdAt']) > 0){
