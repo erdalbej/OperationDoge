@@ -10,7 +10,7 @@ include_once 'admin-header.php';
 
 if(isset($_POST['submit_puppylitter'])){
 	if(strlen($_POST['litterTitle']) > 0 && strlen($_POST['litterInfo']) > 0 && is_numeric($_POST['upcoming']) && $_POST['upcoming'] >= 0){
-		if (strlen($_POST['litterTitle']) <= 255 && strlen($_POST['litterInfo']) <= 255 && $_POST['upcoming']) <= 1){
+		if (strlen($_POST['litterTitle']) <= 255 && strlen($_POST['litterInfo']) <= 255 && $_POST['upcoming'] <= 1){
 			$title = $_POST['litterTitle'];
 			$upcoming = $_POST['upcoming'];
 			$info = $_POST['litterInfo'];
@@ -46,7 +46,7 @@ if(isset($_POST['submit_puppylitter'])){
 			if($result["err"] == null){ $updateSuccess = "Kull uppdaterad!";  } 
 			else { $updateError = "Kunde inte uppdatera kull, prova igen."; }
 
-		} else { $updateError = "För stora värden, prova minsta antal tecken." }
+		} else { $updateError = "För stora värden, prova minsta antal tecken."; }
 	} else{ $updateError = "Saknar värden för att uppdatera kull."; }
 } else if(isset($_POST['delete_puppylitter'])){
 
