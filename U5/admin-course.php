@@ -1,11 +1,11 @@
 <?php
-
 session_start();
 $authenticated = $_SESSION['isAuth'];
 if (!$authenticated){
 	header('location: /U5/admin.php');
 	die();
 }
+
 include_once 'admin-header.php';
 
 $courseName = NULL;

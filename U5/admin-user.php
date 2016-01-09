@@ -1,12 +1,13 @@
 <?php
 session_start();
-if (isset($_SESSION['username'])){
-    $username = $_SESSION['username'];
-}
 $authenticated = $_SESSION['isAuth'];
 if (!$authenticated){
 	header('location: /U5/admin.php');
 	die();
+}
+
+if (isset($_SESSION['username'])){
+    $username = $_SESSION['username'];
 }
 include_once 'admin-header.php';
 

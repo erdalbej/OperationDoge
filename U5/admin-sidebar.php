@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 $authenticated = $_SESSION['isAuth'];
 if (!$authenticated){

@@ -5,6 +5,7 @@ if (!$authenticated){
 	header('location: /U5/admin.php');
 	die();
 }
+
 include_once 'admin-header.php';
 
 $allowed_ext = array('jpg');
