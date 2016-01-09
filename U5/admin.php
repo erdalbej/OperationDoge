@@ -5,7 +5,7 @@ if (isset($_POST['login-submit']) && isset($_POST['password']) && isset($_POST['
 	if(strlen($_POST['username']) > 0 && strlen($_POST['password']) > 0){
 		$username = $_POST['username'];
 		$password = $_POST['password'];
-		$result = query("SELECT `Username`,`Password` FROM Admin WHERE Username = :username", array(":username" => $username), true);
+		$result = query("SELECT Username, Password FROM Admin WHERE Username = :username", array(":username" => $username), true);
 
 		if ($result['err'] == null){
 			$data = $result['data'];
