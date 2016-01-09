@@ -22,6 +22,8 @@ if ($resultThread['err'] == null){
 	if (count($resultThread['data']) == 0){
 		$threadError = "Tråden du söker finns inte";
 	} 
+} else {
+	$threadError = "Det gick inte att läsa tråd, prova igen.";
 }
 
 if(isset($_POST['submit_post'])){
@@ -53,7 +55,7 @@ if(isset($_POST['submit_post'])){
 				$file_destination = 'uploads/' . $file_name_new;
 
 				if(move_uploaded_file($file['tmp_name'], $file_destination)){
-					$result = nonQuery("INSERT INTO Post (`Username`,`CreatedAt`,`PostText`, `PostImagePath`, `Thread_Title`, `Thread_CreatedAt`) VALUES (:username, now(), :post_text, :image, :thread_title, :thread_createdAt)", 
+					$result = nonQuery("INSERT INTO Post (Username, CreatedAt, PostText, PostImagePath, Thread_Title, Thread_CreatedAt) VALUES (:username, now(), :post_text, :image, :thread_title, :thread_createdAt)", 
 						array(
 							":username" => $username, 
 							":post_text" => $post_text, 
@@ -70,7 +72,7 @@ if(isset($_POST['submit_post'])){
 				} else { $postError = 'Gick inte att flytta filen till servern, prova igen'; }
 			}
 		} else {
-			$result = nonQuery("INSERT INTO Post (`Username`,`CreatedAt`,`PostText`, `Thread_Title`, `Thread_CreatedAt`) VALUES (:username,now(),:post_text,:thread_title,:thread_createdAt)", 
+			$result = nonQuery("INSERT INTO Post (Username, CreatedAt, PostText, Thread_Title, Thread_CreatedAt) VALUES (:username,now(),:post_text,:thread_title,:thread_createdAt)", 
 				array(
 					":username" => $username, 
 					":post_text" => $post_text, 
