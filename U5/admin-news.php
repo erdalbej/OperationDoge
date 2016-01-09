@@ -203,10 +203,10 @@ if (isset($_POST['submit-news'])){
 		<div class="row">
 			<div class="twelve columns">
 				<?php
-					if(isset($news_success)){
+					if (isset($news_success)){
 						echo '<span id="returnMsg" class="success-message">' . $news_success . '</span>';
 					}
-					if(isset($news_error)){
+					if (isset($news_error)){
 						echo '<span id="returnMsg" class="error-message">' . $news_error . '</span>';
 					}
 				?>
@@ -266,13 +266,13 @@ if (isset($_POST['submit-news'])){
 						<tbody id="newsTable">
 							<?php
 							$result = query("SELECT Title, CreatedAt, NewsText, NewsImagePath FROM News ORDER BY CreatedAt DESC");
-							if($result["err"] != null){
+							if ($result["err"] != null){
 								$load_error = "Kunde inte ladda inlägg, prova att ladda om sidan.";
-							}else{
+							} else {
 								$newsData = $result['data'];
 
-								if(count($newsData) > 0){
-									foreach($newsData as $key => $n){
+								if (count($newsData) > 0){
+									foreach ($newsData as $key => $n){
 										echo '<tr id="news' . $key . '">';
 										echo '<td class="titleTd">';
 										echo $n['Title'];
@@ -291,7 +291,7 @@ if (isset($_POST['submit-news'])){
 										echo '</td>';
 										echo '</tr>';
 									}
-								}else{
+								} else {
 									$load_error = "Det finns inga nyheter publicerade.";
 								}
 							}			
@@ -300,10 +300,9 @@ if (isset($_POST['submit-news'])){
 					</table>
 					<?php
 
-					if(isset($load_error)){
+					if (isset($load_error)){
 						echo $load_error;
 					}
-
 					?>
 				</div>
 			</div>
