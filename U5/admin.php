@@ -27,6 +27,7 @@ if (isset($_POST['login-submit']) && isset($_POST['password']) && isset($_POST['
 	<meta charset="UTF-8">
 	<title>Login</title>
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
 </head>

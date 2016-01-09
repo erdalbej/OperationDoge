@@ -389,6 +389,9 @@ section#gallery {
 .u-full-width { 
 	word-wrap: break-word;
 }
+#mobile-menu {
+	display: none;
+}
 @media only screen and (max-width: 1024px){
 	body {
 		background-image: none;
@@ -435,8 +438,35 @@ section#gallery {
 }
 
 @media only screen and (max-width: 768px){
+	nav {
+		display: none;
+	}
+	header {
+		padding-bottom: 40px;
+	}
 	.dsp-none-sm {
 		display: none;
+	}
+	.logo {
+		font-size: 18px;
+		position: relative;
+		top: -8px !important;
+	}
+	.slogan {
+		font-size: 14px;
+	}
+	.icon-lemon {
+		font-size: 36px !important;
+	}
+	#mobile-menu {
+		display: block;
+		color: #fff;
+		text-align: center;
+	}
+	.menu-text {
+		position: relative;
+		top: -5px;
+		left: 10px;
 	}
 	nav ul li {
 		display: block;

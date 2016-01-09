@@ -17,7 +17,11 @@
     <script>
     $(document).ready(function(){
        $("#updatedTime").html("Sidan uppdaterades senast: " + document.lastModified);
-   });
+       $("#mobile-menu").click(function() {
+          $( "nav" ).toggle();
+        });
+    });
+    
     </script>
 	<!--[if lt IE 9]>
     	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -26,7 +30,9 @@
     <body>
         <div id="wrapper">
             <header>
-                <h1><i class="fa fa-lemon-o fa-2x"></i><span class="logo">Kennel Batuulis - <span class="slogan">Rhodesian Ridgeback</span></span></h1>
+                <h1><i class="fa fa-lemon-o icon-lemon fa-2x"></i><span class="logo">Kennel Batuulis - <span class="slogan">Rhodesian Ridgeback</span></span></h1>
+                <br>
+                <div id="mobile-menu"><i class="fa fa-bars fa-2x"></i><span class="menu-text">Visa meny</span></div>
             </header>
             <nav>
                 <ul>

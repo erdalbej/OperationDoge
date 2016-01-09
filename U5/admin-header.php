@@ -16,6 +16,9 @@
     <script>
     $(document).ready(function(){
        $("#updatedTime").html("Sidan uppdaterades senast: " + document.lastModified);
+       $("#mobile-menu").click(function() {
+          $( "nav" ).toggle();
+        });
    });
     </script>
 	<!--[if lt IE 9]>
@@ -26,6 +29,8 @@
         <div id="wrapper">
             <header>
                 <h1>Admin</h1>
+                <br>
+                <div id="mobile-menu"><i class="fa fa-bars fa-2x"></i><span class="menu-text">Visa meny</span></div>
             </header>
             <nav>
                 <ul>
