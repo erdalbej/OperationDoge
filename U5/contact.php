@@ -58,39 +58,40 @@ if (isset($_POST['message-submit'])){
 		<div class="row contactRow">
 			<div class="twelve columns">
 				<label>Mail </label>
-				<span><a href="mailto:john.doe@mail.com">batuulis@mail.com</a></span>
+				<span><a href="mailto:batuulis@mail.com">batuulis@mail.com</a></span>
 				<hr>
 				<h5>Kontakta oss</h5>
 			</div>
 		</div>
-			<form method="POST">		
-			  <div class="row">
-			    <div class="six columns">
-			      <label for="email">E-post *</label>
-			      <input required class="u-full-width" type="email" placeholder="din-epost@mailbox.com" id="email" name="email">
-			    </div>
-			    <div class="six columns">
-			      <label for="description">Ämne *</label>
-			      <input required class="u-full-width" type="text" placeholder="Ämne" id="description" maxlength="255" name="description">
-			    </div>
-			  </div>
-			  <label for="message">Meddelande *</label>
-			  <textarea required class="u-full-width" placeholder="Skriv ditt meddelande här... " id="message" maxlength="255" name="message"></textarea>
-				<label>
-				    <input type="checkbox" name="sendToSender" value="Yes" checked>
-				    <span class="label-body">Skicka kopia till mig</span>
-			 	</label>
-			  <input type="submit" value="Skicka" name="message-submit">
-				<?php
-				  	if (isset($sendMessageError)){
-				  		print_r($sendMessageError);
-				  	}
 
-				  	if (isset($sendMessageSuccess)){
-				  		print_r($sendMessageSuccess);
-				  	}
-				 ?>
-			</form>
+		<form method="POST">		
+		  <div class="row">
+		    <div class="six columns">
+		      <label for="email">E-post *</label>
+		      <input required class="u-full-width" type="email" placeholder="din-epost@mailbox.com" maxlengh="255" id="email" name="email">
+		    </div>
+		    <div class="six columns">
+		      <label for="description">Ämne *</label>
+		      <input required class="u-full-width" type="text" placeholder="Ämne" id="description" maxlength="255" name="description">
+		    </div>
+		  </div>
+		  <label for="message">Meddelande *</label>
+		  <textarea required class="u-full-width" placeholder="Skriv ditt meddelande här... " id="message" maxlength="255" name="message"></textarea>
+			<label>
+			    <input type="checkbox" name="sendToSender" value="Yes" checked>
+			    <span class="label-body">Skicka kopia till mig</span>
+		 	</label>
+		  <input type="submit" value="Skicka" name="message-submit">
+			<?php
+			  	if (isset($sendMessageError)){
+			  		print_r($sendMessageError);
+			  	}
+
+			  	if (isset($sendMessageSuccess)){
+			  		print_r($sendMessageSuccess);
+			  	}
+			 ?>
+		</form>
 
 		<div class="row mapRow">
 			<div class="twelve columns">
@@ -103,6 +104,7 @@ if (isset($_POST['message-submit'])){
 				</iframe>
 			</div>
 		</div>
+		
 	</div>
 </main>
 
