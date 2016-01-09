@@ -64,9 +64,6 @@ if(isset($_POST['submit_update'])){
 }
 ?>
 <main>
-	<?php
-		echo 'Hello, ' . $username;
-	?>
 	<div class="container">
 		<form action="" method="POST">
 			<div class="row">
