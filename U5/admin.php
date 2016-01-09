@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once 'data/dbHelper.php';	
-if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['login-submit']) && isset($_POST['password']) && isset($_POST['username'])){
+if (isset($_POST['login-submit']) && isset($_POST['password']) && isset($_POST['username'])){
 	if(strlen($_POST['username']) > 0 && strlen($_POST['password']) > 0){
 		$username = $_POST['username'];
 		$password = $_POST['password'];
