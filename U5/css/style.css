@@ -14,7 +14,6 @@ ul li {
 	min-width: 700px;
 	max-width: 1170px;
 	margin: 0 auto;
-
 }
 .success-message {
 	width: 100%;
@@ -319,8 +318,6 @@ section#login input {
 section#gallery {
 	margin: 0 auto;
 	max-width: 750px;
-}
-section#gallery a {
 }
 .news-form {
 	margin: 0 auto;
