@@ -14,7 +14,7 @@ $courseDate = NULL;
 
 $genders = ['M', 'B', 'F'];
 
-if(isset($_GET['coursename']) && isset($_GET['courseteacher']) &&isset($_GET['coursedate'])){
+if(isset($_GET['coursename']) && isset($_GET['courseteacher']) && isset($_GET['coursedate'])){
 	$courseName = $_GET['coursename'];
 	$courseTeacher = $_GET['courseteacher'];
 	$courseDate = $_GET['coursedate'];
@@ -27,6 +27,7 @@ if(isset($_POST['submit-update'])){
 		strlen($_POST['dogName']) > 0 &&
 		strlen($_POST['email']) > 0 &&
 		in_array($_POST['gender'], $genders) &&
+		is_numeric($_POST['ageOfDog']) &&
 		$_POST['ageOfDog'] >= 0 &&
 		strlen($_POST['ownerName']) > 0){
 

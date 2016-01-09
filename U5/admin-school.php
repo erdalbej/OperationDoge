@@ -49,6 +49,7 @@ if(isset($_POST['course-delete'])){
 		strlen($_POST['courseDate']) > 0 &&
 		strlen($_POST['courseTeacher']) > 0 &&
 		in_array($_POST['gender'], $genders) && 
+		is_numeric($_POST['ageOfDog']) &&
 		$_POST['ageOfDog'] >= 0){
 
 		$result = nonQuery("INSERT INTO DogCourse(CourseName, CourseTeacher, CourseDate, CourseText, Gender, AgeOfDog, PriorKnowledge) values(:courseName, :courseTeacher, :courseDate, :courseText, :gender, :ageOfDog, :priorKnowledge)", 
