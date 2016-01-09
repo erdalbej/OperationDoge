@@ -9,14 +9,21 @@ if(isset($_POST['submit-thread'])){
 			$description = $_POST['description'];
 			$username = $_POST['username'];
 
-			$result = nonQuery("INSERT INTO GuestbookThread (Title, CreatedAt, Description, Username) VALUES (:title, NOW(), :description, :username)", 
-				array(
-					':title' => $title, 
-					':description' => $description, 
-					':username' => $username
-				)
-			);
+			$nowRes = query("SELECT NOW() as now");
 
+			if ($nowRes['err'] == null){
+				$nowData = $nowRes['data'];
+				$now = $nowData[0];
+
+				$result = nonQuery("INSERT INTO GuestbookThread (Title, CreatedAt, Description, Username) VALUES (:title, :now, :description, :username)", 
+					array(
+						':title' => $title, 
+						':description' => $description, 
+						':now' => $now['now'],
+						':username' => $username
+					)
+				);
+			} else { $createError = 'Gick inte att skapa tråden, prova igen.'; }
 			if($result["err"] != null){ $createError = 'Det gick inte att skapa tråden, prova igen!'; } 
 		} else { $createError = 'För stora datamänged, prova minska antalet tecken.'; }
 	} else { $createError = 'Saknar värden'; }
