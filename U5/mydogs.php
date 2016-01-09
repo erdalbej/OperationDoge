@@ -7,7 +7,6 @@ $officialName = NULL;
 if(isset($_GET['dog']) && isset($_GET['officialName'])){
 	$dogName = $_GET['dog'];
 	$officialName = $_GET['officialName'];
-
 }
 
 ?>
@@ -19,13 +18,15 @@ if(isset($_GET['dog']) && isset($_GET['officialName'])){
 				<select id="dogs" class="u-full-width" name="dogs">
 					<?php
 					$dogData = query("SELECT OfficialName, Name FROM MyDog");
-					$dogRes = $dogData['data'];
-					foreach($dogRes as $key => $dog){
-						echo '<option value="' .  $dog['Name'] .'|' . $dog['OfficialName'] . '">';
-						echo $dog['Name'];
-						echo '</span>';
-						echo '</option>';
-					}
+					if ($dogData['err'] == null){
+						$dogRes = $dogData['data'];
+						foreach($dogRes as $key => $dog){
+							echo '<option value="' .  $dog['Name'] .'|' . $dog['OfficialName'] . '">';
+							echo $dog['Name'];
+							echo '</span>';
+							echo '</option>';
+						}
+					}					
 					?>
 				</select>
 			</div>
@@ -46,70 +47,68 @@ if(isset($_GET['dog']) && isset($_GET['officialName'])){
 					':officialName' => $officialName
 					)
 				);
-			$dog = $result['data'][0];
-			if(count($result) > 0){
-				if($dog['DogImagePath'] === NULL){
-					$image = "noimage.jpg";
-				}else{
-					$image = $dog['DogImagePath'];
-				}
-				echo '<div class="row">';
-				echo '<div class="twelve columns">';
-				echo '<h2>';
-				echo $dog['Name'];
-				echo '</h2>';
-				echo '<p><b>Officiellt namn: </b>' . $dog['OfficialName'] . '</p>';
-				echo '<img class="dog-image floatleft" src="uploads/'.$image.'" width="200" height="200" alt="">';
-				echo '<p class="details dog-details">';
-				echo $dog['Description'];
-				echo '</p>';
-				echo '</div>';
-				echo '</div>';
-				echo '<div class="row">';
-				echo '<div class="four columns">';
-				echo '<span><b>Färg:</b>&nbsp;'.$dog['Color'].'</span>';
-				echo '</div>';
-				echo '<div class="four columns">';
-				echo '<span><b>Vikt:&nbsp;</b>'.$dog['Weight'].' kg</span>';
-				echo '</div>';
-				echo '<div class="four columns">';
-				echo '<span><b>Mankhöjd:&nbsp;</b>'.$dog['Height'].' cm</span>';
-				echo '</div>';
-				echo '</div>';
 
-				echo '<div class="row">';
-				echo '<div class="six columns">';
-				echo '<span><b>Mental status:&nbsp;</b>'.$dog['MentalStatus'].'</span>';
-				echo '</div>';
-				echo '<div class="six columns">';
-				echo '<span><b>Uppfödare:&nbsp;</b>'.$dog['Breader'].'</span>';
-				echo '</div>';
-				echo '</div>';
+			if ($result['err'] == null){
+				$dog = $result['data'][0];
+				if(count($result) > 0){
+					if($dog['DogImagePath'] === NULL){
+						$image = "noimage.jpg";
+					}else{
+						$image = $dog['DogImagePath'];
+					}
+					echo '<div class="row">';
+					echo '<div class="twelve columns">';
+					echo '<h2>';
+					echo $dog['Name'];
+					echo '</h2>';
+					echo '<p><b>Officiellt namn: </b>' . $dog['OfficialName'] . '</p>';
+					echo '<img class="dog-image floatleft" src="uploads/'.$image.'" width="200" height="200" alt="">';
+					echo '<p class="details dog-details">';
+					echo $dog['Description'];
+					echo '</p>';
+					echo '</div>';
+					echo '</div>';
+					echo '<div class="row">';
+					echo '<div class="four columns">';
+					echo '<span><b>Färg:</b>&nbsp;'.$dog['Color'].'</span>';
+					echo '</div>';
+					echo '<div class="four columns">';
+					echo '<span><b>Vikt:&nbsp;</b>'.$dog['Weight'].' kg</span>';
+					echo '</div>';
+					echo '<div class="four columns">';
+					echo '<span><b>Mankhöjd:&nbsp;</b>'.$dog['Height'].' cm</span>';
+					echo '</div>';
+					echo '</div>';
 
-				echo '<div class="row">';
-				echo '<div class="twelve columns">';
-				echo '<br><h1 class="gen-heading">Stamtavla</h1>';
-				if($dog['GenImagePath'] !== null){
-					echo '<img class="gen-pic" src="uploads/'.$dog['GenImagePath'].'" alt="">';
-				}
+					echo '<div class="row">';
+					echo '<div class="six columns">';
+					echo '<span><b>Mental status:&nbsp;</b>'.$dog['MentalStatus'].'</span>';
+					echo '</div>';
+					echo '<div class="six columns">';
+					echo '<span><b>Uppfödare:&nbsp;</b>'.$dog['Breader'].'</span>';
+					echo '</div>';
+					echo '</div>';
+
+					echo '<div class="row">';
+					echo '<div class="twelve columns">';
+					echo '<br><h1 class="gen-heading">Stamtavla</h1>';
+					if($dog['GenImagePath'] !== null){
+						echo '<img class="gen-pic" src="uploads/'.$dog['GenImagePath'].'" alt="">';
+					}
+					else {
+						echo '<span>Finns ingen stamtavla tillgänglig</span>';
+					}
+					echo '</div>';
+					echo '</div>';
+				}	
 				else {
-					echo '<span>Finns ingen stamtavla tillgänglig</span>';
+					echo '<span>Hund finns ej</span>';
 				}
-				echo '</div>';
-				echo '</div>';
-			}	
-			else {
-				echo '<span>Hund finns ej</span>';
 			}		
-		}
-		else {
+		} else {
 			echo '<span>Välj en hund i menyn och tryck på visa hund</span>'; 
 		}
 		?>
-
-
-
-
 	</div>
 </main>
 <script src="js/mydogs.js"></script>
