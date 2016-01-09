@@ -8,58 +8,57 @@ if (!$authenticated){
 
 include_once 'admin-header.php';
 
-//Create puppylitter
 if(isset($_POST['submit_puppylitter'])){
-	if(strlen($_POST['litterTitle']) > 0 && strlen($_POST['litterInfo']) > 0 && strlen($_POST['upcoming']) > 0){
+	if(strlen($_POST['litterTitle']) > 0 && strlen($_POST['litterInfo']) > 0 && is_numeric($_POST['upcoming']) && $_POST['upcoming'] >= 0){
+		if (strlen($_POST['litterTitle']) <= 255 && strlen($_POST['litterInfo']) <= 255 && $_POST['upcoming']) <= 1){
+			$title = $_POST['litterTitle'];
+			$upcoming = $_POST['upcoming'];
+			$info = $_POST['litterInfo'];
 
-		$title = $_POST['litterTitle'];
-		$upcoming = $_POST['upcoming'];
-		$info = $_POST['litterInfo'];
+			$result = nonQuery("INSERT INTO PuppyLitter (LitterTitle, Upcomming, LiterInfo) VALUES (:title, :upcomming, :info)", 
+				array(
+					':title' => $title, 
+					':upcomming' => $upcoming,
+					':info' => $info 
+					)
+				);
 
-		$result = nonQuery("INSERT INTO PuppyLitter (LitterTitle, Upcomming, LiterInfo) VALUES (:title, :upcomming, :info)", 
-			array(
-				':title' => $title, 
-				':upcomming' => $upcoming,
-				':info' => $info 
-				)
-			);
-
-		if($result["err"] != null){ $createError  = 'Det gick inte att skapa kullen, prova igen!'; } 
-		else { $createSuccess = "Kullen skapades"; }
+			if($result["err"] != null){ $createError  = 'Det gick inte att skapa kullen, prova igen!'; } 
+			else { $createSuccess = "Kullen skapades"; }
+		} else {$createError = "För stora värden, minska antal tecken till exempel"; }
 	} else { $createError = 'Saknar värden'; }
-} 
-//Update puppylitter
-if(isset($_POST['update_puppylitter'])){
+} else if(isset($_POST['update_puppylitter'])){
 	
-	if(strlen($_POST['alter_litterTitle']) > 0 && strlen($_POST['alter_litterInfo']) > 0 && strlen($_POST['alter_upcoming']) > 0){
+	if(strlen($_POST['alter_litterTitle']) > 0 && strlen($_POST['alter_litterInfo']) > 0 && is_numeric($_POST['alter_upcoming']) && $_POST['alter_upcoming'] >= 0){
+		if (strlen($_POST['alter_litterTitle']) <= 255 && strlen($_POST['alter_litterInfo']) <= 255 && $_POST['alter_upcoming'] <= 1){
+			$title = $_POST['alter_litterTitle'];
+			$upcoming = $_POST['alter_upcoming'];
+			$info = $_POST['alter_litterInfo'];
 
-		$title = $_POST['alter_litterTitle'];
-		$upcoming = $_POST['alter_upcoming'];
-		$info = $_POST['alter_litterInfo'];
+			$result = nonQuery("UPDATE PuppyLitter SET Upcomming = :upcoming, LiterInfo = :info WHERE LitterTitle = :title", array(":title" => $title, ":upcoming" => $upcoming, ":info" => $info));
 
-		$result = nonQuery("UPDATE PuppyLitter SET `Upcomming` = :upcoming, `LiterInfo` = :info WHERE `LitterTitle` = :title", array(":title" => $title, ":upcoming" => $upcoming, ":info" => $info));
-
-		if($result["err"] == null){
-			$updateSuccess = "Kull uppdaterad!"; 
-		}else{
-			$updateError = "Kunde inte uppdatera kull, prova igen.";
+			if($result["err"] == null){
+				$updateSuccess = "Kull uppdaterad!"; 
+			} else{
+				$updateError = "Kunde inte uppdatera kull, prova igen.";
+			}
+		} else {
+			$updateError = "För stora värden, prova minsta antal tecken."
 		}
-	}else{
+	} else{
 		$updateError = "Saknar värden för att uppdatera kull.";
 	}
-}
-//Delete puppylitter
-if(isset($_POST['delete_puppylitter'])){
+} else if(isset($_POST['delete_puppylitter'])){
 
 	if(strlen($_POST['alter_litterTitle']) > 0){
 
 		$title = $_POST['alter_litterTitle'];
 
-		$result = nonQuery("DELETE FROM PuppyLitter WHERE `LitterTitle` = :title", array(":title" => $title));
+		$result = nonQuery("DELETE FROM PuppyLitter WHERE LitterTitle = :title", array(":title" => $title));
 
-		if($result["err"] === NULL){
+		if ($result["err"] === NULL){
 			$deleteSuccess = "Kull raderad!"; 
-		}else{
+		} else{
 			$deleteError = "Kunde inte radera kull, prova igen.";
 		}
 	}else{

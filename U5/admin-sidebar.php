@@ -166,7 +166,6 @@ if(isset($_POST['update_newsfeed'])){
 	}
 }
 
-//Delete 
 if(isset($_POST['delete_newsfeed'])){
 
 	if(strlen($_POST['alter_news_title']) > 0 && strlen($_POST['alter_news_createdAt']) > 0){
