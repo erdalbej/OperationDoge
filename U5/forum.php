@@ -8,16 +8,12 @@ if(isset($_POST['submit-thread'])){
 		$title = $_POST['title'];
 		$description = $_POST['description'];
 		$username = $_POST['username'];
-		$now = query('SELECT NOW() as now');
-		$now = $now['data'];
-		$now = $now[0];
 
-		$result = nonQuery("INSERT INTO GuestbookThread (Title, CreatedAt, Description, Username) VALUES (:title, :createdAt, :description, :username)", 
+		$result = nonQuery("INSERT INTO GuestbookThread (Title, CreatedAt, Description, Username) VALUES (:title, NOW(), :description, :username)", 
 			array(
 				':title' => $title, 
 				':description' => $description, 
-				':username' => $username,
-				':createdAt' => $now['now']
+				':username' => $username
 			)
 		);
 
