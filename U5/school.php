@@ -52,12 +52,12 @@ include_once 'aside.php';
 							$submitSuccess = true;
 
 							$courseLink = 'course.php?courseName=' . $_POST['courseName'] . '&courseTeacher=' . $_POST['courseTeacher'] . '&courseDate=' . $_POST['courseDate'];
-							$headers = 'From: ' . 'contact@bejtuladesign.com';
+							$headers = 'From: ' . 'no-reply@perry.dog';
 
 							$sent = mail(
 								$_POST['email'], 
 								'Bekräftelse av bokning',
-								'Grattis ' . $_POST['ownerName']. '! Du är nu registrerad på kursen ' . $_POST['courseName'] . ' med läraren ' . $_POST['courseTeacher'] . ' den ' . $_POST['courseDate'] . ' med din hund ' . $_POST['dogName'] . '<a href="' . $courseLink . '"> Till kursen</a>',
+								'Grattis ' . $_POST['ownerName']. '! Du är nu registrerad på kursen ' . $_POST['courseName'] . ' med läraren ' . $_POST['courseTeacher'] . ' den ' . $_POST['courseDate'] . ' med din hund ' . $_POST['dogName'],
 								$headers
 							);
 
