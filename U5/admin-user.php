@@ -52,7 +52,7 @@ if(isset($_POST['submit_update'])){
 
 						if($result["err"] === NULL){
 							$userAddSuccess = "Ditt konto är uppdaterat!"; 
-						}else{
+						} else{
 							$userAddError = "Kunde inte uppdatera kontot.";
 						}
 					}
