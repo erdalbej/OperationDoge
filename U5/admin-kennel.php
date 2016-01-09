@@ -35,35 +35,31 @@ if(isset($_POST['submit_puppylitter'])){
 			$upcoming = $_POST['alter_upcoming'];
 			$info = $_POST['alter_litterInfo'];
 
-			$result = nonQuery("UPDATE PuppyLitter SET Upcomming = :upcoming, LiterInfo = :info WHERE LitterTitle = :title", array(":title" => $title, ":upcoming" => $upcoming, ":info" => $info));
+			$result = nonQuery("UPDATE PuppyLitter SET Upcomming = :upcoming, LiterInfo = :info WHERE LitterTitle = :title", 
+				array(
+					":title" => $title, 
+					":upcoming" => $upcoming, 
+					":info" => $info
+				)
+			);
 
-			if($result["err"] == null){
-				$updateSuccess = "Kull uppdaterad!"; 
-			} else{
-				$updateError = "Kunde inte uppdatera kull, prova igen.";
-			}
-		} else {
-			$updateError = "För stora värden, prova minsta antal tecken."
-		}
-	} else{
-		$updateError = "Saknar värden för att uppdatera kull.";
-	}
+			if($result["err"] == null){ $updateSuccess = "Kull uppdaterad!";  } 
+			else { $updateError = "Kunde inte uppdatera kull, prova igen."; }
+
+		} else { $updateError = "För stora värden, prova minsta antal tecken." }
+	} else{ $updateError = "Saknar värden för att uppdatera kull."; }
 } else if(isset($_POST['delete_puppylitter'])){
 
 	if(strlen($_POST['alter_litterTitle']) > 0){
+		if (strlen($_POST['alter_litterTitle']) <= 255){
+			$title = $_POST['alter_litterTitle'];
+			$result = nonQuery("DELETE FROM PuppyLitter WHERE LitterTitle = :title", array(":title" => $title));
 
-		$title = $_POST['alter_litterTitle'];
-
-		$result = nonQuery("DELETE FROM PuppyLitter WHERE LitterTitle = :title", array(":title" => $title));
-
-		if ($result["err"] === NULL){
-			$deleteSuccess = "Kull raderad!"; 
-		} else{
-			$deleteError = "Kunde inte radera kull, prova igen.";
-		}
-	}else{
-		$deleteError = "Saknar värden för att radera kull.";
-	}
+			if ($result["err"] === NULL){
+				$deleteSuccess = "Kull raderad!"; 
+			} else{ $deleteError = "Kunde inte radera kull, prova igen."; }
+		} else { $deleteError = "För stora värden, minka antal tecken till exempel."; }		
+	} else{ $deleteError = "Saknar värden för att radera kull."; }
 }
 ?>
 
