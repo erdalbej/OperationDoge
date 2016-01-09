@@ -185,7 +185,6 @@ if(isset($_POST['submit-delete'])){
 					</table>
 					<?php
 
-					print_r($_POST);
 
 					if(isset($load_error)){
 						echo $load_error;
