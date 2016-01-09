@@ -19,6 +19,10 @@
        $("#mobile-menu").click(function() {
           $( "nav" ).toggle();
         });
+       $(window).on('resize', function(){
+            var win = $(this);
+            if (win.width() >= 768) { $("nav").show(); }
+        });
    });
     </script>
 	<!--[if lt IE 9]>
