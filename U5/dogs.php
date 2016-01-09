@@ -2,10 +2,10 @@
 include_once 'header.php';
 include_once 'aside.php';
 
-$puppyName = NULL;
+$puppyLitter = NULL;
 
 if(isset($_GET['puppylitter'])){
-	$puppyName = $_GET['puppylitter'];
+	$puppyLitter = $_GET['puppylitter'];
 }
 
 ?>
@@ -40,13 +40,33 @@ if(isset($_GET['puppylitter'])){
 		<div class="row">
 			<div class="twelve columns">
 				<?php
-				if(strlen($puppyName) > 0){
+				if(strlen($puppyLitter) > 0){
 					$result = query("SELECT DogName, Gender, Price, Available, BirthDate, PuppyLitter_LitterTitle FROM Puppy WHERE PuppyLitter_LitterTitle = :puppylitter ORDER BY PuppyLitter_LitterTitle",
 						array(
-							':puppylitter' => $puppyName
+							':puppylitter' => $puppyLitter
 							)
 						);
-
+					$upcomingresult = query("SELECT Upcomming FROM PuppyLitter WHERE LitterTitle = :puppyLitter", 
+						array(
+							':puppyLitter' => $puppyLitter
+						)
+					);
+					if($upcomingresult['err'] == null){
+						if(count($upcomingresult['data']) > 0){
+							$pl = $upcomingresult['data'][0];
+							echo '<span class="upcomingpl"> Kommande kull: ';
+							echo '<b>';
+							if($pl["Upcomming"] === "1"){
+								echo "Ja";
+							}
+							else {
+								echo "Nej";
+							}
+							echo '</b>';
+							echo '</span>';
+						}
+					}
+					
 					if ($result['err'] == null){
 						$puppysData = $result['data'];
 						if(count($puppysData) > 0){
