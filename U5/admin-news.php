@@ -337,11 +337,11 @@ if (isset($_POST['submit-news'])){
 			</div>
 			<div class="six columns">
 				<label for="edit-new-image">Välj ny bild:</label>
-				<input class="u-full-width" max="255" name="edit-new-image" id="pictureFile" accept=".jpg" id="edit-new-image-id" type="file">
+				<input class="u-full-width" name="edit-new-image" id="pictureFile" accept=".jpg" id="edit-new-image-id" type="file">
 			</div>
 		</div>
 		<label for="edit-text">Text:</label>
-		<textarea name="edit-text" max="255" class="u-full-width" id="edit-text-id"></textarea>	
+		<textarea name="edit-text" maxlength="255" class="u-full-width" id="edit-text-id"></textarea>	
 		<input value="Uppdatera" name="news-update" type="submit">
 		<input value="Radera" name="news-delete" type="submit">
 		</form>

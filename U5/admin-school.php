@@ -122,7 +122,7 @@ if(isset($_POST['course-delete'])){
 				</div>
 				<div class="six columns">
 					<label for="title">Ålderskrav</label>
-					<input required value="0" type="number" min="0" step="1" name="ageOfDog" class="u-full-width">
+					<input required value="0" type="number" min="0" max="2147483647" step="1" name="ageOfDog" class="u-full-width">
 				</div>
 			</div>
 			<div class="row">
@@ -139,7 +139,7 @@ if(isset($_POST['course-delete'])){
 					<input type="text" name="priorKnowledge" maxlength="255" class="u-full-width">
 				</div>
 			<label for="courseText">Beskrivning:</label>
-			<textarea name="courseText" class="u-full-width"></textarea>
+			<textarea name="courseText" class="u-full-width" maxlength="255"></textarea>
 			<div class="row">
 				<div class="four columns">
 					<input type="submit" name="create-course" value="Lägg till">		
@@ -238,7 +238,7 @@ if(isset($_POST['course-delete'])){
 				</div>
 			</div>
 			<label for="threadDescription">Förklaring:</label>
-			<textarea name="courseText" class="u-full-width" maxlength="500" id="courseText"></textarea>	
+			<textarea name="courseText" class="u-full-width" maxlength="255" id="courseText"></textarea>	
 			<input value="Uppdatera" name="course-update" type="submit">
 			<input value="Radera" name="course-delete" type="submit">
 		</form>

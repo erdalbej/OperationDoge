@@ -119,7 +119,7 @@ if(isset($_POST['submit_puppylitter'])){
 					<div class="row">
 						<div class="twelve columns">
 							<label for="litterInfo">Kullinformation:</label>
-							<textarea name="litterInfo" maxlength="255" class="u-full-width"></textarea>
+							<textarea name="litterInfo" maxlength="255" class="u-full-width" required></textarea>
 						</div>
 					</div>
 					<div class="row">
