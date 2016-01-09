@@ -67,7 +67,7 @@ if (isset($_POST['submit-news'])){
 				$news_error = "Gick inte att flytta filen till servern, prova igen"; 
 			}
 		}
-	}
+	} else { $news_error = "Saknar värden, prova igen!"; }
 } else if (isset($_POST['news-update'])){
 	
 	if (strlen($_POST['edit-title']) > 0 && strlen($_POST['edit-createdAt']) > 0){

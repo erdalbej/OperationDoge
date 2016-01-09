@@ -9,22 +9,27 @@ if (isset($_POST['message-submit'])){
 		strlen($_POST['description']) > 0 &&
 		strlen($_POST['message']) > 0){
 
-		$headers = 'From: ' . $_POST['email'];
+		if (strlen($_POST['email']) <= 255 &&
+			strlen($_POST['description']) <= 255 && 
+			strlen($_POST['message']) <= 255){
 
-		if ($_POST['sendToSender']){
-			$headers = $headers . "\r\n" . "CC: " . $_POST['email'];
-		}
+			$headers = 'From: ' . $_POST['email'];
 
-		$sent = mail(
-			'robert.barlin@gmail.com', 
-			$_POST['description'],
-			$_POST['message'],
-			$headers
-		);
-			
-		if ($sent){
-			$sendMessageSuccess = 'Meddelande skickat!';
-		} else { $sendMessageError = 'Gick inte att skicka meddelandet, prova igen.'; }
+			if ($_POST['sendToSender']){
+				$headers = $headers . "\r\n" . "CC: " . $_POST['email'];
+			}
+
+			$sent = mail(
+				'robert.barlin@gmail.com', 
+				$_POST['description'],
+				$_POST['message'],
+				$headers
+			);
+				
+			if ($sent){
+				$sendMessageSuccess = 'Meddelande skickat!';
+			} else { $sendMessageError = 'Gick inte att skicka meddelandet, prova igen.'; }
+		} else { $sendMessageError = "För stora mängder text, prova skriva mindre text. "; }
 	} else { $sendMessageError = 'Saknar värden för att skicka mail.'; }
 }
 ?>
@@ -104,7 +109,7 @@ if (isset($_POST['message-submit'])){
 				</iframe>
 			</div>
 		</div>
-		
+
 	</div>
 </main>
 
