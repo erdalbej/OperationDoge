@@ -58,8 +58,8 @@ if(isset($_GET['dog']) && isset($_GET['officialName'])){
 				echo '<h2>';
 				echo $dog['Name'];
 				echo '</h2>';
-				echo '<p>' . $dog['OfficialName'] . '</p>';
-				echo '<img class="dog-image floatleft" src="uploads/'.$image.'" width="100" height="100" alt="">';
+				echo '<p><b>Officiellt namn: </b>' . $dog['OfficialName'] . '</p>';
+				echo '<img class="dog-image floatleft" src="uploads/'.$image.'" width="200" height="200" alt="">';
 				echo '<p class="details dog-details">';
 				echo $dog['Description'];
 				echo '</p>';
@@ -88,7 +88,7 @@ if(isset($_GET['dog']) && isset($_GET['officialName'])){
 
 				echo '<div class="row">';
 				echo '<div class="twelve columns">';
-				echo '<h1 class="gen-heading">Stamtavla</h1>';
+				echo '<br><h1 class="gen-heading">Stamtavla</h1>';
 				if($dog['GenImagePath'] !== null){
 					echo '<img class="gen-pic" src="uploads/'.$dog['GenImagePath'].'" alt="">';
 				}

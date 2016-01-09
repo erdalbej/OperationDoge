@@ -71,6 +71,9 @@ if(isset($_POST['submit_newsfeed'])){
 			}
 		}
 	}
+	else {
+		$news_error = "Värden saknas.";
+	}
 }
 
 if(isset($_POST['update_newsfeed'])){
