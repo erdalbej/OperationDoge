@@ -148,7 +148,6 @@ if(isset($_POST['news-update'])){
 	}
 }
 
-//News delete
 if(isset($_POST['news-delete'])){
 
 	if(strlen($_POST['edit-title']) > 0 && strlen($_POST['edit-createdAt']) > 0){
