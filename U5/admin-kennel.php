@@ -188,9 +188,7 @@ if(isset($_POST['submit_puppylitter'])){
 								echo '</td>';
 								echo '</tr>';
 							}	
-						}else{
-							$load_error = "Finns inga kullar tillgängliga.";
-						}
+						} else{ $load_error = "Finns inga kullar tillgängliga."; }
 					}
 					?>				
 				</tbody>
