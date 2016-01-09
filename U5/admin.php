@@ -9,7 +9,7 @@ if (isset($_POST['login-submit']) && isset($_POST['password']) && isset($_POST['
 
 		if ($result['err'] == null){
 			$data = $result['data'];
-			if ($data['Username'] && $data['Username'] == $username && $data['Password'] == $password){		
+			if ($data['Username'] == $username && $data['Password'] == $password){		
 				$_SESSION['isAuth'] = true;
 				$_SESSION['username'] = $data['Username'];
 				header('location: /U5/admin-index.php');
