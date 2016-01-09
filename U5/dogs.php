@@ -17,11 +17,14 @@ if(isset($_GET['puppylitter'])){
 				<select id="puppylitters" class="u-full-width" name="puppylitter">
 					<?php
 					$puppys = query("SELECT LitterTitle FROM PuppyLitter");
-					$puppyRes = $puppys['data'];
-					foreach($puppyRes as $key => $puppy){
-						echo "<option>";
-						echo $puppy["LitterTitle"];
-						echo '</option>';
+
+					if ($puppys['err'] == null){
+						$puppyRes = $puppys['data'];
+						foreach($puppyRes as $key => $puppy){
+							echo "<option>";
+							echo $puppy["LitterTitle"];
+							echo '</option>';
+						}
 					}
 					?>
 				</select>
@@ -43,33 +46,38 @@ if(isset($_GET['puppylitter'])){
 							':puppylitter' => $puppyName
 							)
 						);
-					$puppysData = $result['data'];
-					if(count($puppysData) > 0){
-						foreach($puppysData as $key => $p){
-							echo '<span id="dogs' . $key . '"></span>';
-							echo '<h2>';
-							echo $p['DogName'];
-							echo '</h2>';
-							echo '<p class="details">';
-							echo '<b>Kull: </b>' . $p['PuppyLitter_LitterTitle'] . '<br>';
-							echo '<b>Födelsedatum: </b>' . $p['BirthDate'] . '<br>';
-							echo '<b>Kön: </b>' . $p['Gender'] . '<br>';
-							echo '<b>Pris: </b>' . $p['Price'] . ' kr<br>';
-							echo '<b>Tillgänglig: </b>';
-							if($p['Available'] === "1"){
-								echo '<span class="dog-available">Ja</span><br>'; 
-							}
-							else {
-								echo '<span class="dog-not-available">Nej</span><br>'; 
-							}
-							echo '</p>';
-							echo '<br/>';
-							echo '<br class="clearleft">';
-						}	
-					}
-					else {
-						echo '<span>Kull finns ej</span>';
-					}	
+
+					if ($result['err'] == null){
+						$puppysData = $result['data'];
+						if(count($puppysData) > 0){
+							foreach($puppysData as $key => $p){
+								echo '<span id="dogs' . $key . '"></span>';
+								echo '<h2>';
+								echo $p['DogName'];
+								echo '</h2>';
+								echo '<p class="details">';
+								echo '<b>Kull: </b>' . $p['PuppyLitter_LitterTitle'] . '<br>';
+								echo '<b>Födelsedatum: </b>' . $p['BirthDate'] . '<br>';
+								echo '<b>Kön: </b>' . $p['Gender'] . '<br>';
+								echo '<b>Pris: </b>' . $p['Price'] . ' kr<br>';
+								echo '<b>Tillgänglig: </b>';
+								if($p['Available'] === "1"){
+									echo '<span class="dog-available">Ja</span><br>'; 
+								}
+								else {
+									echo '<span class="dog-not-available">Nej</span><br>'; 
+								}
+								echo '</p>';
+								echo '<br/>';
+								echo '<br class="clearleft">';
+							}	
+						}
+						else {
+							echo '<span>Kull finns ej</span>';
+						}
+					} else {
+						echo '<span>Gick inte att hämta data, prova igen</span>'
+					}		
 				} else {
 					echo '<span>Välj en kull att visa i menyn</span>';
 				}	
