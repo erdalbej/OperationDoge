@@ -20,7 +20,7 @@ if (isset($_POST['login-submit']) && isset($_POST['password']) && isset($_POST['
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<title>Login</title>

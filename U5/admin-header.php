@@ -2,6 +2,7 @@
     include_once 'data/dbHelper.php'; 
 ?>
 <!DOCTYPE html>
+<html>
 <head>
 	<meta charset="UTF-8">
     <meta name="description" content="We are doing operation doge">
