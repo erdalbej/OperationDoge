@@ -76,7 +76,7 @@ if(isset($_GET['puppylitter'])){
 							echo '<span>Kull finns ej</span>';
 						}
 					} else {
-						echo '<span>Gick inte att hämta data, prova igen</span>'
+						echo '<span>Gick inte att hämta data, prova igen</span>';
 					}		
 				} else {
 					echo '<span>Välj en kull att visa i menyn</span>';
