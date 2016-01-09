@@ -418,7 +418,7 @@ if ($myDogsResult['err'] == null){
 				</div>
 				<div class="six columns">
 					<label for="title">Födelsedag</label>
-					<input type="date" name="birthdate" class="u-full-width">
+					<input type="date" name="birthdate" class="u-full-width" required>
 				</div>
 			</div>
 			<div class="row">
@@ -432,7 +432,7 @@ if ($myDogsResult['err'] == null){
 				</div>
 			</div>
 			<label for="news-text">Beskrivning:</label>
-			<textarea name="description" class="u-full-width"></textarea>
+			<textarea name="description" class="u-full-width" maxlength="500"></textarea>
 			<div class="row">
 				<div class="four columns">
 					<input type="submit" name="submit-new-dog" value="Lägg till">		
@@ -454,7 +454,7 @@ if ($myDogsResult['err'] == null){
 							<thead>
 								<tr>
 									<th>Namn</th>
-									<th>Officielt Namn</th>
+									<th>Officiellt Namn</th>
 								</tr>
 							</thead>
 							<tbody id="newsTable">
