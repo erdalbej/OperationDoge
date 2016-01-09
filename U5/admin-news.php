@@ -10,7 +10,6 @@ include_once 'admin-header.php';
 
 $allowed_ext = array('jpg');
 
-//News create
 if(isset($_POST['submit-news'])){
 
 	if(strlen($_POST['title']) > 0){
@@ -72,7 +71,6 @@ if(isset($_POST['submit-news'])){
 	}
 }
 
-//News update
 if(isset($_POST['news-update'])){
 	
 	if(strlen($_POST['edit-title']) > 0 && strlen($_POST['edit-createdAt']) > 0){
