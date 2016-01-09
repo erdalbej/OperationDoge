@@ -61,7 +61,6 @@ include_once 'aside.php';
 								$headers
 							);
 
-							#$submitSuccess = ;
 						} else { $submitError = 'Gick inte att registrera er på kursen, ni är redan registrerade!'; }
 					} 
 				} else { $submitError = 'Den kurs du försöker registerar dig till finns inte!'; }

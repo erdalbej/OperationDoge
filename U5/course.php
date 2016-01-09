@@ -83,7 +83,7 @@ if (strlen($courseName) > 0 &&
 									echo '<p>' . ($key+1) . ' - ' . $p['OwnerName'] . ', ' . $p['DogName'] . ', ' . $tempGender . ', ' . $p['AgeOfDog'] . ' år' . '<p>';
 								}
 							} else { echo '<p>Inga deltagare har anmält sig till kursen.</p>'; }
-						} else { echo $participantError; echo $participantResult['err']; }
+						} else { echo $participantError; }
 					} else { echo $courseError; }
 				?>
 				<hr>
