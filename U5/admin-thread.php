@@ -7,36 +7,33 @@ if (!$authenticated){
 }
 include_once 'admin-header.php';
 
-//Update thread
 if(isset($_POST['thread-update'])){
 	
-	if(strlen($_POST['title']) > 0 && strlen($_POST['created_at']) > 0){
+	if(strlen($_POST['title']) > 0 && strlen($_POST['created_at']) > 0 && strlen($_POST['username']) > 0 && strlen($_POST['description']) > 0){
+		if (strlen($_POST['title']) <= 255 && strlen($_POST['username']) <= 255 && strlen($_POST['description']) <= 255){
+			$title = $_POST['title'];
+			$created_at = $_POST['created_at'];
 
-		$title = $_POST['title'];
-		$created_at = $_POST['created_at'];
-
-		if(isset($_POST['username']) && isset($_POST['description'])){
-			
 			$username = $_POST['username'];
 			$description = $_POST['description'];
 
-			$result = nonQuery("UPDATE GuestbookThread SET `Username` = :username, `Description` = :description WHERE `Title` = :title AND `CreatedAt` = :created_at", array(":title" => $title, ":created_at" => $created_at, ":username" => $username, ":description" => $description));
+			$result = nonQuery("UPDATE GuestbookThread SET Username = :username, Description = :description WHERE Title = :title AND CreatedAt = :created_at", 
+				array(
+					":title" => $title, 
+					":created_at" => $created_at, 
+					":username" => $username, 
+					":description" => $description
+				)
+			);
 
 			if($result["err"] == null){
 				$thread_success = "Tråd uppdaterad!"; 
 			}else{
 				$thread_error = "Kunde inte uppdatera tråd, prova igen.";
 			}
-		}else{
-			$thread_error = "Saknar värden för att uppdatera tråd.";
-		}
-	}else{
-		$thread_error = "Saknar värden för att uppdatera tråd.";
-	}
-}
-
-//Delete thread
-if(isset($_POST['thread-delete'])){
+		} else { $thread_error = "För stora värden, minska antal tecken till exempel"; }
+	} else { $thread_error = "Saknar värden för att uppdatera tråd."; }
+} else if(isset($_POST['thread-delete'])){
 
 	if(strlen($_POST['title']) > 0 && strlen($_POST['created_at']) > 0){
 

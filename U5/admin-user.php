@@ -13,51 +13,54 @@ include_once 'admin-header.php';
 
 if(isset($_POST['submit_update'])){
 	if(strlen($_POST['username']) > 0 && strlen($_POST['password']) > 0){
-		$new_username = $_POST['username'];
-		$password = $_POST['password'];
+		if (strlen($_POST['username']) <= 255 && strlen($_POST['password']) <= 255){
+			$new_username = $_POST['username'];
+			$password = $_POST['password'];
 
-		$check = query("SELECT Username, Password FROM Admin WHERE Username= :username", array(
-			":username" => $username
-			));
+			$check = query("SELECT Username, Password FROM Admin WHERE Username= :username", array(
+				":username" => $username
+				));
 
-		if($check["err"] === null){
-			if(COUNT($check) > 0){
-				if($username === $new_username){
-					$result = nonQuery("UPDATE Admin SET Password = :password WHERE Username = :username", array(
-						":username" => $username,
-						":password" => $password
-						));
-					if($result["err"] === NULL){
-						$userAddSuccess = "Ditt konto är uppdaterat!"; 					
-					}else{
-						$userAddError = "Kunde inte uppdatera kontot.";
+			if($check["err"] === null){
+				if(COUNT($check) > 0){
+					if($username === $new_username){
+						$result = nonQuery("UPDATE Admin SET Password = :password WHERE Username = :username", 
+							array(
+								":username" => $username,
+								":password" => $password
+							)
+						);
+
+						if($result["err"] === NULL){
+							$userAddSuccess = "Ditt konto är uppdaterat!"; 					
+						}else{
+							$userAddError = "Kunde inte uppdatera kontot.";
+						}
+					}
+					else {
+						$deleteResult = nonQuery("DELETE FROM Admin WHERE Username = :username", 
+							array(
+								":username" => $username
+							)
+						);
+
+						$result = nonQuery("INSERT INTO Admin (Username, Password) VALUES (:username,:password)", 
+							array(
+								":username" => $new_username, ":password" => $password
+							)
+						);
+
+						if($result["err"] === NULL){
+							$userAddSuccess = "Ditt konto är uppdaterat!"; 
+						}else{
+							$userAddError = "Kunde inte uppdatera kontot.";
+						}
 					}
 				}
-				else {
-					$deleteResult = nonQuery("DELETE FROM Admin WHERE Username = :username", array(
-						":username" => $username
-						));
-					$result = nonQuery("INSERT INTO Admin (`Username`,`Password`) VALUES (:username,:password)", array(
-						":username" => $new_username, ":password" => $password
-						));
-					if($result["err"] === NULL){
-						$userAddSuccess = "Ditt konto är uppdaterat!"; 
-					}else{
-						$userAddError = "Kunde inte uppdatera kontot.";
-					}
-				}
-			}
-			else {
-				$userAddError = "Användaren finns ej";
-			}
-		} else {
-			$userAddError = "Något gick snett prova igen.";
-		}
-		
-	}
-	else {
-		$userAddError = "Var vänlig och mata in information i inmatningsfälten";
-	}
+				else { $userAddError = "Användaren finns ej"; }
+			} else { $userAddError = "Något gick snett prova igen."; }
+		} else { $userAddError = "För stor data, prova minska antal tecken."; }	
+	} else { $userAddError = "Var vänlig och mata in information i inmatningsfälten"; }
 }
 ?>
 <main>

@@ -42,7 +42,12 @@ if(isset($_POST['submit_image'])){
 				$file_destination = 'uploads/' . $file_name_new;
 
 				if(move_uploaded_file($file_tmp, $file_destination)){
-					$result = nonQuery("INSERT INTO ImageGallery (`ImagePath`,`ImageTitle`) VALUES (:image_path,:image_title)", array(":image_path" => $file_name_new, ":image_title" => $image_title));
+					$result = nonQuery("INSERT INTO ImageGallery (ImagePath, ImageTitle) VALUES (:image_path,:image_title)", 
+						array(
+							":image_path" => $file_name_new, 
+							":image_title" => $image_title
+						)
+					);
 					
 					if($result["err"] != null){
 						$gallery_error = 'Gick inte att spara din bild, prova igen!';
