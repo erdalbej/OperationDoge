@@ -4,20 +4,21 @@ include_once 'aside.php';
 
 if(isset($_POST['submit-thread'])){
 	if(strlen($_POST['title']) > 0){
+		if (strlen($_POST['title']) <= 255 && strlen($_POST['description']) <= 255 && strlen($_POST['username']) <= 255){
+			$title = $_POST['title'];
+			$description = $_POST['description'];
+			$username = $_POST['username'];
 
-		$title = $_POST['title'];
-		$description = $_POST['description'];
-		$username = $_POST['username'];
+			$result = nonQuery("INSERT INTO GuestbookThread (Title, CreatedAt, Description, Username) VALUES (:title, NOW(), :description, :username)", 
+				array(
+					':title' => $title, 
+					':description' => $description, 
+					':username' => $username
+				)
+			);
 
-		$result = nonQuery("INSERT INTO GuestbookThread (Title, CreatedAt, Description, Username) VALUES (:title, NOW(), :description, :username)", 
-			array(
-				':title' => $title, 
-				':description' => $description, 
-				':username' => $username
-			)
-		);
-
-		if($result["err"] != null){ $createError = 'Det gick inte att skapa tråden, prova igen!'; } 
+			if($result["err"] != null){ $createError = 'Det gick inte att skapa tråden, prova igen!'; } 
+		} else { $createError = 'För stora datamänged, prova minska antalet tecken.'; }
 	} else { $createError = 'Saknar värden'; }
 } else {
 	$threadResult = query("SELECT Title, CreatedAt, Description, Username FROM GuestbookThread ORDER BY CreatedAt DESC");
