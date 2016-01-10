@@ -12,9 +12,17 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js" type="text/javascript"></script>
+    <script src="js/modernizr-custom.js" type="text/javascript"></script>
     <script>
     $(document).ready(function(){
+
+        if (!Modernizr.touch || !Modernizr.inputtypes.date) {
+            $('input[type=date]').datepicker();
+        }
+
        $("#updatedTime").html("Sidan uppdaterades senast: " + document.lastModified);
        $("#mobile-menu").click(function() {
           $( "nav" ).toggle();
