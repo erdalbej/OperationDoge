@@ -455,6 +455,7 @@ if ($myDogsResult['err'] == null){
 								<tr>
 									<th>Namn</th>
 									<th>Officiellt Namn</th>
+									<th>Redigera</th>
 								</tr>
 							</thead>
 							<tbody id="newsTable">
