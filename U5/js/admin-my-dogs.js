@@ -19,9 +19,8 @@ $(document).ready(function(){
 		console.log(data);
 
 
-        if (!Modernizr.touch || !Modernizr.inputtypes.date) {
+        if (!Modernizr.touch && !Modernizr.inputtypes.date) {
            $("#edit-birthdate").datepicker('setDate', data.birthdate);
-           $("#edit-birthdate").datepicker('disable');
         } else {
         	$("#edit-birthdate").val(data.birthdate);
         }

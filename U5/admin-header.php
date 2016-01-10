@@ -16,29 +16,7 @@
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js" type="text/javascript"></script>
     <script src="js/modernizr-custom.js" type="text/javascript"></script>
-    <script>
-    $(document).ready(function(){
-
-        if (!Modernizr.touch || !Modernizr.inputtypes.date) {
-            $('input[type=date]').datepicker({ dateFormat: 'yy-mm-dd'}).on('change', function(){
-                console.log(this);
-                $(this).attr('value', this.value)
-                console.log("change");
-            });
-
-            $('input[type=date]').datepicker('setDate', new Date());
-        }
-
-       $("#updatedTime").html("Sidan uppdaterades senast: " + document.lastModified);
-       $("#mobile-menu").click(function() {
-          $( "nav" ).toggle();
-        });
-       $(window).on('resize', function(){
-            var win = $(this);
-            if (win.width() >= 768) { $("nav").show(); }
-        });
-   });
-    </script>
+    <script src="js/admin-header.js" type="text/javascript"></script>
 	<!--[if lt IE 9]>
     	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     	<![endif]-->

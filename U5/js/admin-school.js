@@ -9,11 +9,15 @@ $(document).ready(function(){
 		data.courseDate = $(parent).children().eq(2).text();
 		data.courseText = $(parent).children().eq(3).text();
 
-		if (!Modernizr.touch || !Modernizr.inputtypes.date) {
+		console.log("asdf")
+
+		if (!Modernizr.touch && !Modernizr.inputtypes.date) {
            $("#courseDate").datepicker('setDate', data.courseDate);
            $("#courseDate").datepicker('disable');
+           console.log("Not have")
         } else {
         	$("#courseDate").val(data.birthdate);
+        	console.log("has")
         }
 
 		$("#courseName").val(data.courseName);
