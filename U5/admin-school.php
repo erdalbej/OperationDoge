@@ -7,7 +7,7 @@ if (!$authenticated){
 }
 include_once 'admin-header.php';
 
-$genders = ['M','B','F'];
+$genders = array('M','B','F');
 
 if(isset($_POST['course-delete'])){
 	if(strlen($_POST['courseName']) > 0 && 
