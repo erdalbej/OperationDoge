@@ -15,10 +15,6 @@ if (isset($_POST['message-submit'])){
 
 			$headers = 'From: ' . $_POST['email'];
 
-			if ($_POST['sendToSender']){
-				$headers = $headers . "\r\n" . "CC: " . $_POST['email'];
-			}
-
 			$sent = mail(
 				'robert.barlin@gmail.com', 
 				$_POST['description'],
@@ -82,10 +78,6 @@ if (isset($_POST['message-submit'])){
 		  </div>
 		  <label for="message">Meddelande *</label>
 		  <textarea required class="u-full-width" placeholder="Skriv ditt meddelande här... " id="message" maxlength="255" name="message"></textarea>
-			<label>
-			    <input type="checkbox" name="sendToSender" value="Yes" checked>
-			    <span class="label-body">Skicka kopia till mig</span>
-		 	</label>
 		  <input type="submit" value="Skicka" name="message-submit">
 			<?php
 			  	if (isset($sendMessageError)){
