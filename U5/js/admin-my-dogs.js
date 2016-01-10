@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	$("tbody tr").click(function (event) {    
+	$(".edit-dogs").click(function (event) {    
 		var parent = $(event.target).parent();
 
 		var data = {};

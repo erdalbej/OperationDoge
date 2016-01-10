@@ -469,6 +469,9 @@ if ($myDogsResult['err'] == null){
 												echo '<td class="officialNameTd">';
 												echo $d["OfficialName"];
 												echo '</td>';
+												echo '<td class="edit-dogs">';
+												echo '<center><i class="cursor-pointer fa fa-pencil-square-o fa-lg"></i></center>';
+												echo '</td>';
 												echo '<td hidden class="colorTd">';
 												echo $d["Color"];
 												echo '</td>';
@@ -571,7 +574,7 @@ if ($myDogsResult['err'] == null){
 				</div>
 			</div>
 			<label for="news-text">Beskrivning:</label>
-			<textarea class="u-full-width" id="edit-description" name="description"></textarea>
+			<textarea class="u-full-width" maxlength="255" id="edit-description" name="description"></textarea>
 			<div class="row">
 				<div class="six columns">
 					<input value="Uppdatera" name="submit-update-dog" type="submit">		
