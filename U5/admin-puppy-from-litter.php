@@ -179,10 +179,6 @@ if(isset($_POST['delete_puppy'])){
 				<thead>
 					<tr>
 						<th>Namn</th>
-						<th>Kön</th>
-						<th>Pris</th>
-						<th>Tillgänglig för försäljning</th>
-						<th>Födelsedatum</th>
 						<th><center>Redigera Hund</center></th>
 					</tr>
 				</thead>
@@ -202,18 +198,16 @@ if(isset($_POST['delete_puppy'])){
 								echo '<td >';
 								echo $p['DogName'];
 								echo '</td>';
-								echo '<td>';
+								echo '<td class="hide-td">';
 								echo $p["Gender"];
 								echo '</td>';
-								echo '<td>';
+								echo '<td class="hide-td">';
 								echo $p["Price"];
 								echo '</td>';
-								echo '<td>';
-								if($p["Available"] === "1"){
-									echo 'Ja';
-								}else { echo 'Nej'; }
+								echo '<td class="hide-td">';
+								echo $p["Available"];
 								echo '</td>';
-								echo '<td>';
+								echo '<td class="hide-td">';
 								echo $p["BirthDate"];
 								echo '</td>';
 								echo '<td class="edit-puppy">';

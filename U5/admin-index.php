@@ -15,7 +15,7 @@ include_once 'admin-header.php';
 				<h1>Välkommen till administrationen för Kennel Perry</h1>
 				<hr>
 				<p>
-					På vänster sida har du möjlighet att gå vidare och administrera hemsidan!
+					I navigationsfältet har du möjligt att gå vidare till andra administrationsvyer.
 				</p>
 			</div>
 		</div>

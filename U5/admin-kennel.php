@@ -150,8 +150,6 @@ if(isset($_POST['submit_puppylitter'])){
 				<thead>
 					<tr>
 						<th>Titel</th>
-						<th>Kommande</th>
-						<th>Kullinformation</th>
 						<th><center>Redigera Kull</center></th>
 						<th><center>Redigera Hundar i kull</center></th>
 					</tr>
@@ -172,10 +170,10 @@ if(isset($_POST['submit_puppylitter'])){
 								echo '<td >';
 								echo $p['LitterTitle'];
 								echo '</td>';
-								echo '<td>';
+								echo '<td class="hide-td">';
 								echo $p["Upcomming"];
 								echo '</td>';
-								echo '<td>';
+								echo '<td class="hide-td">';
 								echo $p["LiterInfo"];
 								echo '</td>';
 								echo '<td class="edit-litter">';
