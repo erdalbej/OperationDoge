@@ -166,8 +166,6 @@ if(isset($_POST['course-delete'])){
 					<thead>
 						<tr>
 							<th>Kurs</th>
-							<th>Lärare</th>
-							<th>Datum</th>
 							<th><center>Redigera Kurs</center></th>
 							<th><center>Redigera Anmälningar</center></th>
 						</tr>
@@ -188,10 +186,10 @@ if(isset($_POST['course-delete'])){
 									echo '<td >';
 									echo $g['CourseName'];
 									echo '</td>';
-									echo '<td>';
+									echo '<td class="hide-td">';
 									echo $g["CourseTeacher"];
 									echo '</td>';
-									echo '<td >';
+									echo '<td class="hide-td">';
 									echo $g["CourseDate"];
 									echo '</td>';
 									echo '<td class="hide-td">';
@@ -220,7 +218,7 @@ if(isset($_POST['course-delete'])){
 		<form hidden enctype="multipart/form-data" action="" method="post">
 			<div class="row">
 				<div class="twelve columns">
-					<h3>Redigera tråd</h3>
+					<h3>Redigera kurs</h3>
 				</div>
 			</div>
 			<div class="row">
@@ -234,7 +232,7 @@ if(isset($_POST['course-delete'])){
 				</div>
 				<div class="four columns">
 					<label for="username">Datum:</label>
-					<input class="u-full-width" type="date" name="courseDate" maxlength="255" id="courseDate" required readonly>
+					<input class="u-full-width" type="text" name="courseDate" maxlength="255" id="courseDate" required readonly>
 				</div>
 			</div>
 			<label for="threadDescription">Förklaring:</label>
