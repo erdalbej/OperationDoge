@@ -12,7 +12,7 @@ include_once 'admin-header.php';
 	<div class="container">
 		<div class="row">
 			<div class="twelve columns">
-				<h1>Välkommen till administrationen för Batuulis</h1>
+				<h1>Välkommen till administrationen för Kennel Perry</h1>
 				<hr>
 				<p>
 					På vänster sida har du möjlighet att gå vidare och administrera hemsidan!
