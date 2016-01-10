@@ -19,7 +19,7 @@
     <script>
     $(document).ready(function(){
 
-        if (!Modernizr.touch || !Modernizr.inputtypes.date) {
+        if (!Modernizr.inputtypes.date) {
             $('input[type=date]').datepicker({ dateFormat: 'yy-mm-dd'}).on('change', function(){
                 console.log(this);
                 $(this).attr('value', this.value)
