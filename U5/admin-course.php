@@ -12,7 +12,7 @@ $courseName = NULL;
 $courseTeacher = NULL;
 $courseDate = NULL;
 
-$genders = ['M', 'B', 'F'];
+$genders = array('M','B','F');
 
 if(isset($_GET['coursename']) && isset($_GET['courseteacher']) && isset($_GET['coursedate'])){
 	$courseName = $_GET['coursename'];
