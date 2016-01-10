@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
     <meta name="description" content="Kennel Batuulis homepage">	
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kennel Batuulis - Rhodesian Ridgeback</title>
+    <title>Kennel Perry - Rhodesian Ridgeback</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
@@ -34,7 +34,7 @@
     <body>
         <div id="wrapper">
             <header>
-                <h1><i class="fa fa-lemon-o icon-lemon fa-2x"></i><span class="logo">Kennel Batuulis - <span class="slogan">Rhodesian Ridgeback</span></span></h1>
+                <h1><i class="fa fa-lemon-o icon-lemon fa-2x"></i><span class="logo">Kennel Perry - <span class="slogan">Rhodesian Ridgeback</span></span></h1>
                 <br>
                 <div id="mobile-menu"><i class="fa fa-bars fa-2x"></i><span class="menu-text">Visa meny</span></div>
             </header>

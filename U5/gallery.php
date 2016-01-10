@@ -1,5 +1,6 @@
 <?php
 include_once 'header.php';
+include_once 'aside.php';
 ?>
 <main class="height-uv">
 	<section id="gallery">

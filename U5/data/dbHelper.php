@@ -3,7 +3,7 @@ function result($err, $data){
 	return array('err' => $err, 'data' => $data);
 }
 function createConnection(){
-	$localhost = false;
+	$localhost = true;
 	$db = null;
 	if ($localhost){
 		$db = new PDO("mysql:host=127.0.0.1;dbname=OperationDoge;charset=utf8mb4;", "root", "root");
