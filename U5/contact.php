@@ -59,7 +59,7 @@ if (isset($_POST['message-submit'])){
 		<div class="row contactRow">
 			<div class="twelve columns">
 				<label>Mail </label>
-				<span><a href="mailto:batuulis@mail.com">batuulis@mail.com</a></span>
+				<span><a href="mailto:perry@mail.com">perry@mail.com</a></span>
 				<hr>
 				<h5>Kontakta oss</h5>
 			</div>
