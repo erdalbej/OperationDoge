@@ -1,4 +1,4 @@
-USE OperationDoge;
+USE d36234_db6;
 
 DROP TABLE IF EXISTS `Admin`;
 DROP TABLE IF EXISTS `News`;
