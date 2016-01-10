@@ -9,8 +9,6 @@ DROP TABLE IF EXISTS `Puppy`;
 DROP TABLE IF EXISTS `PuppyLitter`;
 DROP TABLE IF EXISTS `NewsFeed`;
 DROP TABLE IF EXISTS `MyDog`;
-DROP VIEW IF EXISTS `ParticipantsPerCourse`;
-DROP VIEW IF EXISTS `ComingCourses`;
 
 CREATE TABLE Admin (
     `Username` varchar(255) NOT NULL,
@@ -103,24 +101,6 @@ CREATE TABLE NewsFeed (
     `NewsLink` varchar(255),
     PRIMARY KEY (`NewsTitle`,`CreatedAt`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE VIEW `ParticipantsPerCourse`
-AS SELECT
-   `P`.`DogCourse_CourseName` AS `DogCourse_CourseName`,
-   `P`.`DogCourse_CourseTeacher` AS `DogCourse_CourseTeacher`,
-   `P`.`DogCourse_CourseDate` AS `DogCourse_CourseDate`,count(0) AS `NumOfParticipants`
-FROM `participant` `P` group by `P`.`DogCourse_CourseName`,`P`.`DogCourse_CourseTeacher`,`P`.`DogCourse_CourseDate`;
-
-CREATE VIEW `ComingCourses`
-AS SELECT
-   `DC`.`CourseName` AS `CourseName`,
-   `DC`.`CourseTeacher` AS `CourseTeacher`,
-   `DC`.`CourseDate` AS `CourseDate`,
-   `DC`.`AgeOfDog` AS `AgeOfDog`,
-   `DC`.`Gender` AS `Gender`,
-   `DC`.`PriorKnowledge` AS `PriorKnowledge`,
-   `DC`.`CourseText` AS `CourseText`,IF((`p`.`NumOfParticipants` > 0),`p`.`NumOfParticipants`,0) AS `Participants`
-FROM (`dogcourse` `DC` left join `participantspercourse` `P` on(((`DC`.`CourseName` = `p`.`DogCourse_CourseName`) and (`DC`.`CourseTeacher` = `p`.`DogCourse_CourseTeacher`) and (`DC`.`CourseDate` = `p`.`DogCourse_CourseDate`)))) where (`DC`.`CourseDate` > now()) order by `DC`.`CourseDate`;
 
 CREATE TABLE `MyDog` (
   `OfficialName` varchar(255) NOT NULL,
