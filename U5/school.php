@@ -4,6 +4,32 @@ include_once 'aside.php';
 ?>
 
 <?php
+
+
+$comingCourses = 
+"SELECT DC.CourseName, DC.CourseTeacher, DC.CourseDate, DC.AgeOfDog, DC.Gender, DC.PriorKnowledge, DC.CourseText, IF((ParticipantCount.NumOfPar > 0), ParticipantCount.NumOfPar, 0) as Participants
+FROM DogCourse DC
+LEFT JOIN (
+	SELECT DogCourse_CourseName AS CourseName, DogCourse_CourseTeacher AS CourseTeacher, DogCourse_CourseDate AS CourseDate, COUNT(*) AS NumOfPar
+	FROM Participant
+	GROUP BY DogCourse_CourseName, DogCourse_CourseTeacher, DogCourse_CourseDate
+) AS ParticipantCount
+ON ParticipantCount.CourseName = DC.CourseName AND ParticipantCount.CourseTeacher = DC.CourseTeacher AND ParticipantCount.CourseDate = DC.CourseDate
+WHERE DC.CourseDate > NOW()
+ORDER BY DC.CourseDate ASC, Participants ASC";
+
+$submitComingCourses = 
+"SELECT DC.CourseName, DC.CourseTeacher, DC.CourseDate, DC.AgeOfDog, DC.Gender, DC.PriorKnowledge, DC.CourseText, IF((ParticipantCount.NumOfPar > 0), ParticipantCount.NumOfPar, 0) as Participants
+FROM DogCourse DC
+LEFT JOIN (
+	SELECT DogCourse_CourseName AS CourseName, DogCourse_CourseTeacher AS CourseTeacher, DogCourse_CourseDate AS CourseDate, COUNT(*) AS NumOfPar
+	FROM Participant
+	GROUP BY DogCourse_CourseName, DogCourse_CourseTeacher, DogCourse_CourseDate
+) AS ParticipantCount
+ON ParticipantCount.CourseName = DC.CourseName AND ParticipantCount.CourseTeacher = DC.CourseTeacher AND ParticipantCount.CourseDate = DC.CourseDate
+WHERE DC.CourseDate > NOW() AND DC.CourseName = :courseName AND DC.CourseTeacher = :courseTeacher AND DC.CourseDate = :courseDate
+ORDER BY DC.CourseDate ASC, Participants ASC";
+
 	date_default_timezone_set('Europe/Stockholm');
 
 	if (isset($_POST['submit-regToCourse'])){
@@ -16,7 +42,7 @@ include_once 'aside.php';
 		 	strlen($_POST['courseDate']) > 9 && 
 			strlen($_POST['email']) > 0){
 
-			$result = query('SELECT CourseName, CourseTeacher, CourseDate, AgeOfDog, Gender, PriorKnowledge, CourseText, Participants FROM ComingCourses WHERE CourseName = :courseName AND CourseTeacher = :courseTeacher AND CourseDate = :courseDate',
+			$result = query($submitComingCourses,
 				array(
 					':courseName' => $_POST['courseName'],
 					':courseTeacher' => $_POST['courseTeacher'],
@@ -67,7 +93,7 @@ include_once 'aside.php';
 			} else { $submitError = 'Problem med att hitta kursen, prova igen!'; }
 		} else { $submitError = 'Saknar värden, fyll i igen!'; }
 	} else {
-		$result = query('SELECT CourseName, CourseTeacher, CourseDate, AgeOfDog, Gender, PriorKnowledge, CourseText, Participants FROM ComingCourses');
+		$result = query($comingCourses);
 	
 		if ($result['err'] == null){ $courses = $result['data']; } 
 		else { $coursesError = "Gick inte att läsa kommande kurser"; }
