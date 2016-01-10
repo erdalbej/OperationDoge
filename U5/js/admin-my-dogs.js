@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	$(".edit-dogs").click(function (event) {    
-		var parent = $(event.target).parent();
+		var parent = $(this).parent();
 
 		var data = {};
 		data.dogName = $(parent).children('.nameTd').text();
@@ -45,6 +45,6 @@ $(document).ready(function(){
 	//<i class="fa fa-minus"></i>
 	$('#add-dog-header').click(function(){
 		$('#add-dog-form').toggle(400);
-		$('#add-dog-icon').toggleClass('fa-plus fa-minus');
+		$('#add-dog-icon').toggleClass('cursor-pointer fa-plus fa-minus');
 	})
 });

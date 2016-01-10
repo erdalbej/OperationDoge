@@ -377,7 +377,7 @@ if ($myDogsResult['err'] == null){
 		</div>
 		<div class="row">
 				<div class="twelve columns">
-					<h3 id="add-dog-header">Lägg till hund  <i class="fa fa-plus" id="add-dog-icon"></i></h3>
+					<h3 id="add-dog-header">Lägg till hund  <i class="cursor-pointer fa fa-plus" id="add-dog-icon"></i></h3>
 				</div>
 			</div>
 		<form hidden enctype="multipart/form-data" method="POST" action="" id='add-dog-form'>
@@ -455,7 +455,7 @@ if ($myDogsResult['err'] == null){
 								<tr>
 									<th>Namn</th>
 									<th>Officiellt Namn</th>
-									<th>Redigera</th>
+									<th><center>Redigera</center></th>
 								</tr>
 							</thead>
 							<tbody id="newsTable">
