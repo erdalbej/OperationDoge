@@ -9,7 +9,7 @@ $(document).ready(function(){
 		data.courseDate = $(parent).children().eq(2).text();
 		data.courseText = $(parent).children().eq(3).text();
 
-		if (!Modernizr.inputtypes.date) {
+		if (!Modernizr.touch || !Modernizr.inputtypes.date) {
            $("#courseDate").datepicker('setDate', data.courseDate);
            $("#courseDate").datepicker('disable');
         } else {
