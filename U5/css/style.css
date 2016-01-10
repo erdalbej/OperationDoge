@@ -320,6 +320,7 @@ section#login input {
 section#gallery {
 	margin: 0 auto;
 	max-width: 750px;
+	display: block;
 }
 .news-form {
 	margin: 0 auto;
