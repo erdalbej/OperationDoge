@@ -450,11 +450,11 @@ section#gallery {
 		display: none;
 	}
 	header {
-		padding-bottom: 100px;
+		padding-bottom: 40px;
 	}
 
 	.logo-display{
-		display: none;
+		display: none !important;
 	}
 
 	.dsp-none-sm {
