@@ -411,9 +411,6 @@ section#gallery {
 		margin: 0;
 		box-shadow: 0;
 	}
-	header {
-		background-image: url(#);
-	}
 	nav, main, aside {
 		min-height: 0;
 	}
