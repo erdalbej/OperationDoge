@@ -18,6 +18,14 @@ $(document).ready(function(){
 
 		console.log(data);
 
+
+        if (!Modernizr.touch || !Modernizr.inputtypes.date) {
+           $("#edit-birthdate").datepicker('setDate', data.birthdate);
+           $("#edit-birthdate").datepicker('disable');
+        } else {
+        	$("#edit-birthdate").val(data.birthdate);
+        }
+
 		$("#edit-dog-name").val(data.dogName);
 		$("#edit-official-name").val(data.officialName);
 		$("#text-dog-name").html(data.dogName);
@@ -27,7 +35,6 @@ $(document).ready(function(){
 		$("#edit-weight").val(data.weight);
 		$("#edit-height").val(data.height);
 		$("#edit-mental").val(data.mental);
-		$("#edit-birthdate").val(data.birthdate);
 		$("#edit-img-dog").val(data.dogImgPath);
 		$("#edit-img-gen-table").val(data.genImgPath);
 		$("#edit-description").val(data.description);

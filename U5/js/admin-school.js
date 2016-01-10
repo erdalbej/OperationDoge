@@ -9,11 +9,15 @@ $(document).ready(function(){
 		data.courseDate = $(parent).children().eq(2).text();
 		data.courseText = $(parent).children().eq(3).text();
 
-
+		if (!Modernizr.touch || !Modernizr.inputtypes.date) {
+           $("#courseDate").datepicker('setDate', data.courseDate);
+           $("#courseDate").datepicker('disable');
+        } else {
+        	$("#courseDate").val(data.birthdate);
+        }
 
 		$("#courseName").val(data.courseName);
 		$("#courseTeacher").val(data.courseTeacher);
-		$("#courseDate").val(data.courseDate);
 		$("#courseText ").val(data.courseText);
 
 		$('html, body').animate({ scrollTop: $(document).height() }, 500);
