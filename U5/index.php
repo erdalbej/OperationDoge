@@ -17,7 +17,7 @@ if ($result['err'] == null){
 	<div class="container">
 		<div class="row">
 			<div class="twelve columns">
-				<h1 class="page-header">Välkommen till Batuulis hemsida!</h1>
+				<h1 class="page-header">Välkommen till Perrys kennel hemsida!</h1>
 			</div>
 		</div>
 	</div>
