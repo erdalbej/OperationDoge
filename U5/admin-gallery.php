@@ -61,6 +61,36 @@ if(isset($_POST['submit_image'])){
 	}else{ $gallery_error = "Ingen titel på bild."; }
 }
 
+if(isset($_POST['remove-image-submit'])){
+
+	if(isset($_POST['image-path']) && (strlen($_POST['image-path']) > 0) && isset($_POST['image-title']) && (strlen($_POST['image-title']) > 0)){
+
+		$imagePath = $_POST['image-path'];
+		$imageTitle = $_POST['image-title'];
+
+		$result = query("SELECT `ImagePath` FROM ImageGallery WHERE `ImagePath` = :imagePath AND `ImageTitle` = :imageTitle", array(":imagePath" => $imagePath, ":imageTitle" => $imageTitle));
+		if($result["err"] == null){
+			$resData = $result["data"];
+			if($resData[0]["ImagePath"] !== NULL){
+				$old_image = "uploads/" . $resData[0]["ImagePath"];
+			}
+		}
+
+		$result = nonQuery("DELETE FROM ImageGallery WHERE `ImagePath` = :imagePath AND `ImageTitle` = :imageTitle", array(":imagePath" => $imagePath, ":imageTitle" => $imageTitle));
+
+		if($result["err"] === NULL){
+			$gallery_success = "Bild raderad."; 
+			if(isset($old_image)){
+				if(file_exists($old_image)){
+			    	unlink($old_image);
+				}
+			}
+		}else{
+			$gallery_error = "Kunde inte tabort bild, prova igen.";
+		}
+	}else{ $gallery_error = "Kunde inte tabort bild, saknar värden."; }
+}
+
 ?>
 <main>
 	<div class="container">
@@ -100,6 +130,7 @@ if(isset($_POST['submit_image'])){
 						<tr>
 							<th>Bild</th>
 							<th>Bildtitel</th>
+							<th><center>Ta bort</center></th>
 						</tr>
 					</thead>
 					<tbody id="galleryTable">
@@ -108,7 +139,7 @@ if(isset($_POST['submit_image'])){
 						$result = query("SELECT ImagePath, ImageTitle FROM ImageGallery");
 						
 						if($result["err"] != null){
-								$load_error = "Kunde inte ladda inlägg, prova att ladda om sidan.";
+								$load_error = "Kunde inte ladda bilder, prova att ladda om sidan.";
 							}else{
 								$galleryData = $result['data'];
 
@@ -122,10 +153,16 @@ if(isset($_POST['submit_image'])){
 										echo '<td class="galleryTitleTd">';
 										echo $img['ImageTitle'];
 										echo '</td>';
+										echo '<td class="hide-td">';
+										echo $img["ImagePath"];
+										echo '</td>';
+										echo '<td class="delete-picture">';
+										echo '<center><i class="cursor-pointer fa fa-trash-o fa-lg"></i></center>';
+										echo '</td>';
 										echo '</tr>';
 									}	
 								}else{
-									$load_error = "Det finns inga inlägg i denna tråd.";
+									$load_error = "Det finns inga bilder i galleriet!";
 								}
 							}		
 						?>	
@@ -138,8 +175,10 @@ if(isset($_POST['submit_image'])){
 				}
 
 				?>
+				</div>
 			</div>
 		</div>
+	<script src="js/admin-gallery.js"></script>
 	</main>
 	<?php
 	include_once 'footer.php';
