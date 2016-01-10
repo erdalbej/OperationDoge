@@ -34,7 +34,7 @@
     <body>
         <div id="wrapper">
             <header>
-                <h1><i class="fa fa-lemon-o icon-lemon fa-2x"></i><br class="logo-display"><span class="logo">Kennel Perry - <span class="slogan">Rhodesian Ridgeback</span></span></h1>
+                <h1><i class="fa fa-lemon-o icon-lemon fa-2x logo-display"></i><span class="logo">Kennel Perry - <span class="slogan">Rhodesian Ridgeback</span></span></h1>
                 <br>
                 <div id="mobile-menu"><i class="fa fa-bars fa-2x"></i><span class="menu-text">Visa meny</span></div>
             </header>
