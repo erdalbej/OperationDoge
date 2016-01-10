@@ -15,7 +15,7 @@ if(isset($_GET['LitterTitle'])){
 
 //Create puppy
 if(isset($_POST['submit_puppy'])){
-	if(strlen($_POST['name']) > 0 && strlen($_POST['gender']) > 0 && strlen($_POST['price']) > 0 && strlen($_POST['available']) > 0 && strlen($_POST['birthDate']) > 0){
+	if(strlen($_POST['name']) > 0 && strlen($_POST['gender']) > 0 && is_numeric($_POST['price']) && strlen($_POST['available']) > 0 && strlen($_POST['birthDate']) > 0){
 
 		$name = $_POST['name'];
 		$gender = $_POST['gender'];
@@ -41,7 +41,7 @@ if(isset($_POST['submit_puppy'])){
 //Update puppy
 if(isset($_POST['update_puppy'])){
 	
-	if(strlen($_POST['alter_name']) > 0 && strlen($_POST['alter_gender']) > 0 && strlen($_POST['alter_price']) > 0 && strlen($_POST['alter_available']) > 0 && strlen($_POST['alter_birthDate']) > 0){
+	if(strlen($_POST['alter_name']) > 0 && strlen($_POST['alter_gender']) > 0 && is_numeric($_POST['alter_price']) && strlen($_POST['alter_available']) > 0 && strlen($_POST['alter_birthDate']) > 0){
 
 		$name = $_POST['alter_name'];
 		$gender = $_POST['alter_gender'];
@@ -142,7 +142,7 @@ if(isset($_POST['delete_puppy'])){
 					<div class="row">
 						<div class="six columns">
 							<label required for="litterTitle">Pris:</label>
-							<input required maxlength="255" class="u-full-width" type="text" name="price">
+							<input required maxlength="255" class="u-full-width" type="number" step=".01" min="0" value="0" name="price">
 						</div>
 						<div class="six columns">
 							<label for="available">Tillgänglig för försäljning:</label>
@@ -262,7 +262,7 @@ if(isset($_POST['delete_puppy'])){
 					<div class="row">
 						<div class="six columns">
 							<label for="litterTitle">Pris:</label>
-							<input maxlength="255" class="u-full-width" type="text" id="PuppyPrice" name="alter_price">
+							<input maxlength="255" class="u-full-width" type="number"  step=".01" min="0" id="PuppyPrice" name="alter_price">
 						</div>
 						<div class="six columns">
 							<label for="available">Tillgänglig för försäljning:</label>

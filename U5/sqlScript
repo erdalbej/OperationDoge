@@ -87,7 +87,7 @@ CREATE TABLE PuppyLitter (
 CREATE TABLE Puppy (
     `DogName` varchar(255) NOT NULL,
     `Gender` varchar(255) NOT NULL,
-    `Price` varchar(255) NOT NULL,
+    `Price` decimal(10,2) NOT NULL,
     `Available` BOOLEAN NOT NULL DEFAULT 1,
     `BirthDate` VARCHAR(45),
     `PuppyLitter_LitterTitle` varchar(255) NOT NULL,
@@ -144,17 +144,17 @@ INSERT INTO `Participant` (`DogName`,`OwnerName`,`Email`,`AgeOfDog`,`Gender`,`Do
 INSERT INTO `Participant` (`DogName`,`OwnerName`,`Email`,`AgeOfDog`,`Gender`,`DogCourse_CourseName`,`DogCourse_CourseTeacher`,`DogCourse_CourseDate`,`RegisterDate`) VALUES ('Kopp','Harald','fds@sdfsd.se','7','M','Patrullhund','Batman','2016-02-01','2016-01-08');
 INSERT INTO `Participant` (`DogName`,`OwnerName`,`Email`,`AgeOfDog`,`Gender`,`DogCourse_CourseName`,`DogCourse_CourseTeacher`,`DogCourse_CourseDate`,`RegisterDate`) VALUES ('Mopp','Sven','fds@fdssdf.se','7','M','Patrullhund','Batman','2016-02-01','2016-01-09');
 
-INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aeter', 'Hane', '2000', '2006-05-14', 'A-Kull');
-INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Afrodite', 'Tik', '2500', '2006-05-14  ', 'A-Kull');
-INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aiolos', 'Hane', '2650', '2006-05-14', 'A-Kull');
-INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Ajas', 'Hane', '2650', '2006-05-14', 'A-Kull');
-INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Alectrona', 'Tik', '3000', '2006-05-14', 'A-Kull');
+INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aeter', 'Hane', 2000, '2006-05-14', 'A-Kull');
+INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Afrodite', 'Tik', 2500, '2006-05-14  ', 'A-Kull');
+INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aiolos', 'Hane', 2650, '2006-05-14', 'A-Kull');
+INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Ajas', 'Hane', 2650, '2006-05-14', 'A-Kull');
+INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Alectrona', 'Tik', 3000, '2006-05-14', 'A-Kull');
 
-INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`,  `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aeter', 'Hane', '2000', '2006-05-14', 'B-Kull');
-INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Afrodite', 'Tik', '2500', '2006-05-14  ', 'B-Kull');
-INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aiolos', 'Hane', '2650', '2006-05-14', 'B-Kull');
-INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Ajas', 'Hane', '2650', '2006-05-14', 'B-Kull');
-INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Alectrona', 'Tik', '3000', '2006-05-14', 'B-Kull');
+INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`,  `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aeter', 'Hane', 2000, '2006-05-14', 'B-Kull');
+INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Afrodite', 'Tik', 2500, '2006-05-14  ', 'B-Kull');
+INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Aiolos', 'Hane', 2650, '2006-05-14', 'B-Kull');
+INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Ajas', 'Hane', 2650, '2006-05-14', 'B-Kull');
+INSERT INTO `Puppy` (`DogName`, `Gender`, `Price`, `BirthDate`, `PuppyLitter_LitterTitle`) VALUES ('Batuulis Alectrona', 'Tik', 3000, '2006-05-14', 'B-Kull');
 
 INSERT INTO `MyDog` (`OfficialName`, `Name`, `Birthdate`, `Description`, `Color`, `Height`, `Weight`, `MentalStatus`, `Breader`) VALUES ('INT&NORDUCH, S VCH, LP1, LP2 Stenänga Ghali Batuuli', 'Mira', '2002-09-15', 'Mira är född som valp nr.12. \n  Mira har 5 bröder och 7 systrar. Tillsammans är de Stenänga´s  \n  B-kull. Miras far är INTUCH, VDHCH Lionhunt Dayimane Umvuma och mor är Madahiro´s   \n  GoodEnough', 'Rödvete', '68', '41', 'Känd mentalstatus, Skottsäker', 'Kennel Stenänga, Margaretha & Lars-Gunnar Lantz');
 INSERT INTO `MyDog` (`OfficialName`, `Name`, `Birthdate`, `Description`, `Color`, `Height`, `Weight`) VALUES ('Batuulis Albion', 'Nino', '2006-05-14', 'Nino är född som valp nr.8. Nino har 9  bröder och 4  systrar. Tillsammans är de Batuulis A-kull. \nNino´s far är Malozi Charaza och  mor är Stenänga Ghali Batuuli.', 'Rödvete', '69', '43');
