@@ -93,7 +93,7 @@ if(isset($_GET['puppylitter'])){
 							}	
 						}
 						else {
-							echo '<span>Kull finns ej</span>';
+							echo '<br><span>Kull har inga hundar</span>';
 						}
 					} else {
 						echo '<span>Gick inte att hämta data, prova igen</span>';
