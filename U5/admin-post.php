@@ -106,16 +106,16 @@ if(isset($_POST['post-delete'])){
 		$result = nonQuery("DELETE FROM Post WHERE `Username` = :username AND `CreatedAt` = :createdAt", array(":username" => $username, ":createdAt" => $createdAt));
 
 		if($result["err"] === NULL){
-			$post_success = "Tråd raderad."; 
+			$post_success = "Post raderad."; 
 			if(isset($old_image)){
 				if(file_exists($old_image)){
 			    	unlink($old_image);
 				}
 			}
 		}else{
-			$post_error = "Kunde inte tabort tråd, prova igen.";
+			$post_error = "Kunde inte tabort post, prova igen.";
 		}
-	}else{ $post_error = "Kunde inte tabort tråd, saknar värden."; }
+	}else{ $post_error = "Kunde inte tabort post, saknar värden."; }
 }
 ?>
 
