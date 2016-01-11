@@ -318,9 +318,7 @@ section#login input {
 	width: 100% !important;
 }
 section#gallery {
-	margin: 0 auto;
-	max-width: 750px;
-	display: block;
+	margin-left: -25px;
 }
 .news-form {
 	margin: 0 auto;
